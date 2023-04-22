@@ -2,6 +2,11 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { Dropdown } from 'flowbite-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 type Inputs = {
   example: string,
@@ -9,10 +14,13 @@ type Inputs = {
 };
 
 export default function Example() {
+  // React hook example
   const [isRed, setIsRed] = useState(false);
   const handleClick = () => {
     setIsRed(!isRed);
   };
+
+  // React hook form example
   const {
     register,
     handleSubmit,
@@ -22,6 +30,44 @@ export default function Example() {
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   console.log(watch('example')); // watch input value by passing the name of it
+
+  // React query example
+  const getTodos = async () => {
+    const response = [
+      {
+        userId: 1,
+        id: 1,
+        title: 'response title 01',
+        completed: false,
+      },
+      {
+        userId: 1,
+        id: 2,
+        title: 'response title 02',
+        completed: false,
+      },
+      {
+        userId: 1,
+        id: 3,
+        title: 'response title 03',
+        completed: false,
+      },
+    ];
+    return response;
+  };
+
+  const postTodo = async (todo: any) => {
+    console.log('postTodo', todo);
+  };
+
+  const queryClient = useQueryClient();
+  const query = useQuery({ queryKey: ['todos'], queryFn: getTodos });
+  const mutation = useMutation({
+    mutationFn: postTodo,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    },
+  });
 
   return (
     <div>
@@ -73,6 +119,24 @@ export default function Example() {
 
         <input className='cursor-pointer' type="submit" />
       </form>
+
+      <h2 className='mt-2 text-lg'>React query example</h2>
+      <ul>
+        {query.data?.map((todo) => (
+          <li key={todo.id}>{todo.title}</li>
+        ))}
+      </ul>
+
+      <button
+        onClick={() => {
+          mutation.mutate({
+            id: Date.now(),
+            title: 'Do Laundry',
+          });
+        }}
+      >
+        Add Todo
+      </button>
     </div>
   );
 }

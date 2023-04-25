@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb-base",
+    "plugin:tailwindcss/recommended"
+  ],
+  "rules": {
+    "max-len": "off"
+  }
+}

@@ -2,7 +2,8 @@
   "extends": [
     "next/core-web-vitals",
     "airbnb-base",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    "plugin:eslint-plugin-import"
   ],
   "rules": {
     "max-len": "off"

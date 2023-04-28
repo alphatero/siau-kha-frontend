@@ -1,11 +1,9 @@
 import { TextInput, Label, Button } from 'flowbite-react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useStore } from '../stores';
-
-type User = {
-  name: string;
-  password: string;
-};
+import { useLogin } from '@/services/mutation';
+import { Loading } from '@/components/common/Loading';
+import { useRouter } from 'next/router';
+import type { User } from '@/types/User';
 
 export const Form = () => {
   const {
@@ -14,10 +12,22 @@ export const Form = () => {
     formState: { isValid },
   } = useForm<User>();
 
-  const { setIsLoading } = useStore();
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<User> = (data: User) => {
-    setIsLoading(true);
+  const { mutateAsync, isLoading, data: loginData } = useLogin();
+
+  const onSubmit: SubmitHandler<User> = async (data: User) => {
+    const { status } = await mutateAsync(data);
+
+    console.log(status);
+
+    if (status === 'success') {
+      router.push('/order');
+    }
+
+    if (status === 'error') {
+      alert('登入失敗');
+    }
   };
 
   return (
@@ -33,7 +43,7 @@ export const Form = () => {
           id="name"
           type="name"
           placeholder="name"
-          {...register('name', { required: true })}
+          {...register('username', { required: true })}
         />
       </div>
       <div>
@@ -49,6 +59,8 @@ export const Form = () => {
       <Button type="submit" disabled={!isValid}>
         Submit
       </Button>
+
+      {isLoading && <Loading />}
     </form>
   );
 };

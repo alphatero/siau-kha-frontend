@@ -1,8 +1,7 @@
 import type { NextPageWithLayout } from '@/types';
 import clsx from 'clsx';
-import { Form } from './components';
 
-const Login: NextPageWithLayout = () => {
+const Order: NextPageWithLayout = () => {
   return (
     <div
       className={clsx(
@@ -10,11 +9,9 @@ const Login: NextPageWithLayout = () => {
         'max-w-3xl mx-auto',
       )}
     >
-      <h1>登入</h1>
-
-      <Form />
+      <h1>Order</h1>
     </div>
   );
 };
 
-export default Login;
+export default Order;

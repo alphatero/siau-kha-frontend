@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useStore } from '../stores';
 
 type User = {
-  email: string;
+  name: string;
   password: string;
 };
 
@@ -11,14 +11,13 @@ export const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm<User>();
 
-  const { setUser } = useStore();
+  const { setIsLoading } = useStore();
 
   const onSubmit: SubmitHandler<User> = (data: User) => {
-    console.log(data);
-    setUser(data);
+    setIsLoading(true);
   };
 
   return (
@@ -28,13 +27,13 @@ export const Form = () => {
     >
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="email1" value="Your email" />
+          <Label htmlFor="name" value="Your name" />
         </div>
         <TextInput
-          id="email"
-          type="email"
-          placeholder="name@email.com"
-          {...register('email', { required: true })}
+          id="name"
+          type="name"
+          placeholder="name"
+          {...register('name', { required: true })}
         />
       </div>
       <div>

@@ -1,18 +1,23 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import type { NextPageWithLayout } from '@/types';
+import { queryClient } from '@/utils/queryClient';
 
-// Create a client
-const queryClient = new QueryClient();
+// Props
+type MyAppProps = AppProps & {
+  Component: NextPageWithLayout;
+};
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App(Props: MyAppProps) {
+  const { Component, pageProps } = Props;
+
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     // Provide the client to your App
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />
+      {getLayout(<Component {...pageProps} />)}
     </QueryClientProvider>
   );
 }

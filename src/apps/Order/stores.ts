@@ -14,8 +14,8 @@ type State = {
 export const useStore = create<State>((set, get) => ({
   table: {
     id: "",
-    name: "",
-    status: "",
+    name: "A1",
+    status: "閒置",
     time: 0,
   },
 

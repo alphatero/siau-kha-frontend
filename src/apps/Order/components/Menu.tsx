@@ -1,17 +1,6 @@
 import clsx from 'clsx';
-import { Sidebar } from 'flowbite-react';
-
-const product_tags = [
-  {
-    tag_name: '套餐',
-  },
-  {
-    tag_name: '肉品',
-  },
-  {
-    tag_name: '沙拉',
-  },
-];
+import { Icons } from '@/components/common';
+import { Sidebar } from './Sidebar';
 
 export const Menu = () => {
   return (
@@ -22,22 +11,15 @@ export const Menu = () => {
           'h-[60px] border-b border-black-50',
         )}
       >
-        <h1>燒角 Siau Kha</h1>
+        <h1 className="text-h5 flex items-center justify-center space-x-2 px-2">
+          <span className="h-5 w-5 text-primary">
+            <Icons.Logo />
+          </span>
+          <span>燒角 Siau Kha</span>
+        </h1>
       </div>
-      <Sidebar
-        className="first:m-0 first:p-0"
-        aria-label="Sidebar with logo branding example"
-      >
-        <Sidebar.Items>
-          <Sidebar.ItemGroup>
-            {product_tags.map((tag, i) => (
-              <Sidebar.Item key={i} href="#">
-                {tag.tag_name}
-              </Sidebar.Item>
-            ))}
-          </Sidebar.ItemGroup>
-        </Sidebar.Items>
-      </Sidebar>
+
+      <Sidebar />
     </div>
   );
 };

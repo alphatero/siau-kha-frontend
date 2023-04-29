@@ -6,10 +6,11 @@ type ButtonProps = {
   className?: string;
   color?: keyof typeof colors;
   outline?: boolean;
+  icon?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = (props: ButtonProps) => {
-  const { children, className, outline, color, ...rest } = props;
+  const { children, className, outline, icon, color, ...rest } = props;
 
   let classes = colors[color ?? 'primary'];
   let outlineClasses = outlineColors[color ?? 'primary'];
@@ -17,9 +18,9 @@ export const Button = (props: ButtonProps) => {
   return (
     <button
       className={clsx(
-        'py-1 px-2 rounded-md',
         'transition-all duration-200',
         outline ? `border ${outlineClasses}` : `text-white ${classes}`,
+        !icon && 'py-1 px-2 rounded-md',
         className,
       )}
       {...rest}

@@ -11,19 +11,18 @@ export const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm<User>();
 
   const { setUser } = useStore();
 
   const onSubmit: SubmitHandler<User> = (data: User) => {
-    console.log(data);
     setUser(data);
   };
 
   return (
     <form
-      className="flex flex-col gap-4 w-full"
+      className="flex w-full flex-col gap-4"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>
@@ -53,3 +52,5 @@ export const Form = () => {
     </form>
   );
 };
+
+export default Form;

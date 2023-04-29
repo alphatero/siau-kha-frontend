@@ -8,8 +8,8 @@ export const Header = () => {
   return (
     <div
       className={clsx(
-        'border border-black-50 flex justify-between',
-        'py-2 px-6 w-full',
+        'flex justify-between border border-gray-200',
+        'w-full px-6 py-2',
       )}
     >
       <div className="flex items-center space-x-2">
@@ -17,7 +17,7 @@ export const Header = () => {
 
         <span className="text-h5 text-warn">{table.time}</span>
 
-        <Button color="black" className="w-10 h-10 rounded-lg p-1" icon>
+        <Button color="black" className="h-10 w-10 rounded-lg p-1" icon>
           <Icons.Change />
         </Button>
       </div>
@@ -27,7 +27,7 @@ export const Header = () => {
           優惠活動
         </Button>
         <Button color="primary">點餐紀錄</Button>
-        <div className="w-[1px] h-6 bg-gray-400" />
+        <div className="h-6 w-[1px] bg-gray-400" />
         <Button color="secondary" className="flex whitespace-nowrap">
           <span className="w-6">
             <Icons.Notification />
@@ -38,3 +38,5 @@ export const Header = () => {
     </div>
   );
 };
+
+export default Header;

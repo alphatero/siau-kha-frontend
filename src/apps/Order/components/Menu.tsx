@@ -2,16 +2,15 @@ import clsx from 'clsx';
 import { Icons } from '@/components/common';
 import { Sidebar } from './Sidebar';
 
-export const Menu = () => {
-  return (
-    <div className="w-fit min-h-screen bg-white">
+export const Menu = () => (
+    <div className="min-h-screen w-fit bg-white">
       <div
         className={clsx(
-          'flex justify-center items-center',
-          'py-4 border-b border-black-50',
+          'flex items-center justify-center',
+          'border-b border-gray-200 py-4',
         )}
       >
-        <h1 className="text-h5 flex items-center justify-center space-x-2 px-2">
+        <h1 className="flex items-center justify-center space-x-2 px-2 text-h5">
           <span className="h-5 w-5 text-primary">
             <Icons.Logo />
           </span>
@@ -21,5 +20,6 @@ export const Menu = () => {
 
       <Sidebar />
     </div>
-  );
-};
+);
+
+export default Menu;

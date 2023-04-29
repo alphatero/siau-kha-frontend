@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type State = {
   table: {
@@ -8,16 +8,18 @@ type State = {
     time: number;
   }
 
-  setTable: (table: State["table"]) => void;
+  setTable: (table: State['table']) => void;
 }
 
-export const useStore = create<State>((set, get) => ({
+export const useStore = create<State>((set) => ({
   table: {
-    id: "",
-    name: "A1",
-    status: "閒置",
+    id: '',
+    name: 'A1',
+    status: '閒置',
     time: 0,
   },
 
   setTable: (table) => set({ table }),
-}))
+}));
+
+export default useStore;

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import React from 'react';
 import { colors, outlineColors } from './constants';
 
 type ButtonProps = {
@@ -10,10 +11,12 @@ type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const Button = (props: ButtonProps) => {
-  const { children, className, outline, icon, color, ...rest } = props;
+  const {
+    children, className, outline, icon, color, ...rest
+  } = props;
 
-  let classes = colors[color ?? 'primary'];
-  let outlineClasses = outlineColors[color ?? 'primary'];
+  const classes = colors[color ?? 'primary'];
+  const outlineClasses = outlineColors[color ?? 'primary'];
 
   return (
     <button
@@ -21,8 +24,8 @@ export const Button = (props: ButtonProps) => {
         'transition-all duration-200 ',
         outline
           ? `border py-[3px] ${outlineClasses}`
-          : `text-white py-1 ${classes}`,
-        !icon && 'px-2 rounded-md',
+          : `py-1 text-white ${classes}`,
+        !icon && 'rounded-md px-2',
         className,
       )}
       {...rest}
@@ -31,3 +34,5 @@ export const Button = (props: ButtonProps) => {
     </button>
   );
 };
+
+export default Button;

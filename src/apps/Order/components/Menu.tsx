@@ -4,11 +4,11 @@ import { Sidebar } from './Sidebar';
 
 export const Menu = () => {
   return (
-    <div className="w-fit border border-black-50 min-h-screen">
+    <div className="w-fit min-h-screen bg-white">
       <div
         className={clsx(
           'flex justify-center items-center',
-          'h-[60px] border-b border-black-50',
+          'py-4 border-b border-black-50',
         )}
       >
         <h1 className="text-h5 flex items-center justify-center space-x-2 px-2">

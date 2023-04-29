@@ -18,9 +18,11 @@ export const Button = (props: ButtonProps) => {
   return (
     <button
       className={clsx(
-        'transition-all duration-200',
-        outline ? `border ${outlineClasses}` : `text-white ${classes}`,
-        !icon && 'py-1 px-2 rounded-md',
+        'transition-all duration-200 ',
+        outline
+          ? `border py-[3px] ${outlineClasses}`
+          : `text-white py-1 ${classes}`,
+        !icon && 'px-2 rounded-md',
         className,
       )}
       {...rest}

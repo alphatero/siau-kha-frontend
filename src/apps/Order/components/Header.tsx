@@ -9,7 +9,7 @@ export const Header = () => {
     <div
       className={clsx(
         'border border-black-50 flex justify-between',
-        'py-3 px-6 w-full',
+        'py-2 px-6 w-full',
       )}
     >
       <div className="flex items-center space-x-2">
@@ -17,7 +17,7 @@ export const Header = () => {
 
         <span className="text-h5 text-warn">{table.time}</span>
 
-        <Button color="black" className="w-9 h-9 rounded-lg p-1" icon>
+        <Button color="black" className="w-10 h-10 rounded-lg p-1" icon>
           <Icons.Change />
         </Button>
       </div>

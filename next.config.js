@@ -1,12 +1,3 @@
-const path = require('path');
-
-/**
- * @type {import('next-react-svg').NextReactSvgConfig}
- */
-const nextReactSvgConfig = {
-  include: path.resolve(__dirname, 'src/assets/svg'),
-};
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -17,10 +8,36 @@ const nextConfig = {
         destination: '/login',
         permanent: true,
       },
-    ]
-  }
-}
+    ];
+  },
+};
 
-const withReactSvg = require('next-react-svg')(nextReactSvgConfig);
+module.exports = {
+  webpack(config) {
+    // Grab the existing rule that handles SVG imports
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
 
-module.exports = withReactSvg(nextConfig);
+    config.module.rules.push(
+      // Reapply the existing rule, but only for svg imports ending in ?url
+      {
+        ...fileLoaderRule,
+        test: /\.svg$/i,
+        resourceQuery: /url/, // *.svg?url
+      },
+      // Convert all other *.svg imports to React components
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        resourceQuery: { not: /url/ }, // exclude if *.svg?url
+        use: ['@svgr/webpack'],
+      },
+    );
+
+    // Modify the file loader rule to ignore *.svg, since we have it handled now.
+    fileLoaderRule.exclude = /\.svg$/i;
+
+    return config;
+  },
+
+  ...nextConfig,
+};

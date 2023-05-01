@@ -13,6 +13,7 @@ module.exports = {
         primary: '#098383',
         secondary: '#8C6F4C',
         warn: '#DA483B',
+        highlight: '#FDFDF3',
       },
       fontFamily: {
         'noto-sans': ['Noto Sans TC', 'sans-serif'],
@@ -29,6 +30,13 @@ module.exports = {
           '32px',
           {
             lineHeight: '38px',
+            fontWeight: '700',
+          },
+        ],
+        h4: [
+          '24px',
+          {
+            lineHeight: '29px',
             fontWeight: '700',
           },
         ],
@@ -50,6 +58,13 @@ module.exports = {
           '32px',
           {
             lineHeight: '40px',
+            fontWeight: '400',
+          },
+        ],
+        'fs-6': [
+          '16px',
+          {
+            lineHeight: '24px',
             fontWeight: '400',
           },
         ],

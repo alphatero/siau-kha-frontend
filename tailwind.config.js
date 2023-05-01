@@ -15,7 +15,7 @@ module.exports = {
         warn: '#DA483B',
       },
       fontFamily: {
-        "noto-sans": ['Noto Sans TC', 'sans-serif'],
+        'noto-sans': ['Noto Sans TC', 'sans-serif'],
       },
       fontSize: {
         h1: [
@@ -51,7 +51,7 @@ module.exports = {
           {
             lineHeight: '40px',
             fontWeight: '400',
-          }
+          },
         ],
       },
       backgroundImage: {

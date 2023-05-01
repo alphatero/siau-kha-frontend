@@ -3,9 +3,18 @@
     "next/core-web-vitals",
     "airbnb-base",
     "plugin:tailwindcss/recommended",
-    "plugin:eslint-plugin-import"
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "max-len": "off"
-  }
+    "max-len": "off",
+    "import/extensions": ["error", {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }]
+  },
+  "plugins": [
+    "@typescript-eslint", "react"
+  ]
 }

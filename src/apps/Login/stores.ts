@@ -1,17 +1,19 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type State = {
   user: {
     email: string;
     password: string;
   }
-  setUser: (user: State["user"]) => void;
+  setUser: (user: State['user']) => void;
 };
 
-export const useStore = create<State>((set, get) => ({
+export const useStore = create<State>((set) => ({
   user: {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   },
   setUser: (user) => set({ user }),
 }));
+
+export default useStore;

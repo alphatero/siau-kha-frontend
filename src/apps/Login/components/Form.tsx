@@ -19,8 +19,6 @@ export const Form = () => {
   const onSubmit: SubmitHandler<User> = async (data: User) => {
     const { status } = await mutateAsync(data);
 
-    console.log(status);
-
     if (status === 'success') {
       router.push('/order');
     }

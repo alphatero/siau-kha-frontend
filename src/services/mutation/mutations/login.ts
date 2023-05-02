@@ -1,10 +1,10 @@
-import { createMutations } from "@/utils/createMutations";
-import * as api from '../api/login'
+import { createMutations } from '@/utils/createMutations';
+import * as api from '../api/login';
 
 export const schema = {
   login: {
-    fn: api.login
-  }
-} as const
+    fn: api.login,
+  },
+} as const;
 
-export const mutations = createMutations(schema)
+export const mutations = createMutations(schema);

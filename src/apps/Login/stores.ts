@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type State = {
   isLoading: boolean;
@@ -10,3 +10,5 @@ export const useStore = create<State>((set, get) => ({
 
   setIsLoading: (isLoading) => set({ isLoading }),
 }));
+
+export default useStore;

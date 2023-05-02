@@ -32,7 +32,7 @@ export const Form = () => {
 
   return (
     <form
-      className="flex flex-col gap-4 w-full"
+      className="flex w-full flex-col gap-4"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div>
@@ -64,3 +64,5 @@ export const Form = () => {
     </form>
   );
 };
+
+export default Form;

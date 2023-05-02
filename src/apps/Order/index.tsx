@@ -1,17 +1,13 @@
 import type { NextPageWithLayout } from '@/types';
-import clsx from 'clsx';
+import { Header, Menu } from './components';
 
-const Order: NextPageWithLayout = () => {
-  return (
-    <div
-      className={clsx(
-        'flex flex-col justify-center items-center',
-        'max-w-3xl mx-auto',
-      )}
-    >
-      <h1>Order</h1>
+const Order: NextPageWithLayout = () => (
+    <div className="mx-auto flex w-full">
+      <Menu />
+      <div className="flex-1 items-start">
+        <Header />
+      </div>
     </div>
-  );
-};
+);
 
 export default Order;

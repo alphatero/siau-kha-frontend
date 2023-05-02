@@ -3,7 +3,13 @@ import clsx from 'clsx';
 import { useStore } from '../stores';
 
 export const Header = () => {
-  const { table } = useStore();
+  const { table, setIsOpenTriggerTable } = useStore();
+
+  const onClick = () => {
+    console.log('click');
+
+    setIsOpenTriggerTable(true);
+  };
 
   return (
     <div
@@ -17,7 +23,7 @@ export const Header = () => {
 
         <span className="text-h5 text-warn">{table.time}</span>
 
-        <Button color="black" className="h-10 w-10 rounded-lg p-1" icon>
+        <Button color="black" className="h-10 w-10 rounded-lg p-1" icon onClick={onClick}>
           <Icons.Change />
         </Button>
       </div>

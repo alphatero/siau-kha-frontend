@@ -7,8 +7,9 @@ type State = {
     status: string;
     time: number;
   }
-
+  isOpenTriggerTable: boolean;
   setTable: (table: State['table']) => void;
+  setIsOpenTriggerTable: (isOpenTriggerTable: State['isOpenTriggerTable']) => void;
 }
 
 export const useStore = create<State>((set) => ({
@@ -19,7 +20,11 @@ export const useStore = create<State>((set) => ({
     time: 0,
   },
 
+  isOpenTriggerTable: false,
+
   setTable: (table) => set({ table }),
+
+  setIsOpenTriggerTable: (isOpenTriggerTable) => set({ isOpenTriggerTable }),
 }));
 
 export default useStore;

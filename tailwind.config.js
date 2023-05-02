@@ -8,11 +8,18 @@ module.exports = {
     './src/apps/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    minWidth: {
+      md: '468px',
+    },
+    minHeight: {
+      lg: '672px',
+    },
     extend: {
       colors: {
         primary: '#098383',
         secondary: '#8C6F4C',
         warn: '#DA483B',
+        color_bg: '#FDFDF3',
       },
       fontFamily: {
         'noto-sans': ['Noto Sans TC', 'sans-serif'],
@@ -29,6 +36,13 @@ module.exports = {
           '32px',
           {
             lineHeight: '38px',
+            fontWeight: '700',
+          },
+        ],
+        h4: [
+          '24px',
+          {
+            lineHeight: '28px',
             fontWeight: '700',
           },
         ],
@@ -58,6 +72,24 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      opacity: {
+        85: '0.85',
+      },
+      keyframes: {
+        'scale-up': {
+          '0%': {
+            transform: 'scale(0.1)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'scale(1)',
+            opacity: '1',
+          },
+        },
+      },
+      animation: {
+        'scale-up': 'scale-up 0.3s ease-out',
       },
     },
   },

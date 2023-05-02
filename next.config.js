@@ -10,6 +10,19 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    // for develop mock image from picsum
+    domains: ['picsum.photos'],
+    remotePatterns: [
+      {
+        // https://picsum.photos/200/300
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/:width/:height',
+      },
+    ],
+  },
 };
 
 module.exports = {

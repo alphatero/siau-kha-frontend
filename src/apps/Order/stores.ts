@@ -1,12 +1,8 @@
 import { create } from 'zustand';
+import { TableStatus, TableTypes } from '@/types/order';
 
 type State = {
-  table: {
-    id: string;
-    name: string;
-    status: string;
-    time: number;
-  }
+  table: TableTypes;
   isOpenTriggerTable: boolean;
   setTable: (table: State['table']) => void;
   setIsOpenTriggerTable: (isOpenTriggerTable: State['isOpenTriggerTable']) => void;
@@ -14,10 +10,9 @@ type State = {
 
 export const useStore = create<State>((set) => ({
   table: {
-    id: '',
     name: 'A1',
-    status: '閒置',
-    time: 0,
+    status: TableStatus.IDEL,
+    time: '0',
   },
 
   isOpenTriggerTable: false,

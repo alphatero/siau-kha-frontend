@@ -20,6 +20,7 @@ module.exports = {
         secondary: '#8C6F4C',
         warn: '#DA483B',
         color_bg: '#FDFDF3',
+        info: '#4F7B6D',
       },
       fontFamily: {
         'noto-sans': ['Noto Sans TC', 'sans-serif'],
@@ -64,6 +65,13 @@ module.exports = {
           '32px',
           {
             lineHeight: '40px',
+            fontWeight: '400',
+          },
+        ],
+        'fs-6': [
+          '16px',
+          {
+            lineHeight: '24px',
             fontWeight: '400',
           },
         ],

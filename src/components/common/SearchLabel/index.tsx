@@ -33,7 +33,7 @@ export const SearchLabel = (props: PropsType) => {
       <input
         id="searchLabel"
         type="text"
-        className='border-none px-0 py-3 focus:ring-transparent'
+        className='flex-1 border-none px-0 py-3 focus:ring-transparent'
         placeholder={placeholder}
         {...register('content', { required: false })}
       />

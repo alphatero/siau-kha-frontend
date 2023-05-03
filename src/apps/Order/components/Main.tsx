@@ -61,13 +61,13 @@ export const Main = () => {
           <p className="text-fs-6">餐點列表</p>
         </div>
         <SearchLabel placeholder='餐點名稱' />
-        <ul className='mt-6 flex flex-row flex-wrap items-start justify-around gap-6'>
+        <ul className='mt-6 flex flex-row flex-wrap items-start justify-between gap-6'>
           {
             productList.map((menu, i) => (
               <li
                 key={i}
                 className={clsx(
-                  'flex-[48%] grow-0 last:mr-auto',
+                  'flex-[47%] grow-0',
                   'flex flex-col items-center',
                 )}>
                 <div className='relative mb-5 h-[180px] w-full overflow-hidden rounded-lg'>

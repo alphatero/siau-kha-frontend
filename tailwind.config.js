@@ -19,7 +19,7 @@ module.exports = {
         primary: '#098383',
         secondary: '#8C6F4C',
         warn: '#DA483B',
-        color_bg: '#FDFDF3',
+        highlight: '#FDFDF3',
         info: '#4F7B6D',
       },
       fontFamily: {

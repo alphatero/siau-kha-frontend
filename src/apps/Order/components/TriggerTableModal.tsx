@@ -52,7 +52,7 @@ export const TriggerTableModal = () => {
                   clsx(
                     'flex w-full flex-col space-y-3 py-2',
                     'border-b border-black/10',
-                    'hover:bg-color_bg',
+                    'hover:bg-highlight',
                   )}
                   onClick={() => onChangeTable(table)}
                 >

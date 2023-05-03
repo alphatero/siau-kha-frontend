@@ -6,8 +6,6 @@ export const Header = () => {
   const { table, setIsOpenTriggerTable } = useStore();
 
   const onClick = () => {
-    console.log('click');
-
     setIsOpenTriggerTable(true);
   };
 

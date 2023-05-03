@@ -13,6 +13,7 @@ module.exports = {
     },
     minHeight: {
       lg: '672px',
+      screen: '100vh',
     },
     extend: {
       colors: {

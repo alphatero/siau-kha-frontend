@@ -1,5 +1,7 @@
 import type { NextPageWithLayout } from '@/types';
-import { Header, Menu, Main } from './components';
+import {
+  Header, Menu, Main, TriggerTableModal,
+} from './components';
 
 const Order: NextPageWithLayout = () => (
   <div className="mx-auto flex w-full">
@@ -8,6 +10,8 @@ const Order: NextPageWithLayout = () => (
       <Header />
       <Main />
     </div>
+
+    <TriggerTableModal />
   </div>
 );
 

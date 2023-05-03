@@ -1,17 +1,17 @@
 import { Spinner } from 'flowbite-react';
 import clsx from 'clsx';
 
-export const Loading = () => {
-  return (
+export const Loading = () => (
     <div
       className={clsx(
-        'flex justify-center items-center',
-        'fixed top-0 left-0',
-        'w-screen h-screen',
-        'bg-gray-900 bg-opacity-50',
+        'flex items-center justify-center',
+        'fixed left-0 top-0',
+        'h-screen w-screen',
+        'bg-black/50',
       )}
     >
       <Spinner />
     </div>
-  );
-};
+);
+
+export default Loading;

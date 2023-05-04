@@ -55,6 +55,13 @@ module.exports = {
             fontWeight: '700',
           },
         ],
+        h6: [
+          '16px',
+          {
+            lineHeight: '19px',
+            fontWeight: '700',
+          },
+        ],
         'fs-1': [
           '40px',
           {

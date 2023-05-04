@@ -67,10 +67,13 @@ export const Main = () => {
               <li
                 key={i}
                 className={clsx(
-                  'flex-[47%] grow-0',
+                  'group flex-[47%] grow-0',
                   'flex flex-col items-center',
                 )}>
-                <div className='relative mb-5 h-[180px] w-full overflow-hidden rounded-lg'>
+                <div className={clsx(
+                  'relative mb-5 h-[180px] w-full',
+                  'overflow-hidden rounded-lg group-hover:shadow-lg',
+                )}>
                   <Image
                     src={menu.image}
                     alt={menu.name}
@@ -78,7 +81,7 @@ export const Main = () => {
                     fill
                   />
                 </div>
-                <p className="text-h5 text-black/80">{menu.name}</p>
+                <p className="text-h5 text-black/80 group-hover:text-primary">{menu.name}</p>
                 <span className="text-fs-6 text-black">NT ${menu.price}</span>
               </li>
             ))

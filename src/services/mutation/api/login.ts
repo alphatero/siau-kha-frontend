@@ -1,8 +1,8 @@
 import type { AxiosError } from 'axios';
 import axios from 'axios';
-import type { User, ResType } from '@/types/User';
+import type { User, ResType, ResDataType } from '@/types/User';
 
-export const login = async (user: User) => {
+export const login = async (user: User):Promise<ResDataType> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   try {
@@ -14,7 +14,18 @@ export const login = async (user: User) => {
       },
     );
     const { data } = res;
-    return data;
+
+    const name = data.data && data.data.user_name;
+    const role = data.data && data.data.user_role;
+    const token = data.data && data.data.token;
+    return {
+      status: 'success',
+      user: {
+        name,
+        role,
+        token,
+      },
+    };
   } catch (error:unknown) {
     if (axios.isAxiosError(error)) {
       const err = error as AxiosError<ResType>;
@@ -22,14 +33,14 @@ export const login = async (user: User) => {
         return {
           status: 'error',
           message: 'Login failed',
-          data: '',
+          user: '',
         };
       }
     }
     return {
       status: 'error',
       message: 'Login failed',
-      data: '',
+      user: '',
     };
   }
 };

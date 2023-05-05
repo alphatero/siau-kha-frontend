@@ -1,9 +1,8 @@
 import { TextInput, Label, Button } from 'flowbite-react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useLogin } from '@/services/mutation';
+import { useForm } from 'react-hook-form';
 import { Loading } from '@/components/common/Loading';
-import { useRouter } from 'next/router';
 import type { User } from '@/types/User';
+import { useAuth } from '../hooks/useAuth';
 
 export const Form = () => {
   const {
@@ -12,21 +11,7 @@ export const Form = () => {
     formState: { isValid },
   } = useForm<User>();
 
-  const router = useRouter();
-
-  const { mutateAsync, isLoading, data: loginData } = useLogin();
-
-  const onSubmit: SubmitHandler<User> = async (data: User) => {
-    const { status } = await mutateAsync(data);
-
-    if (status === 'success') {
-      router.push('/order');
-    }
-
-    if (status === 'error') {
-      alert('登入失敗');
-    }
-  };
+  const { onSubmit, isLoading, error } = useAuth();
 
   return (
     <form
@@ -54,6 +39,10 @@ export const Form = () => {
           {...register('password', { required: true })}
         />
       </div>
+
+      {error && (
+        <div className="text-sm text-red-500">帳號或密碼錯誤，請重新輸入</div>
+      )}
       <Button type="submit" disabled={!isValid}>
         Submit
       </Button>

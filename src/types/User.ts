@@ -14,3 +14,16 @@ export type ResType = {
     user_account: string;
   } | ''
 }
+
+export type ResDataType = {
+  status: 'success'
+  user: {
+    name: string;
+    role: string;
+    token: string;
+  };
+} | {
+  status: 'error'
+  message: string;
+  user: string;
+}

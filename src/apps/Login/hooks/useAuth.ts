@@ -1,7 +1,7 @@
 import useAuthStore from '@/stores/auth';
 import { useRouter } from 'next/router';
 import { useLogin } from '@/services/mutation';
-import type { User } from '@/types/User';
+import type { User } from '@/types/user';
 import { SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 

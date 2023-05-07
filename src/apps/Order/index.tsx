@@ -1,7 +1,24 @@
 import type { NextPageWithLayout } from '@/types';
+import { useTable } from '@/services/query';
+import { useEffect } from 'react';
 import { Header, Menu, TriggerTableModal } from './components';
+import { useStore } from './stores';
 
-const Order: NextPageWithLayout = () => (
+const Order: NextPageWithLayout = () => {
+  const { setList } = useStore();
+  const { data, isLoading } = useTable();
+
+  useEffect(() => {
+    if (data) {
+      setList(data.list);
+    }
+  }, [data, setList]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
     <>
       <div className="mx-auto flex w-full">
         <Menu />
@@ -12,6 +29,7 @@ const Order: NextPageWithLayout = () => (
 
       <TriggerTableModal />
     </>
-);
+  );
+};
 
 export default Order;

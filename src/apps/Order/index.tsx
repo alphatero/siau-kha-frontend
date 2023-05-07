@@ -4,15 +4,15 @@ import {
 } from './components';
 
 const Order: NextPageWithLayout = () => (
-  <div className="mx-auto flex w-full">
+  <>
     <Menu />
-    <div className="flex-1 items-start">
+    <div className="flex flex-1 flex-col">
       <Header />
       <Main />
     </div>
 
     <TriggerTableModal />
-  </div>
+  </>
 );
 
 export default Order;

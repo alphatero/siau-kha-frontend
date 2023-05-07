@@ -1,42 +1,14 @@
 import { Button, Icons } from '@/components/common';
 import { CheckSideItem } from './CheckSideItem';
+import { Constants } from '../constants';
 
-type OrderListType = {
-  name: string;
-  price: number;
-  quantity: number;
-  note: string;
-};
-
-export const CheckSide = () => {
-  const orderList: OrderListType[] = [
-    {
-      name: '豪華全牛套餐',
-      price: 1980,
-      quantity: 1,
-      note: '',
-    },
-    {
-      name: '澳洲極上牛舌',
-      price: 790,
-      quantity: 1,
-      note: '加大',
-    },
-    {
-      name: '可爾必思',
-      price: 140,
-      quantity: 1,
-      note: '少冰',
-    },
-  ];
-
-  return (
+export const CheckSide = () => (
     <div className='w-[384px] flex-none py-3'>
       <div className="flex h-full w-full flex-col bg-white px-4 py-6">
         <h2 className="text-h4 text-primary">點餐紀錄</h2>
         <ul className='mt-4 space-y-3'>
           {
-            orderList.map((order, i) => (
+            Constants.OrderList.map((order, i) => (
               <CheckSideItem
                 key={i}
                 name={order.name}
@@ -66,7 +38,6 @@ export const CheckSide = () => {
         </Button>
       </div>
     </div>
-  );
-};
+);
 
 export default CheckSide;

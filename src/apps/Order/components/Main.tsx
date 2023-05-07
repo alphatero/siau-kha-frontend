@@ -9,7 +9,7 @@ export const Main = () => (
       'flex flex-row',
       'h-full space-x-6 bg-highlight pl-6 pr-8',
     )}>
-      <main className='flex-1'>
+      <main className='max-h-[93vh] flex-1 overflow-y-auto'>
         <div className={clsx(
           'flex flex-row items-end',
           'mb-4 space-x-2 pt-8',

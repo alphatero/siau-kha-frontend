@@ -1,24 +1,7 @@
 import type { NextPageWithLayout } from '@/types';
-import useAuthStore from '@/stores/auth';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { Header, Menu, TriggerTableModal } from './components';
 
-const Order: NextPageWithLayout = () => {
-  const { user } = useAuthStore();
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if (user.role !== 'waiter') {
-  //     router.replace('/login');
-  //   }
-  // }, [user, router]);
-
-  if (user.role !== 'waiter') {
-    router.replace('/login');
-  }
-
-  return (
+const Order: NextPageWithLayout = () => (
     <>
       <div className="mx-auto flex w-full">
         <Menu />
@@ -29,7 +12,6 @@ const Order: NextPageWithLayout = () => {
 
       <TriggerTableModal />
     </>
-  );
-};
+);
 
 export default Order;

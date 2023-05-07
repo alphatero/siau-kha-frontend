@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import type { User, ResType } from '@/pages/login/types/User';
+import type { User, ResType } from '@/types/User';
 
 const fakerUser: User = {
   username: 'admin',

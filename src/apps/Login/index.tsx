@@ -6,7 +6,7 @@ const Login: NextPageWithLayout = () => (
     <div
       className={clsx(
         'flex flex-col items-center justify-center',
-        'mx-auto max-w-3xl',
+        'mx-auto max-w-xl',
       )}
     >
       <h1>登入</h1>

@@ -1,19 +1,14 @@
 import { create } from 'zustand';
 
 type State = {
-  user: {
-    email: string;
-    password: string;
-  }
-  setUser: (user: State['user']) => void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
 };
 
-export const useStore = create<State>((set) => ({
-  user: {
-    email: '',
-    password: '',
-  },
-  setUser: (user) => set({ user }),
+export const useStore = create<State>((set, get) => ({
+  isLoading: false,
+
+  setIsLoading: (isLoading) => set({ isLoading }),
 }));
 
 export default useStore;

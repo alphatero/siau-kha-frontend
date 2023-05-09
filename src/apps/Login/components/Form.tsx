@@ -1,11 +1,8 @@
 import { TextInput, Label, Button } from 'flowbite-react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useStore } from '../stores';
-
-type User = {
-  email: string;
-  password: string;
-};
+import { useForm } from 'react-hook-form';
+import { Loading } from '@/components/common/Loading';
+import type { User } from '@/types/User';
+import { useAuth } from '../hooks/useAuth';
 
 export const Form = () => {
   const {
@@ -14,11 +11,7 @@ export const Form = () => {
     formState: { isValid },
   } = useForm<User>();
 
-  const { setUser } = useStore();
-
-  const onSubmit: SubmitHandler<User> = (data: User) => {
-    setUser(data);
-  };
+  const { onSubmit, isLoading, error } = useAuth();
 
   return (
     <form
@@ -27,13 +20,13 @@ export const Form = () => {
     >
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="email1" value="Your email" />
+          <Label htmlFor="name" value="Your name" />
         </div>
         <TextInput
-          id="email"
-          type="email"
-          placeholder="name@email.com"
-          {...register('email', { required: true })}
+          id="name"
+          type="name"
+          placeholder="name"
+          {...register('username', { required: true })}
         />
       </div>
       <div>
@@ -46,9 +39,15 @@ export const Form = () => {
           {...register('password', { required: true })}
         />
       </div>
+
+      {error && (
+        <div className="text-sm text-red-500">帳號或密碼錯誤，請重新輸入</div>
+      )}
       <Button type="submit" disabled={!isValid}>
         Submit
       </Button>
+
+      {isLoading && <Loading />}
     </form>
   );
 };

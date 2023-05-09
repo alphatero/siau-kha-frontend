@@ -1,4 +1,5 @@
-import { Button, Icons } from '@/components/common';
+import { Button } from '@/components/common';
+import { IconButton } from '@/components/common/IconButton';
 import { CheckSideItem } from './CheckSideItem';
 import { Constants } from '../constants';
 
@@ -29,9 +30,11 @@ export const CheckSide = () => (
               <span className="text-secondary/85">88 折</span>
             </p>
           </div>
-          <button className='text-secondary/85'>
-            <Icons.TrashCan className='h-6' />
-          </button>
+          <IconButton
+            containerClasses='text-secondary/85'
+            iconClasses='h-6'
+            icon='delete'
+          />
         </div>
         <Button className='mt-auto w-full py-2' color='primary'>
           <span className='text-h5'>送出訂單</span>

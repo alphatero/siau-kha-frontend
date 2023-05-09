@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Icons } from '@/components/common';
+import { IconButton } from '@/components/common/IconButton';
 
 type PropsType = {
   name: string;
@@ -12,6 +12,7 @@ export const CheckSideItem = (props: PropsType) => {
   const {
     name, price, quantity, note,
   } = props;
+
   return (
     <li
       className={clsx(
@@ -28,23 +29,29 @@ export const CheckSideItem = (props: PropsType) => {
       </div>
       <div className='flex w-full items-end justify-between'>
         <div className='flex items-center'>
-          <button className='h-8 w-8 rounded-full bg-black/85 p-2 text-white'>
-            <Icons.Minus />
-          </button>
+          <IconButton
+            containerClasses='h-8 w-8 rounded-full bg-black/85 p-2 text-white'
+            icon='minus'
+          />
           <span className='inline-block w-10 text-center text-black/85'>
             {quantity}
           </span>
-          <button className='h-8 w-8 rounded-full bg-black/85 p-2 text-white'>
-            <Icons.Plus />
-          </button>
+          <IconButton
+            containerClasses='h-8 w-8 rounded-full bg-black/85 p-2 text-white'
+            icon='plus'
+          />
         </div>
         <div className='space-x-8'>
-          <button className='text-black/50'>
-            <Icons.Pencil className='h-6' />
-          </button>
-          <button className='text-secondary/85'>
-            <Icons.TrashCan className='h-6' />
-          </button>
+          <IconButton
+            containerClasses='text-black/50'
+            iconClasses='h-6'
+            icon='edit'
+          />
+          <IconButton
+            containerClasses='text-secondary/85'
+            iconClasses='h-6'
+            icon='delete'
+          />
         </div>
       </div>
     </li>

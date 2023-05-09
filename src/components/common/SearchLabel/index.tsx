@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Icons } from '../Icons';
+import { IconButton } from '@/components/common/IconButton';
 
 type PropsType = {
   placeholder: string;
@@ -37,9 +37,10 @@ export const SearchLabel = (props: PropsType) => {
         placeholder={placeholder}
         {...register('content', { required: false })}
       />
-      <button className='h-full w-7'>
-        <Icons.Magnifier />
-      </button>
+      <IconButton
+        containerClasses='h-full w-7'
+        icon='search'
+      />
     </form>
   );
 };

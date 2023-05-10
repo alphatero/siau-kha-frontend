@@ -1,8 +1,8 @@
 import useAuthStore from '@/stores/auth';
 import { useRouter } from 'next/router';
 
-export const useAuth = () => {
-  const { user } = useAuthStore();
+export const useGlobalAuth = () => {
+  const { user, isLoading } = useAuthStore();
   const router = useRouter();
 
   const { role } = user;
@@ -29,7 +29,8 @@ export const useAuth = () => {
   return {
     user,
     onRoute,
+    isLoading,
   };
 };
 
-export default useAuth;
+export default useGlobalAuth;

@@ -1,3 +1,6 @@
-export default function Home() {
-  return <p>Home</p>;
-}
+import { BaseLayout } from '@/components/layouts';
+import Page from '@/apps/Login';
+
+Page.getLayout = (page) => <BaseLayout>{page}</BaseLayout>;
+
+export default Page;

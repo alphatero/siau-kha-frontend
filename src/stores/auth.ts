@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 type AuthStore = {
+  isLoading: boolean;
   user: {
     name: string;
     role: string;
@@ -20,6 +21,7 @@ const useAuthStore = create(
         role: '',
       },
       token: '',
+      isLoading: true,
 
       setUser: (user) => set(() => ({ user })),
 

@@ -1,21 +1,13 @@
 import type { NextPageWithLayout } from '@/types';
-import { useTable } from '@/services/query';
-import { useEffect } from 'react';
+import { Loading } from '@/components/common';
 import { Header, Menu, TriggerTableModal } from './components';
-import { useStore } from './stores';
+import { useUpdateList } from './hooks/useUpdateList';
 
 const Order: NextPageWithLayout = () => {
-  const { setList } = useStore();
-  const { data, isLoading } = useTable();
-
-  useEffect(() => {
-    if (data) {
-      setList(data.list);
-    }
-  }, [data, setList]);
+  const { isLoading } = useUpdateList();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

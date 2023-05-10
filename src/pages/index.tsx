@@ -1,6 +1,7 @@
-import { BaseLayout } from '@/components/layouts';
-import Page from '@/apps/Login';
+import { Loading } from '@/components/common/Loading';
 
-Page.getLayout = (page) => <BaseLayout>{page}</BaseLayout>;
+export const Home = () => (
+  <Loading />
+);
 
-export default Page;
+export default Home;

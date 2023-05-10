@@ -3,6 +3,7 @@ import Logo from '@/assets/svg/logo.svg';
 import Notification from '@/assets/svg/notification.svg';
 import Fork from '@/assets/svg/fork.svg';
 import Close from '@/assets/svg/close.svg';
+import User from '@/assets/svg/user.svg';
 
 export const Icons = {
   Change,
@@ -10,6 +11,7 @@ export const Icons = {
   Notification,
   Fork,
   Close,
+  User,
 };
 
 export default Icons;

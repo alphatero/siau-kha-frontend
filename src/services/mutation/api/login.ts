@@ -1,6 +1,24 @@
 import type { AxiosError } from 'axios';
 import axios from 'axios';
 import type { User, ResType, ResDataType } from '@/types/user';
+import { Role } from '@/types/user';
+
+const toRole = (role: string): Role | '' => {
+  switch (role) {
+    case 'admin':
+      return Role.admin;
+    case 'waiter':
+      return Role.waiter;
+    case 'kitchen':
+      return Role.kitchen;
+    case 'manager':
+      return Role.manager;
+    case 'counter':
+      return Role.counter;
+    default:
+      return '';
+  }
+};
 
 export const login = async (user: User):Promise<ResDataType> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -16,7 +34,7 @@ export const login = async (user: User):Promise<ResDataType> => {
     const { data } = res;
 
     const name = data.data && data.data.user_name;
-    const role = data.data && data.data.user_role;
+    const role = data.data && toRole(data.data.user_role);
     const token = data.data && data.data.token;
     return {
       status: 'success',

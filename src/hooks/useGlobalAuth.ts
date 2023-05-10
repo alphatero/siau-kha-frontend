@@ -1,22 +1,23 @@
 import useAuthStore from '@/stores/auth';
 import { useRouter } from 'next/router';
+import { Role } from '@/types/user';
 
 export const useGlobalAuth = () => {
-  const { user, isLoading } = useAuthStore();
+  const { user, isLoading, logout } = useAuthStore();
   const router = useRouter();
 
   const { role } = user;
 
   const checkPage = () => {
     switch (role) {
-      case 'manager':
-        return '/admin';
-      case 'kitchen':
-        return '/kitchen';
-      case 'counter':
-        return '/counter';
-      case 'waiter':
+      case Role.waiter:
         return '/order';
+      case Role.kitchen:
+        return '/kitchen';
+      case Role.manager:
+        return '/admin';
+      case Role.counter:
+        return '/counter';
       default:
         return '/login';
     }
@@ -30,6 +31,7 @@ export const useGlobalAuth = () => {
     user,
     onRoute,
     isLoading,
+    logout,
   };
 };
 

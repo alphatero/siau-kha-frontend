@@ -1,6 +1,6 @@
 import type { AxiosError } from 'axios';
 import axios from 'axios';
-import type { User, ResType, ResDataType } from '@/types/user';
+import type { User, ResType, ResDataType } from '@/types/users';
 
 export const login = async (user: User):Promise<ResDataType> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;

@@ -1,6 +1,6 @@
 import useAuthStore from '@/stores/auth';
 import { useLogin } from '@/services/mutation';
-import type { User } from '@/types/user';
+import type { User } from '@/types/users';
 import { SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 import { useGlobalAuth } from '@/hooks/useGlobalAuth';

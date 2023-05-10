@@ -1,7 +1,7 @@
 import { TextInput, Label, Button } from 'flowbite-react';
 import { useForm } from 'react-hook-form';
 import { Loading } from '@/components/common/Loading';
-import type { User } from '@/types/users';
+import type { User } from '@/types/user';
 import { useAuth } from '../hooks/useAuth';
 
 export const Form = () => {

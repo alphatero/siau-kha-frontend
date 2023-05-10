@@ -25,5 +25,5 @@ export type ResDataType = {
 } | {
   status: 'error'
   message: string;
-  user: string;
+  user?: string;
 }

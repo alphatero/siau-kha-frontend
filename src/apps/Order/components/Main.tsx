@@ -9,7 +9,7 @@ export const Main = () => (
       'flex flex-row',
       'h-full space-x-6 bg-highlight pl-6 pr-8',
     )}>
-      <main className='max-h-[93vh] flex-1 overflow-y-auto'>
+      <main className='flex-1'>
         <div className={clsx(
           'flex flex-row items-end',
           'mb-4 space-x-2 pt-8',
@@ -19,7 +19,10 @@ export const Main = () => (
           <p className="text-fs-6">餐點列表</p>
         </div>
         <SearchLabel placeholder='餐點名稱' />
-        <ul className='mt-6 flex flex-row flex-wrap items-start justify-between gap-6'>
+        <ul className={clsx(
+          'mt-6 max-h-[75vh] overflow-y-auto',
+          'flex flex-row flex-wrap items-start justify-between gap-6',
+        )}>
           {
             Constants.MainProductList.map((menu, i) => (
               <li

@@ -48,7 +48,7 @@ export const Sidebar = () => {
         ))}
       </ul>
 
-      <Auth />
+      <Auth position='left' />
     </>
   );
 };

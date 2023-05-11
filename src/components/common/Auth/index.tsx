@@ -3,14 +3,15 @@ import { useState } from 'react';
 import { Icons } from '../Icons';
 import { RoleBox } from './RoleBox';
 
-export const Auth = () => {
+export const Auth = ({ position }: {position: string}) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className="flex">
       <button
         className={clsx(
-          'mx-4 h-10 w-10',
-          'rounded-lg bg-primary/85 p-2 hover:bg-primary active:bg-primary',
+          'h-12 w-12',
+          'rounded-full bg-secondary/85 p-2 hover:bg-secondary active:bg-secondary',
           'transition-all duration-300 ease-in-out hover:scale-110 active:scale-90',
         )}
         onClick={() => setOpen(!open)}
@@ -18,7 +19,7 @@ export const Auth = () => {
         <Icons.User className="text-white" />
       </button>
 
-      {open && <RoleBox />}
+      {open && <RoleBox position={position} />}
     </div>
   );
 };

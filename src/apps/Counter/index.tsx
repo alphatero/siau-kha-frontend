@@ -1,10 +1,11 @@
 import type { NextPageWithLayout } from '@/types';
-import { Auth } from '@/components/common';
+import { Menu, Sidebar } from './components';
 
 const Counter: NextPageWithLayout = () => (
-  <div>
+  <div className='flex justify-between'>
+    <Menu />
     <h1>Counter</h1>
-    <Auth />
+    <Sidebar />
   </div>
 );
 

@@ -1,7 +1,16 @@
 import type { NextPageWithLayout } from '@/types';
+import { Loading } from '@/components/common';
 import { Header, Menu, TriggerTableModal } from './components';
+import { useUpdateList } from './hooks/useUpdateList';
 
-const Order: NextPageWithLayout = () => (
+const Order: NextPageWithLayout = () => {
+  const { isLoading } = useUpdateList();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return (
     <>
       <div className="mx-auto flex w-full">
         <Menu />
@@ -12,6 +21,7 @@ const Order: NextPageWithLayout = () => (
 
       <TriggerTableModal />
     </>
-);
+  );
+};
 
 export default Order;

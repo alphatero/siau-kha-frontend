@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Icons } from '@/components/common';
 import { useState } from 'react';
+import { Auth } from '../../../components/common/Auth';
 
 const productTags = [
   {
@@ -22,29 +23,33 @@ export const Sidebar = () => {
   };
 
   return (
-    <ul className="space-y-4 py-8 text-h5">
-      {productTags.map((tag, i) => (
-        <li key={i}>
-          <button
-            className={clsx(
-              'flex w-full space-x-3 px-4',
-              currentTag === tag.tag_name
-                && 'border-r border-secondary text-secondary',
-            )}
-            onClick={() => onClick(tag.tag_name)}
-          >
-            <span className="w-[7px]">
-              <Icons.Fork
-                className={clsx(
-                  currentTag === tag.tag_name ? 'block' : 'hidden',
-                )}
-              />
-            </span>
-            <span>{tag.tag_name}</span>
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className="space-y-4 py-8 text-h5">
+        {productTags.map((tag, i) => (
+          <li key={i}>
+            <button
+              className={clsx(
+                'flex w-full space-x-3 px-4',
+                currentTag === tag.tag_name
+                  && 'border-r border-secondary text-secondary',
+              )}
+              onClick={() => onClick(tag.tag_name)}
+            >
+              <span className="w-[7px]">
+                <Icons.Fork
+                  className={clsx(
+                    currentTag === tag.tag_name ? 'block' : 'hidden',
+                  )}
+                />
+              </span>
+              <span>{tag.tag_name}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <Auth />
+    </>
   );
 };
 

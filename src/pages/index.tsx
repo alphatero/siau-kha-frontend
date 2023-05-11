@@ -1,3 +1,7 @@
-export default function Home() {
-  return <p>Home</p>;
-}
+import { Loading } from '@/components/common/Loading';
+
+export const Home = () => (
+  <Loading />
+);
+
+export default Home;

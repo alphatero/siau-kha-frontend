@@ -1,3 +1,5 @@
 export * from './Button';
 export * from './Icons';
 export * from './Modal';
+export * from './Loading';
+export * from './Auth';

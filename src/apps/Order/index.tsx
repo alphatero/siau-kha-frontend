@@ -1,6 +1,8 @@
 import type { NextPageWithLayout } from '@/types';
 import { Loading } from '@/components/common';
-import { Header, Menu, TriggerTableModal } from './components';
+import {
+  Header, Menu, Main, TriggerTableModal,
+} from './components';
 import { useUpdateList } from './hooks/useUpdateList';
 
 const Order: NextPageWithLayout = () => {
@@ -12,11 +14,10 @@ const Order: NextPageWithLayout = () => {
 
   return (
     <>
-      <div className="mx-auto flex w-full">
-        <Menu />
-        <div className="flex-1 items-start">
-          <Header />
-        </div>
+      <Menu />
+      <div className="flex flex-1 flex-col">
+        <Header />
+        <Main />
       </div>
 
       <TriggerTableModal />

@@ -44,7 +44,7 @@ module.exports = {
         h4: [
           '24px',
           {
-            lineHeight: '28px',
+            lineHeight: '29px',
             fontWeight: '700',
           },
         ],
@@ -52,6 +52,13 @@ module.exports = {
           '20px',
           {
             lineHeight: '24px',
+            fontWeight: '700',
+          },
+        ],
+        h6: [
+          '16px',
+          {
+            lineHeight: '19px',
             fontWeight: '700',
           },
         ],

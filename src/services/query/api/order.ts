@@ -16,8 +16,8 @@ const toTableStatus = (status: string): TableStatus => {
   }
 };
 
-// caculate diff time by minute
-const caculateTime = (time: string): string => {
+// calculate diff time by minute
+const calculateTime = (time: string): string => {
   const now = dayjs();
   const createTime = dayjs(time);
   const duration = now.diff(createTime, 'second');
@@ -29,7 +29,7 @@ const caculateTime = (time: string): string => {
 
 const toTable = (data: ResTableType) => ({
   id: data.id,
-  time: data.create_time ? caculateTime(data.create_time) : '',
+  time: data.create_time ? calculateTime(data.create_time) : '',
   customer: data.customer_num ?? 0,
   isPay: data.is_pay ?? false,
   seat: data.seat_max ?? 0,

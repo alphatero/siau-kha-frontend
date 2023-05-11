@@ -12,16 +12,17 @@ const Order: NextPageWithLayout = () => {
     return <Loading />;
   }
 
-const Order: NextPageWithLayout = () => (
-  <>
-    <Menu />
-    <div className="flex flex-1 flex-col">
-      <Header />
-      <Main />
-    </div>
+  return (
+    <>
+      <Menu />
+      <div className="flex flex-1 flex-col">
+        <Header />
+        <Main />
+      </div>
 
-    <TriggerTableModal />
-  </>
-);
+      <TriggerTableModal />
+    </>
+  );
+};
 
 export default Order;

@@ -8,6 +8,7 @@ import Plus from '@/assets/svg/plus.svg';
 import Minus from '@/assets/svg/minus.svg';
 import Pencil from '@/assets/svg/pencil.svg';
 import TrashCan from '@/assets/svg/trash-can.svg';
+import User from '@/assets/svg/user.svg';
 
 export const Icons = {
   Change,
@@ -20,6 +21,7 @@ export const Icons = {
   Minus,
   Pencil,
   TrashCan,
+  User,
 };
 
 export default Icons;

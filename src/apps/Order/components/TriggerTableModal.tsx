@@ -3,32 +3,10 @@ import clsx from 'clsx';
 import { TableTypes, TableStatus } from '@/types/order';
 import { useStore } from '../stores';
 
-const tableList: TableTypes[] = [
-  {
-    name: 'A1',
-    status: TableStatus.MEAL,
-    time: '00:00',
-    unfinished: 3,
-    seat: 4,
-    customer: 3,
-  },
-  {
-    name: 'A2',
-    status: TableStatus.IDEL,
-    time: '00:00',
-  },
-  {
-    name: 'A3',
-    status: TableStatus.MEAL,
-    time: '00:00',
-    unfinished: 3,
-    seat: 4,
-    customer: 3,
-  },
-];
-
 export const TriggerTableModal = () => {
-  const { isOpenTriggerTable, setIsOpenTriggerTable, setTable } = useStore();
+  const {
+    isOpenTriggerTable, setIsOpenTriggerTable, setTable, list,
+  } = useStore();
 
   const onChangeTable = (table: TableTypes) => {
     setTable(table);
@@ -51,7 +29,7 @@ export const TriggerTableModal = () => {
         </h4>
 
         <ul className="flex w-full flex-col">
-          {tableList.map((table) => (
+          {list?.map((table) => (
             <li key={table.name}>
               <button
                 className={clsx(
@@ -77,7 +55,7 @@ export const TriggerTableModal = () => {
                   >
                     <p>
                       {table.status}
-                      {table.seat && (
+                      {table.customer && (
                         <span className="pl-1 text-fs-6">
                           {table.customer} /{table.seat}
                         </span>

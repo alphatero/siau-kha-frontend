@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Icons } from '../Icons';
+import { Icons } from './Icons';
 
 type PropsType = {
   containerClasses?: string;

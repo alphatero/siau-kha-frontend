@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   TableStatus, TableTypes, ResDataType, ResType, ResTableType,
 } from '@/types/order';
+import dayjs from 'dayjs';
 
 const toTableStatus = (status: string): TableStatus => {
   switch (status) {
@@ -15,9 +16,20 @@ const toTableStatus = (status: string): TableStatus => {
   }
 };
 
+// calculate diff time by minute
+const calculateTime = (time: string): string => {
+  const now = dayjs();
+  const createTime = dayjs(time);
+  const duration = now.diff(createTime, 'second');
+  // change to mm:ss
+  const minute = Math.floor(duration / 60);
+  const second = duration % 60;
+  return `${minute}:${second}`;
+};
+
 const toTable = (data: ResTableType) => ({
   id: data.id,
-  time: data.create_time ?? '',
+  time: data.create_time ? calculateTime(data.create_time) : '',
   customer: data.customer_num ?? 0,
   isPay: data.is_pay ?? false,
   seat: data.seat_max ?? 0,

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Icons } from '@/components/common';
+import { Icons, Logo } from '@/components/common';
 import { RegisterButton } from './RegisterButton';
 import { Standby } from './Standby';
 
@@ -11,18 +11,8 @@ export const Menu = () => (
       'flex flex-col',
     )}
   >
-    <h1
-      className={clsx(
-        'flex items-center justify-center',
-        'space-x-2 py-4 text-h5',
-        'border-b border-black/10',
-      )}
-    >
-      <span className="h-5 w-5 text-primary">
-        <Icons.Logo />
-      </span>
-      <span>燒角 Siau Kha</span>
-    </h1>
+    <Logo />
+
     <div className={clsx(
       'relative flex h-full flex-col',
       'space-y-8 p-8',

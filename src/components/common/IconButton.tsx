@@ -9,7 +9,9 @@ type PropsType = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const IconButton = (props: PropsType) => {
-  const { containerClasses, iconClasses, icon } = props;
+  const {
+    containerClasses, iconClasses, icon, ...rest
+  } = props;
 
   const getIcon = (iconType: string, iconClass?: string) => {
     switch (iconType) {
@@ -28,7 +30,7 @@ export const IconButton = (props: PropsType) => {
   };
 
   return (
-    <button className={containerClasses}>
+    <button className={containerClasses} {...rest}>
       { getIcon(icon, iconClasses) }
     </button>
   );

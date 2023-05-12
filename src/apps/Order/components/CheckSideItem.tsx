@@ -1,5 +1,7 @@
 import clsx from 'clsx';
 import { IconButton } from '@/components/common/IconButton';
+import { useModalStore } from '@/stores/modal';
+import { ModalCategory } from '@/types/order';
 
 type PropsType = {
   name: string;
@@ -12,6 +14,14 @@ export const CheckSideItem = (props: PropsType) => {
   const {
     name, price, quantity, note,
   } = props;
+
+  const { setIsOpen, setTriggerModal } = useModalStore();
+
+  const openModal = (modalName: ModalCategory, memoItem: string) => {
+    console.log('memoItem', memoItem);
+    setTriggerModal(modalName);
+    setIsOpen(true);
+  };
 
   return (
     <li
@@ -46,6 +56,7 @@ export const CheckSideItem = (props: PropsType) => {
             containerClasses='text-black/50'
             iconClasses='h-6'
             icon='edit'
+            onClick={() => openModal('memo', name)}
           />
           <IconButton
             containerClasses='text-secondary/85'

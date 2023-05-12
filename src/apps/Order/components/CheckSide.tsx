@@ -1,9 +1,19 @@
 import { Button } from '@/components/common';
 import { IconButton } from '@/components/common/IconButton';
+import { useModalStore } from '@/stores/modal';
+import { ModalCategory } from '@/types/order';
 import { CheckSideItem } from './CheckSideItem';
 import { Constants } from '../constants';
 
-export const CheckSide = () => (
+export const CheckSide = () => {
+  const { setIsOpen, setTriggerModal } = useModalStore();
+
+  const openModal = (modalName: ModalCategory) => {
+    setTriggerModal(modalName);
+    setIsOpen(true);
+  };
+
+  return (
     <div className='w-[384px] flex-none py-3'>
       <div className="flex h-full w-full flex-col bg-white px-4 py-6">
         <h2 className="text-h4 text-primary">點餐紀錄</h2>
@@ -36,11 +46,16 @@ export const CheckSide = () => (
             icon='delete'
           />
         </div>
-        <Button className='mt-auto w-full py-2' color='primary'>
+        <Button
+          className='mt-auto w-full py-2'
+          color='primary'
+          onClick={() => openModal('check')}
+        >
           <span className='text-h5'>送出訂單</span>
         </Button>
       </div>
     </div>
-);
+  );
+};
 
 export default CheckSide;

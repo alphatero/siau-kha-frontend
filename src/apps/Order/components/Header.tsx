@@ -1,12 +1,20 @@
 import { Button, Icons } from '@/components/common';
 import clsx from 'clsx';
+import { useModalStore } from '@/stores/modal';
+import { ModalCategory } from '@/types/order';
 import { useStore } from '../stores';
 
 export const Header = () => {
   const { table, setIsOpenTriggerTable } = useStore();
+  const { setIsOpen, setTriggerModal } = useModalStore();
 
   const onClick = () => {
     setIsOpenTriggerTable(true);
+  };
+
+  const openModal = (modalName: ModalCategory) => {
+    setTriggerModal(modalName);
+    setIsOpen(true);
   };
 
   return (
@@ -27,10 +35,12 @@ export const Header = () => {
       </div>
 
       <div className="flex items-center space-x-4">
-        <Button color="primary" outline>
+        <Button color="primary" outline onClick={() => openModal('promotion')}>
           優惠活動
         </Button>
-        <Button color="primary">點餐紀錄</Button>
+        <Button color="primary" onClick={() => openModal('log')}>
+          點餐紀錄
+        </Button>
         <div className="h-6 w-[1px] bg-gray-400" />
         <Button color="secondary" className="flex whitespace-nowrap">
           <span className="w-6">

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Icons, Logo } from '@/components/common';
+import { Logo } from '@/components/common';
 import { RegisterButton } from './RegisterButton';
 import { Standby } from './Standby';
 

@@ -33,3 +33,5 @@ export type ResType = {
 export type ResDataType = {
   list: TableTypes[];
 }
+
+export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;

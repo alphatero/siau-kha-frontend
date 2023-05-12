@@ -3,7 +3,7 @@ import { Logo } from '@/components/common';
 import { Sidebar } from './Sidebar';
 
 export const Menu = () => (
-    <div className="w-fit bg-white">
+    <div className="flex flex-col bg-white">
       <div
         className={clsx(
           'flex items-center justify-center',

@@ -1,22 +1,27 @@
 import { Modal } from '@/components/common';
 import clsx from 'clsx';
 import { TableTypes, TableStatus } from '@/types/order';
-import { useStore } from '../stores';
+import { useModalStore } from '@/stores/modal';
+import { useStore } from '../../stores';
 
-export const TriggerTableModal = () => {
+export const Table = () => {
   const {
-    isOpenTriggerTable, setIsOpenTriggerTable, setTable, list,
+    isOpen, setIsOpen,
+  } = useModalStore();
+
+  const {
+    setTable, list,
   } = useStore();
 
   const onChangeTable = (table: TableTypes) => {
     setTable(table);
-    setIsOpenTriggerTable(false);
+    setIsOpen(false);
   };
 
   return (
     <Modal
-      isOpen={isOpenTriggerTable}
-      onClose={() => setIsOpenTriggerTable(false)}
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
     >
       <div className="flex flex-col items-center justify-center">
         <h4
@@ -77,4 +82,4 @@ export const TriggerTableModal = () => {
   );
 };
 
-export default TriggerTableModal;
+export default Table;

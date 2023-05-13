@@ -16,6 +16,8 @@ const Order: NextPageWithLayout = () => {
 
   const getCurrentTriggerModal = (openModal: ModalCategory) => {
     switch (openModal) {
+      case 'table':
+        return <TriggerTableModal />;
       case 'promotion':
         return <TriggerPromotionModal />;
       case 'log':
@@ -43,7 +45,6 @@ const Order: NextPageWithLayout = () => {
 
       {isOpen && getCurrentTriggerModal(triggerModal)}
 
-      <TriggerTableModal />
     </>
   );
 };

@@ -5,12 +5,8 @@ import { ModalCategory } from '@/types/order';
 import { useStore } from '../stores';
 
 export const Header = () => {
-  const { setTriggerModal, table, setIsOpenTriggerTable } = useStore();
+  const { setTriggerModal, table } = useStore();
   const { setIsOpen } = useModalStore();
-
-  const onClick = () => {
-    setIsOpenTriggerTable(true);
-  };
 
   const openModal = (modalName: ModalCategory) => {
     setTriggerModal(modalName);
@@ -29,7 +25,7 @@ export const Header = () => {
 
         <span className="text-h5 text-warn">{table.time}</span>
 
-        <Button color="black" className="h-10 w-10 rounded-lg p-1" icon onClick={onClick}>
+        <Button color="black" className="h-10 w-10 rounded-lg p-1" icon onClick={() => openModal('table')}>
           <Icons.Change />
         </Button>
       </div>

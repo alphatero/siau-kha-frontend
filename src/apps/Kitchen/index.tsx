@@ -4,7 +4,7 @@ import { Auth } from '@/components/common';
 const Kitchen: NextPageWithLayout = () => (
   <div>
     <h1>Kitchen</h1>
-    <Auth />
+    <Auth position='right' />
   </div>
 );
 

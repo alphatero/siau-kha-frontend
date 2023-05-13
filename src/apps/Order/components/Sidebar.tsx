@@ -23,8 +23,8 @@ export const Sidebar = () => {
   };
 
   return (
-    <>
-      <ul className="space-y-4 py-8 text-h5">
+    <div className="flex flex-1 flex-col justify-between py-8">
+      <ul className="space-y-4 text-h5">
         {productTags.map((tag, i) => (
           <li key={i}>
             <button
@@ -48,8 +48,10 @@ export const Sidebar = () => {
         ))}
       </ul>
 
-      <Auth />
-    </>
+      <div className="pl-4">
+        <Auth position="left" />
+      </div>
+    </div>
   );
 };
 

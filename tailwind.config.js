@@ -83,6 +83,13 @@ module.exports = {
             fontWeight: '400',
           },
         ],
+        'fs-7': [
+          '12px',
+          {
+            lineHeight: '18px',
+            fontWeight: '400',
+          },
+        ],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -103,9 +110,20 @@ module.exports = {
             opacity: '1',
           },
         },
+        'move-up': {
+          '0%': {
+            transform: 'translateY(100%)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+            opacity: '1',
+          },
+        },
       },
       animation: {
         'scale-up': 'scale-up 0.3s ease-out',
+        'move-up': 'move-up 0.3s ease-out',
       },
     },
   },

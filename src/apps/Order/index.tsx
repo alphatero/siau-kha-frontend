@@ -4,8 +4,7 @@ import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
 import { useStore } from './stores';
 import {
-  Header, Menu, Main,
-  TriggerTableModal, TriggerPromotionModal, TriggerLogModal, TriggerMemoModal, TriggerCheckModal,
+  Header, Menu, Main, Modals,
 } from './components';
 import { useUpdateList } from './hooks/useUpdateList';
 
@@ -17,15 +16,15 @@ const Order: NextPageWithLayout = () => {
   const getCurrentTriggerModal = (openModal: ModalCategory) => {
     switch (openModal) {
       case 'table':
-        return <TriggerTableModal />;
+        return <Modals.Table />;
       case 'promotion':
-        return <TriggerPromotionModal />;
+        return <Modals.Promotion />;
       case 'log':
-        return <TriggerLogModal />;
+        return <Modals.Log />;
       case 'memo':
-        return <TriggerMemoModal />;
+        return <Modals.Memo />;
       case 'check':
-        return <TriggerCheckModal />;
+        return <Modals.Check />;
       default:
         return null;
     }
@@ -44,7 +43,6 @@ const Order: NextPageWithLayout = () => {
       </div>
 
       {isOpen && getCurrentTriggerModal(triggerModal)}
-
     </>
   );
 };

@@ -2,9 +2,9 @@ import { Modal } from '@/components/common';
 import clsx from 'clsx';
 import { TableTypes, TableStatus } from '@/types/order';
 import { useModalStore } from '@/stores/modal';
-import { useStore } from '../stores';
+import { useStore } from '../../stores';
 
-export const TriggerTableModal = () => {
+export const Table = () => {
   const {
     isOpen, setIsOpen,
   } = useModalStore();
@@ -82,4 +82,4 @@ export const TriggerTableModal = () => {
   );
 };
 
-export default TriggerTableModal;
+export default Table;

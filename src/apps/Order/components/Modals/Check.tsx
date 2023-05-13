@@ -1,7 +1,7 @@
 import { Modal } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 
-export const TriggerCheckModal = () => {
+export const Check = () => {
   const {
     isOpen, setIsOpen,
   } = useModalStore();
@@ -18,4 +18,4 @@ export const TriggerCheckModal = () => {
   );
 };
 
-export default TriggerCheckModal;
+export default Check;

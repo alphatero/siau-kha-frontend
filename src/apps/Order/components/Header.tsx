@@ -5,8 +5,8 @@ import { ModalCategory } from '@/types/order';
 import { useStore } from '../stores';
 
 export const Header = () => {
-  const { table, setIsOpenTriggerTable } = useStore();
-  const { setIsOpen, setTriggerModal } = useModalStore();
+  const { setTriggerModal, table, setIsOpenTriggerTable } = useStore();
+  const { setIsOpen } = useModalStore();
 
   const onClick = () => {
     setIsOpenTriggerTable(true);

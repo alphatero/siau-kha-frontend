@@ -2,6 +2,7 @@ import type { NextPageWithLayout } from '@/types';
 import { Loading } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
+import { useStore } from './stores';
 import {
   Header, Menu, Main,
   TriggerTableModal, TriggerPromotionModal, TriggerLogModal, TriggerMemoModal, TriggerCheckModal,
@@ -10,7 +11,8 @@ import { useUpdateList } from './hooks/useUpdateList';
 
 const Order: NextPageWithLayout = () => {
   const { isLoading } = useUpdateList();
-  const { isOpen, triggerModal } = useModalStore();
+  const { isOpen } = useModalStore();
+  const { triggerModal } = useStore();
 
   const getCurrentTriggerModal = (openModal: ModalCategory) => {
     switch (openModal) {

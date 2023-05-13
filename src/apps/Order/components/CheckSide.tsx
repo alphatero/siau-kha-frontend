@@ -2,11 +2,13 @@ import { Button } from '@/components/common';
 import { IconButton } from '@/components/common/IconButton';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
+import { useStore } from '../stores';
 import { CheckSideItem } from './CheckSideItem';
 import { Constants } from '../constants';
 
 export const CheckSide = () => {
-  const { setIsOpen, setTriggerModal } = useModalStore();
+  const { setIsOpen } = useModalStore();
+  const { setTriggerModal } = useStore();
 
   const openModal = (modalName: ModalCategory) => {
     setTriggerModal(modalName);

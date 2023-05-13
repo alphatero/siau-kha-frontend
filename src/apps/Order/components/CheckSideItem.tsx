@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { IconButton } from '@/components/common/IconButton';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
+import { useStore } from '../stores';
 
 type PropsType = {
   name: string;
@@ -15,7 +16,8 @@ export const CheckSideItem = (props: PropsType) => {
     name, price, quantity, note,
   } = props;
 
-  const { setIsOpen, setTriggerModal } = useModalStore();
+  const { setIsOpen } = useModalStore();
+  const { setTriggerModal } = useStore();
 
   const openModal = (modalName: ModalCategory, memoItem: string) => {
     console.log('memoItem', memoItem);

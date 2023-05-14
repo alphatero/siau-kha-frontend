@@ -34,4 +34,22 @@ export type ResDataType = {
   list: TableTypes[];
 }
 
+export type PromotionType = {
+  toggle: boolean;
+  id: number;
+  name: string;
+  discountType: '全單優惠' | '指定商品';
+  charge: {
+    discount: boolean; // 折扣
+    discountPrice?: number; // 打折數 (0.8 = 8折)
+    allowance: boolean; // 折讓
+    allowancePrice?: number; // 折讓的金額 (100 = 100元)
+    chargeProductIds?: number[]; // 指定商品的 id
+  };
+  period: {
+    start: string;
+    end: string;
+  }
+};
+
 export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;

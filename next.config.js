@@ -1,28 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/login',
-        permanent: true,
-      },
-    ];
-  },
-  images: {
-    // for develop mock image from picsum
-    domains: ['picsum.photos'],
-    remotePatterns: [
-      {
-        // https://picsum.photos/200/300
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/:width/:height',
-      },
-    ],
-  },
 };
 
 module.exports = {

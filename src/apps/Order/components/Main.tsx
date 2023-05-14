@@ -39,6 +39,7 @@ export const Main = () => (
                     src={menu.image}
                     alt={menu.name}
                     sizes='100%'
+                    style={{ objectFit: 'cover' }}
                     fill
                   />
                 </div>

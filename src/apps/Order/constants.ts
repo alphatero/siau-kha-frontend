@@ -1,25 +1,8 @@
-import { PromotionType } from '@/types/order';
+import {
+  PromotionType, ProductType, OrderItemType,
+} from '@/types/order';
 
-type tagsType = '套餐' | '肉品' | '沙拉' | '飲料' | '海鮮' | '人氣單點';
-
-type MainProductItemType = {
-  id: number;
-  name: string;
-  type: '單一' | '套餐';
-  tags: tagsType | tagsType[];
-  price: number;
-  image: string;
-  sortNo: number;
-};
-
-type OrderListType = {
-  name: string;
-  price: number;
-  quantity: number;
-  note: string;
-};
-
-const MainProductList: MainProductItemType[] = [
+const MainProductList: ProductType[] = [
   {
     id: 1,
     name: 'A5 日本和牛套餐',
@@ -49,24 +32,66 @@ const MainProductList: MainProductItemType[] = [
   },
 ];
 
-const OrderList: OrderListType[] = [
+const OrderList: OrderItemType[] = [
   {
     name: '豪華全牛套餐',
     price: 1980,
+    tags: '肉品',
     quantity: 1,
-    note: '',
+    note: [
+      {
+        name: '加大',
+        selected: false,
+      },
+      {
+        name: '減量',
+        selected: false,
+      },
+    ],
   },
   {
     name: '澳洲極上牛舌',
     price: 790,
+    tags: '肉品',
     quantity: 1,
-    note: '加大',
+    note: [
+      {
+        name: '加大',
+        selected: true,
+      },
+      {
+        name: '減量',
+        selected: false,
+      },
+    ],
   },
   {
     name: '可爾必思',
     price: 140,
+    tags: '飲料',
     quantity: 1,
-    note: '少冰',
+    note: [
+      {
+        name: '去冰',
+        selected: false,
+      },
+      {
+        name: '微冰',
+        selected: false,
+      },
+      {
+        name: '少冰',
+        selected: true,
+      },
+      {
+        name: '正常冰',
+        selected: false,
+      },
+      {
+        name: '微冰',
+        selected: false,
+      },
+    ],
   },
 ];
 

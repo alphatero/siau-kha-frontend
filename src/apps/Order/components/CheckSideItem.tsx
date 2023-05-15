@@ -8,7 +8,10 @@ type PropsType = {
   name: string;
   price: number;
   quantity: number;
-  note?: string;
+  note: {
+    name: string;
+    selected: boolean;
+  }[],
 }
 
 export const CheckSideItem = (props: PropsType) => {
@@ -19,7 +22,7 @@ export const CheckSideItem = (props: PropsType) => {
   const { setIsOpen } = useModalStore();
   const { setTriggerModal } = useStore();
 
-  const openModal = (modalName: ModalCategory, memoItem: string) => {
+  const openModal = (modalName: ModalCategory, memoItem: PropsType) => {
     console.log('memoItem', memoItem);
     setTriggerModal(modalName);
     setIsOpen(true);
@@ -35,7 +38,9 @@ export const CheckSideItem = (props: PropsType) => {
       <div className='flex w-full justify-between'>
         <div className='flex items-baseline space-x-1'>
           <h6 className="text-h6 text-black/85">{name}</h6>
-          { !!note && <span className="text-fs-6 text-secondary/85">{note}</span> }
+          <span className="text-fs-6 text-secondary/85">
+            {note.map((item) => item.selected && item.name)}
+          </span>
         </div>
         <span className="text-fs-6 text-black">NT${price}</span>
       </div>
@@ -58,7 +63,7 @@ export const CheckSideItem = (props: PropsType) => {
             containerClasses='text-black/50'
             iconClasses='h-6'
             icon='edit'
-            onClick={() => openModal('memo', name)}
+            onClick={() => openModal('memo', props)}
           />
           <IconButton
             containerClasses='text-secondary/85'

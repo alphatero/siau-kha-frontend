@@ -65,3 +65,14 @@ export type ProductType = {
   image: string;
   sortNo: number;
 }
+
+export type OrderItemType = {
+  name: string;
+  price: number;
+  tags: TagsType | TagsType[];
+  quantity: number;
+  note: {
+    name: string;
+    selected: boolean;
+  }[];
+} | null;

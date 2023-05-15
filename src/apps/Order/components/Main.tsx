@@ -1,10 +1,32 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { SearchBar } from '@/components/common';
+import { useEffect } from 'react';
 import { CheckSide } from './CheckSide';
 import { Constants } from '../constants';
+import { useStore } from '../stores';
 
-export const Main = () => (
+export const Main = () => {
+  const { setFilteredProductList, filteredProducts, products } = useStore();
+  // for search bar 模糊搜尋
+  const handleSearch = (searchText: string) => {
+    if (searchText === '') {
+      setFilteredProductList(products);
+      return;
+    }
+    const regex = new RegExp(`^${searchText}`, 'i');
+    const filtered = Constants.MainProductList.filter((menu) => regex.test(menu.name));
+    setFilteredProductList(filtered);
+  };
+
+  useEffect(() => {
+    if (products.length === 0) {
+      return;
+    }
+    setFilteredProductList(products);
+  }, []);
+
+  return (
     <div className={clsx(
       'flex flex-row',
       'h-full space-x-6 bg-highlight pl-6 pr-8',
@@ -18,13 +40,13 @@ export const Main = () => (
           <h2 className="text-h4">套餐</h2>
           <p className="text-fs-6">餐點列表</p>
         </div>
-        <SearchBar placeholder='餐點名稱' />
+        <SearchBar placeholder='餐點名稱' handleSearch={handleSearch} />
         <ul className={clsx(
           'mt-6 max-h-[75vh] overflow-y-auto',
           'flex flex-row flex-wrap items-start justify-between gap-6',
         )}>
           {
-            Constants.MainProductList.map((menu, i) => (
+            filteredProducts.map((menu, i) => (
               <li
                 key={i}
                 className={clsx(
@@ -39,6 +61,7 @@ export const Main = () => (
                     src={menu.image}
                     alt={menu.name}
                     sizes='100%'
+                    style={{ objectFit: 'cover' }}
                     fill
                   />
                 </div>
@@ -51,6 +74,7 @@ export const Main = () => (
       </main>
       <CheckSide />
     </div>
-);
+  );
+};
 
 export default Main;

@@ -4,6 +4,7 @@ import { IconButton } from '@/components/common/IconButton';
 
 type PropsType = {
   placeholder: string;
+  handleSearch: (searchText: string) => void;
 };
 
 type SearchText = {
@@ -11,14 +12,14 @@ type SearchText = {
 };
 
 export const SearchBar = (props: PropsType) => {
-  const { placeholder } = props;
+  const { placeholder, handleSearch } = props;
   const {
     register,
     handleSubmit,
   } = useForm<SearchText>();
 
   const onSubmit: SubmitHandler<SearchText> = (data: SearchText) => {
-    console.log(data);
+    handleSearch(data.content);
   };
 
   return (

@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Image from 'next/image';
-import { SearchLabel } from '@/components/common';
+import { SearchBar } from '@/components/common';
 import { CheckSide } from './CheckSide';
 import { Constants } from '../constants';
 
@@ -18,7 +18,7 @@ export const Main = () => (
           <h2 className="text-h4">套餐</h2>
           <p className="text-fs-6">餐點列表</p>
         </div>
-        <SearchLabel placeholder='餐點名稱' />
+        <SearchBar placeholder='餐點名稱' />
         <ul className={clsx(
           'mt-6 max-h-[75vh] overflow-y-auto',
           'flex flex-row flex-wrap items-start justify-between gap-6',

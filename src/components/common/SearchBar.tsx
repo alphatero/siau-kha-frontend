@@ -10,7 +10,7 @@ type SearchText = {
   content: string;
 };
 
-export const SearchLabel = (props: PropsType) => {
+export const SearchBar = (props: PropsType) => {
   const { placeholder } = props;
   const {
     register,
@@ -31,7 +31,7 @@ export const SearchLabel = (props: PropsType) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <input
-        id="searchLabel"
+        id="searchBar"
         type="text"
         className='flex-1 border-none px-0 py-3 focus:ring-transparent'
         placeholder={placeholder}
@@ -45,4 +45,4 @@ export const SearchLabel = (props: PropsType) => {
   );
 };
 
-export default SearchLabel;
+export default SearchBar;

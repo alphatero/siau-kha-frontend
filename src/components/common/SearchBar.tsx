@@ -4,21 +4,22 @@ import { IconButton } from '@/components/common/IconButton';
 
 type PropsType = {
   placeholder: string;
+  handleSearch: (searchText: string) => void;
 };
 
 type SearchText = {
   content: string;
 };
 
-export const SearchLabel = (props: PropsType) => {
-  const { placeholder } = props;
+export const SearchBar = (props: PropsType) => {
+  const { placeholder, handleSearch } = props;
   const {
     register,
     handleSubmit,
   } = useForm<SearchText>();
 
   const onSubmit: SubmitHandler<SearchText> = (data: SearchText) => {
-    console.log(data);
+    handleSearch(data.content);
   };
 
   return (
@@ -45,4 +46,4 @@ export const SearchLabel = (props: PropsType) => {
   );
 };
 
-export default SearchLabel;
+export default SearchBar;

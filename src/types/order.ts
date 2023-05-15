@@ -35,3 +35,15 @@ export type ResDataType = {
 }
 
 export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;
+
+export type TagsType = '套餐' | '肉品' | '沙拉' | '飲料' | '海鮮' | '人氣單點';
+
+export type ProductType = {
+  id: number;
+  name: string;
+  type: '單一' | '套餐';
+  tags: TagsType | TagsType[];
+  price: number;
+  image: string;
+  sortNo: number;
+}

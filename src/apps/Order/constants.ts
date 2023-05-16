@@ -32,69 +32,6 @@ const MainProductList: ProductType[] = [
   },
 ];
 
-const OrderList: OrderItemType[] = [
-  {
-    name: '豪華全牛套餐',
-    price: 1980,
-    tags: '肉品',
-    quantity: 1,
-    note: [
-      {
-        name: '加大',
-        selected: false,
-      },
-      {
-        name: '減量',
-        selected: false,
-      },
-    ],
-  },
-  {
-    name: '澳洲極上牛舌',
-    price: 790,
-    tags: '肉品',
-    quantity: 1,
-    note: [
-      {
-        name: '加大',
-        selected: true,
-      },
-      {
-        name: '減量',
-        selected: false,
-      },
-    ],
-  },
-  {
-    name: '可爾必思',
-    price: 140,
-    tags: '飲料',
-    quantity: 1,
-    note: [
-      {
-        name: '去冰',
-        selected: false,
-      },
-      {
-        name: '微冰',
-        selected: false,
-      },
-      {
-        name: '少冰',
-        selected: true,
-      },
-      {
-        name: '正常冰',
-        selected: false,
-      },
-      {
-        name: '微冰',
-        selected: false,
-      },
-    ],
-  },
-];
-
 const PromotionList: PromotionType[] = [
   {
     toggle: false,
@@ -131,7 +68,6 @@ const PromotionList: PromotionType[] = [
 
 export const Constants = {
   MainProductList,
-  OrderList,
   PromotionList,
 };
 

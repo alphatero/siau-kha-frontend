@@ -118,15 +118,17 @@ export const useStore = create<State>((set) => ({
           name: '正常冰',
           selected: false,
         },
-        {
-          name: '微冰',
-          selected: false,
-        },
       ],
     },
   ],
 
-  orderItem: null,
+  orderItem: {
+    name: '',
+    price: 0,
+    tags: '人氣單點',
+    quantity: 1,
+    note: [],
+  },
 
   setTable: (table) => set({ table }),
 

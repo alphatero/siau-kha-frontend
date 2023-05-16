@@ -4,11 +4,10 @@ import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
 import { useStore } from '../stores';
 import { CheckSideItem } from './CheckSideItem';
-import { Constants } from '../constants';
 
 export const CheckSide = () => {
   const { setIsOpen } = useModalStore();
-  const { setTriggerModal } = useStore();
+  const { setTriggerModal, orderList } = useStore();
 
   const openModal = (modalName: ModalCategory) => {
     setTriggerModal(modalName);
@@ -21,11 +20,12 @@ export const CheckSide = () => {
         <h2 className="text-h4 text-primary">點餐紀錄</h2>
         <ul className='mt-4 space-y-3'>
           {
-            Constants.OrderList.map((order, i) => (
+            orderList.map((order, i) => (
               <CheckSideItem
                 key={i}
                 name={order.name}
                 price={order.price}
+                tags={order.tags}
                 quantity={order.quantity}
                 note={order.note}
               />

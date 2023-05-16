@@ -75,4 +75,4 @@ export type OrderItemType = {
     name: string;
     selected: boolean;
   }[];
-} | null;
+};

@@ -4,6 +4,7 @@ import {
   TableStatus, TableTypes, ResDataType, ResType, ResTableType,
 } from '@/types/order';
 import dayjs from 'dayjs';
+import { cookies } from '@/utils/cookies';
 
 const toTableStatus = (status: string): TableStatus => {
   switch (status) {
@@ -39,8 +40,7 @@ const toTable = (data: ResTableType) => ({
 
 export const fetchTable = async (): Promise<ResDataType> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-  const { token } = JSON.parse(localStorage.getItem('auth-storage') ?? '').state;
+  const { token } = cookies.get('user');
 
   try {
     const res: AxiosResponse<ResType> = await axios.get(

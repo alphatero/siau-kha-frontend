@@ -1,29 +1,22 @@
 import clsx from 'clsx';
 import { IconButton } from '@/components/common/IconButton';
 import { useModalStore } from '@/stores/modal';
-import { ModalCategory } from '@/types/order';
+import { ModalCategory, OrderItemType } from '@/types/order';
 import { useStore } from '../stores';
 
-type PropsType = {
-  name: string;
-  price: number;
-  quantity: number;
-  note: {
-    name: string;
-    selected: boolean;
-  }[],
-}
-
-export const CheckSideItem = (props: PropsType) => {
+export const CheckSideItem = (props: OrderItemType) => {
   const {
     name, price, quantity, note,
   } = props;
 
   const { setIsOpen } = useModalStore();
-  const { setTriggerModal } = useStore();
+  const { setTriggerModal, setOrderItem } = useStore();
 
-  const openModal = (modalName: ModalCategory, memoItem: PropsType) => {
-    console.log('memoItem', memoItem);
+  const handleClick = (
+    modalName: ModalCategory,
+    memoItem: OrderItemType = props,
+  ) => {
+    setOrderItem(memoItem);
     setTriggerModal(modalName);
     setIsOpen(true);
   };
@@ -63,7 +56,7 @@ export const CheckSideItem = (props: PropsType) => {
             containerClasses='text-black/50'
             iconClasses='h-6'
             icon='edit'
-            onClick={() => openModal('memo', props)}
+            onClick={() => handleClick('memo')}
           />
           <IconButton
             containerClasses='text-secondary/85'

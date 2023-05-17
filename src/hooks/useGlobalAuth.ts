@@ -1,14 +1,18 @@
 import useAuthStore from '@/stores/auth';
 import { useRouter } from 'next/router';
 import { Role } from '@/types/user';
+import { useCookies } from 'react-cookie';
 
 export const useGlobalAuth = () => {
-  const { user, isLoading, logout } = useAuthStore();
+  const [cookies] = useCookies(['user']);
+  const {
+    user, setUser, setToken, isLoading, logout,
+  } = useAuthStore();
   const router = useRouter();
 
-  const { role } = user;
-
   const checkPage = () => {
+    const { role } = cookies.user;
+
     switch (role) {
       case Role.waiter:
         return '/order';
@@ -23,8 +27,22 @@ export const useGlobalAuth = () => {
     }
   };
 
-  const onRoute = () => {
-    router.push(checkPage());
+  const checkCookies = () => {
+    if (!cookies.user) {
+      return router.push('/login');
+    }
+
+    setUser({
+      name: cookies.user.name,
+      role: cookies.user.role,
+    });
+
+    setToken(cookies.user.token);
+    return router.push(checkPage());
+  };
+
+  const onRoute = async () => {
+    checkCookies();
   };
 
   return {

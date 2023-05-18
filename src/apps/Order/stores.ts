@@ -1,19 +1,21 @@
 import { create } from 'zustand';
 import {
-  ModalCategory, TableStatus, TableTypes, ProductType,
+  ModalCategory, TableStatus, TableType, ProductType, TagType,
 } from '@/types/order';
 
 type State = {
-  table: TableTypes;
-  list: TableTypes[];
+  table: TableType;
+  list: TableType[];
   products: ProductType[];
   filteredProducts: ProductType[];
   triggerModal: ModalCategory;
+  tags: TagType[];
   setTable: (table: State['table']) => void;
   setList: (list: State['list']) => void;
   setProducts: (products: State['products']) => void;
   setTriggerModal: (triggerModal: State['triggerModal']) => void;
   setFilteredProductList: (filteredProducts: State['filteredProducts']) => void;
+  setTags: (tags: State['tags']) => void;
 }
 
 export const useStore = create<State>((set) => ({
@@ -24,6 +26,8 @@ export const useStore = create<State>((set) => ({
   },
 
   list: [],
+
+  tags: [],
 
   products: [
     {
@@ -68,6 +72,8 @@ export const useStore = create<State>((set) => ({
   setProducts: (products) => set({ products }),
 
   setFilteredProductList: (filteredProducts) => set({ filteredProducts }),
+
+  setTags: (tags) => set({ tags }),
 }));
 
 export default useStore;

@@ -3,7 +3,7 @@ export enum TableStatus {
   MEAL = '用餐中',
 }
 
-export type TableTypes = {
+export type TableType = {
   name: string;
   status: TableStatus;
   time: string;
@@ -22,16 +22,14 @@ export type ResTableType = {
   is_pay?: boolean;
 }
 
-export type ResType = {
+export type ResType<T> = {
   status: 'success'
   message: string;
-  data: {
-    table_list: ResTableType[]
-  }
+  data: T
 }
 
-export type ResDataType = {
-  list: TableTypes[];
+export type ResDataType<T> = {
+  list: T;
 }
 
 export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;
@@ -45,5 +43,17 @@ export type ProductType = {
   tags: TagsType | TagsType[];
   price: number;
   image: string;
+  sortNo: number;
+}
+
+export type ResTagType = {
+  id: string;
+  tag_name: string;
+  sort_no: number;
+}
+
+export type TagType = {
+  id: string;
+  name: string;
   sortNo: number;
 }

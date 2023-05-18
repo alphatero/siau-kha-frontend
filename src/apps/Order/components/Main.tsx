@@ -14,7 +14,7 @@ export const Main = () => {
       setFilteredProductList(products);
       return;
     }
-    const regex = new RegExp(`^${searchText}`, 'i');
+    const regex = new RegExp(`${searchText}`, 'i');
     const filtered = Constants.MainProductList.filter((menu) => regex.test(menu.name));
     setFilteredProductList(filtered);
   };

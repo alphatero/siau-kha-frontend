@@ -38,7 +38,7 @@ export const Memo = () => {
       onClose={() => setIsOpen(false)}
     >
       <fieldset className="flex flex-col justify-around">
-        <legend className='mx-auto mb-5 text-h4'>優惠活動</legend>
+        <legend className='mx-auto mb-5 text-h4'>註記</legend>
         <ul className='text-fs-6 text-black/85'>
           {
             orderItem.note.map((noteItem, idx) => (

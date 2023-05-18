@@ -1,6 +1,6 @@
 import { Modal } from '@/components/common';
 import clsx from 'clsx';
-import { TableTypes, TableStatus } from '@/types/order';
+import { TableType, TableStatus } from '@/types/order';
 import { useModalStore } from '@/stores/modal';
 import { useStore } from '../../stores';
 
@@ -13,7 +13,7 @@ export const Table = () => {
     setTable, list,
   } = useStore();
 
-  const onChangeTable = (table: TableTypes) => {
+  const onChangeTable = (table: TableType) => {
     setTable(table);
     setIsOpen(false);
   };

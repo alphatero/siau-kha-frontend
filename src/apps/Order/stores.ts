@@ -10,6 +10,9 @@ type State = {
   filteredProducts: ProductType[];
   triggerModal: ModalCategory;
   tags: TagType[];
+}
+
+type Action = {
   setTable: (table: State['table']) => void;
   setList: (list: State['list']) => void;
   setProducts: (products: State['products']) => void;
@@ -18,17 +21,20 @@ type State = {
   setTags: (tags: State['tags']) => void;
 }
 
-export const useStore = create<State>((set) => ({
+const defaultState: State = {
   table: {
     name: 'A1',
     status: TableStatus.IDEL,
     time: '0',
   },
-
   list: [],
-
-  tags: [],
-
+  tags: [
+    {
+      id: '1',
+      name: '',
+      sortNo: 1,
+    },
+  ],
   products: [
     {
       id: 1,
@@ -58,10 +64,12 @@ export const useStore = create<State>((set) => ({
       sortNo: 9,
     },
   ],
-
   filteredProducts: [],
-
   triggerModal: null,
+};
+
+export const useStore = create<State & Action>((set) => ({
+  ...defaultState,
 
   setTable: (table) => set({ table }),
 

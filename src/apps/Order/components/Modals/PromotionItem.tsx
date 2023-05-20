@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 import { PromotionType } from '@/types/order';
-import { Checkbox } from 'flowbite-react';
+import { Radio } from 'flowbite-react';
 
 export const PromotionItem = (props: {
   item: PromotionType;
@@ -10,7 +10,6 @@ export const PromotionItem = (props: {
   const [checked, setChecked] = useState(false);
   const handleClick = (clickId: number) => {
     setChecked(!checked);
-    console.log(clickId);
   };
 
   return (
@@ -21,7 +20,7 @@ export const PromotionItem = (props: {
       )}
       onClick={() => handleClick(item.id)}
     >
-      <Checkbox
+      <Radio
         className='mt-1 h-4 w-4 checked:bg-primary'
         checked={checked}
       />

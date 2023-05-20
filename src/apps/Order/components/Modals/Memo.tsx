@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button, Modal } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
-import { Checkbox } from 'flowbite-react';
+import { Radio } from 'flowbite-react';
 import { useStore } from '../../stores';
 
 export const Memo = () => {
@@ -26,7 +26,6 @@ export const Memo = () => {
 
   useEffect(() => {
     const selectNote = orderItem.note.filter((item) => item.selected);
-    console.log('selectNote', selectNote);
     if (selectNote.length) {
       setCheckedMemo(selectNote[0].name);
     }
@@ -49,7 +48,7 @@ export const Memo = () => {
                   'border-t border-black/10 last:border-y',
                 )}
               >
-                <Checkbox
+                <Radio
                   className='mr-11 h-4 w-4 checked:bg-primary'
                   checked={checkedMemo === noteItem.name}
                   onChange={() => handleClick(noteItem.name)}

@@ -26,9 +26,7 @@ export const Memo = () => {
 
   useEffect(() => {
     const selectNote = orderItem.note.filter((item) => item.selected);
-    if (selectNote.length) {
-      setCheckedMemo(selectNote[0].name);
-    }
+    setCheckedMemo(selectNote[0]?.name);
   }, []);
 
   return (

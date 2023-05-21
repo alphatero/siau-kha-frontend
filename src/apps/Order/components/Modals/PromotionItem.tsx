@@ -13,7 +13,7 @@ export const PromotionItem = (props: {
   };
 
   return (
-    <li
+    <label
       className={clsx(
         'flex items-start justify-around space-x-10 px-5 py-3',
         'cursor-pointer border-t border-black/10 last:border-y',
@@ -42,7 +42,7 @@ export const PromotionItem = (props: {
         }
         <p className='text-black/50'>{item.period.start}-{item.period.end}</p>
       </div>
-    </li>
+    </label>
   );
 };
 

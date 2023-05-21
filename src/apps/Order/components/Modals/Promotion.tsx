@@ -24,13 +24,13 @@ export const Promotion = () => {
     >
       <fieldset className="flex flex-col justify-around">
         <legend className='mx-auto mb-4 text-h4'>優惠活動</legend>
-        <ul className='text-fs-6 text-black/85'>
+        <div className='text-fs-6 text-black/85'>
           {
             Constants.PromotionList.map((item) => (
               <PromotionItem key={item.id} item={item} />
             ))
           }
-        </ul>
+        </div>
         <div className='absolute inset-x-0 bottom-0 mb-6 px-6'>
           <Button
             className='w-full py-2'

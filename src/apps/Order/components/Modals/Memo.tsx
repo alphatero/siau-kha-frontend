@@ -38,10 +38,10 @@ export const Memo = () => {
     >
       <fieldset className="flex flex-col justify-around">
         <legend className='mx-auto mb-5 text-h4'>註記</legend>
-        <ul className='text-fs-6 text-black/85'>
+        <div className='text-fs-6 text-black/85'>
           {
             orderItem.note.map((noteItem, idx) => (
-              <li
+              <label
                 key={idx}
                 className={clsx(
                   'flex items-center justify-start py-2',
@@ -54,10 +54,10 @@ export const Memo = () => {
                   onChange={() => handleClick(noteItem.name)}
                 />
                 <span>{noteItem.name}</span>
-              </li>
+              </label>
             ))
           }
-        </ul>
+        </div>
         <div className={clsx(
           'flex justify-between space-x-4 py-2',
           'border-b border-black/10 text-fs-6',

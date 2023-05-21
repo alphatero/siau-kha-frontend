@@ -11,6 +11,7 @@ type State = {
   triggerModal: ModalCategory;
   orderList: OrderItemType[];
   orderItem: OrderItemType;
+  selectedPromotionId: string;
   setTable: (table: State['table']) => void;
   setList: (list: State['list']) => void;
   setProducts: (products: State['products']) => void;
@@ -18,6 +19,7 @@ type State = {
   setFilteredProductList: (filteredProducts: State['filteredProducts']) => void;
   setOrderList: (orderList: State['orderList']) => void;
   setOrderItem: (orderItem: State['orderItem']) => void;
+  setSelectedPromotionId: (selectedPromotionId: State['selectedPromotionId']) => void;
 }
 
 export const useStore = create<State>((set) => ({
@@ -130,6 +132,8 @@ export const useStore = create<State>((set) => ({
     note: [],
   },
 
+  selectedPromotionId: '',
+
   setTable: (table) => set({ table }),
 
   setList: (list) => set({ list }),
@@ -143,6 +147,8 @@ export const useStore = create<State>((set) => ({
   setOrderList: (orderList) => set({ orderList }),
 
   setOrderItem: (orderItem) => set({ orderItem }),
+
+  setSelectedPromotionId: (selectedPromotionId) => set({ selectedPromotionId }),
 }));
 
 export default useStore;

@@ -35,7 +35,7 @@ const MainProductList: ProductType[] = [
 const PromotionList: PromotionType[] = [
   {
     toggle: false,
-    id: 1,
+    id: '1',
     name: '生日優惠',
     discountType: '全單優惠',
     charge: {
@@ -50,7 +50,7 @@ const PromotionList: PromotionType[] = [
   },
   {
     toggle: false,
-    id: 2,
+    id: '2',
     name: '打卡優惠',
     discountType: '指定商品',
     charge: {

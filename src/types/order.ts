@@ -36,7 +36,7 @@ export type ResDataType = {
 
 export type PromotionType = {
   toggle: boolean;
-  id: number;
+  id: string;
   name: string;
   discountType: '全單優惠' | '指定商品';
   charge: {

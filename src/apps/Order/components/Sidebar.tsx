@@ -1,53 +1,41 @@
 import clsx from 'clsx';
 import { Icons } from '@/components/common';
 import { useState } from 'react';
-import { Auth } from '../../../components/common/Auth';
-
-const productTags = [
-  {
-    tag_name: '套餐',
-  },
-  {
-    tag_name: '肉品',
-  },
-  {
-    tag_name: '沙拉',
-  },
-];
+import { Auth } from '@/components/common/Auth';
+import { useProducts } from '../hooks/useUpdateProducts';
 
 export const Sidebar = () => {
-  const [currentTag, setCurrentTag] = useState(productTags[0].tag_name);
+  const { isLoading, tags } = useProducts();
+  const [currentTag, setCurrentTag] = useState(1);
 
-  const onClick = (tag: string) => {
+  const onClick = (tag: number) => {
     setCurrentTag(tag);
   };
 
   return (
     <div className="flex flex-1 flex-col justify-between py-8">
       <ul className="space-y-4 text-h5">
-        {productTags.map((tag, i) => (
-          <li key={i}>
-            <button
-              className={clsx(
-                'flex w-full space-x-3 px-4',
-                currentTag === tag.tag_name
-                  && 'border-r border-secondary text-secondary',
-              )}
-              onClick={() => onClick(tag.tag_name)}
-            >
-              <span className="w-[7px]">
-                <Icons.Fork
+          {isLoading || tags.map((tag, i) => (
+              <li key={i}>
+                <button
                   className={clsx(
-                    currentTag === tag.tag_name ? 'block' : 'hidden',
+                    'flex w-full space-x-3 px-4',
+                    currentTag === tag.sortNo
+                      && 'border-r border-secondary text-secondary',
                   )}
-                />
-              </span>
-              <span>{tag.tag_name}</span>
-            </button>
-          </li>
-        ))}
+                  onClick={() => onClick(tag.sortNo)}
+                >
+                  <span className="w-[7px]">
+                    <Icons.Fork
+                      className={clsx(
+                        currentTag === tag.sortNo ? 'block' : 'hidden',
+                      )}
+                    />
+                  </span>
+                  <span>{tag.name}</span>
+                </button>
+              </li>))}
       </ul>
-
       <div className="pl-4">
         <Auth position="left" />
       </div>

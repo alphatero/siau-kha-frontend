@@ -2,11 +2,19 @@ import { create } from 'zustand';
 
 type State = {
   isOpen: boolean;
+}
+
+type Action = {
   setIsOpen: (isOpen: State['isOpen']) => void;
 }
 
-export const useModalStore = create<State>((set) => ({
+const defaultState: State = {
   isOpen: false,
+};
+
+export const useModalStore = create<State & Action>((set) => ({
+  ...defaultState,
+
   setIsOpen: (isOpen) => set({ isOpen }),
 }));
 

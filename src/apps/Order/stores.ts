@@ -1,30 +1,40 @@
 import { create } from 'zustand';
 import {
-  ModalCategory, TableStatus, TableTypes, ProductType,
+  ModalCategory, TableStatus, TableType, ProductType, TagType,
 } from '@/types/order';
 
 type State = {
-  table: TableTypes;
-  list: TableTypes[];
+  table: TableType;
+  list: TableType[];
   products: ProductType[];
   filteredProducts: ProductType[];
   triggerModal: ModalCategory;
+  tags: TagType[];
+}
+
+type Action = {
   setTable: (table: State['table']) => void;
   setList: (list: State['list']) => void;
   setProducts: (products: State['products']) => void;
   setTriggerModal: (triggerModal: State['triggerModal']) => void;
   setFilteredProductList: (filteredProducts: State['filteredProducts']) => void;
+  setTags: (tags: State['tags']) => void;
 }
 
-export const useStore = create<State>((set) => ({
+const defaultState: State = {
   table: {
     name: 'A1',
     status: TableStatus.IDEL,
     time: '0',
   },
-
   list: [],
-
+  tags: [
+    {
+      id: '1',
+      name: '',
+      sortNo: 1,
+    },
+  ],
   products: [
     {
       id: 1,
@@ -54,10 +64,12 @@ export const useStore = create<State>((set) => ({
       sortNo: 9,
     },
   ],
-
   filteredProducts: [],
-
   triggerModal: null,
+};
+
+export const useStore = create<State & Action>((set) => ({
+  ...defaultState,
 
   setTable: (table) => set({ table }),
 
@@ -68,6 +80,8 @@ export const useStore = create<State>((set) => ({
   setProducts: (products) => set({ products }),
 
   setFilteredProductList: (filteredProducts) => set({ filteredProducts }),
+
+  setTags: (tags) => set({ tags }),
 }));
 
 export default useStore;

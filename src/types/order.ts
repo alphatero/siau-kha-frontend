@@ -32,6 +32,24 @@ export type ResDataType<T> = {
   list: T;
 }
 
+export type PromotionType = {
+  toggle: boolean;
+  id: string;
+  name: string;
+  discountType: '全單優惠' | '指定商品';
+  charge: {
+    discount: boolean; // 折扣
+    discountPrice?: number; // 打折數 (0.8 = 8折)
+    allowance: boolean; // 折讓
+    allowancePrice?: number; // 折讓的金額 (100 = 100元)
+    chargeProductIds?: number[]; // 指定商品的 id
+  };
+  period: {
+    start: string;
+    end: string;
+  }
+};
+
 export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;
 
 export type TagsType = '套餐' | '肉品' | '沙拉' | '飲料' | '海鮮' | '人氣單點';
@@ -45,6 +63,17 @@ export type ProductType = {
   image: string;
   sortNo: number;
 }
+
+export type OrderItemType = {
+  name: string;
+  price: number;
+  tags: TagsType | TagsType[];
+  quantity: number;
+  note: {
+    name: string;
+    selected: boolean;
+  }[];
+};
 
 export type ResTagType = {
   id: string;

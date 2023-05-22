@@ -1,23 +1,8 @@
-type tagsType = '套餐' | '肉品' | '沙拉' | '飲料' | '海鮮' | '人氣單點';
+import {
+  PromotionType, ProductType, OrderItemType,
+} from '@/types/order';
 
-type MainProductItemType = {
-  id: number;
-  name: string;
-  type: '單一' | '套餐';
-  tags: tagsType | tagsType[];
-  price: number;
-  image: string;
-  sortNo: number;
-};
-
-type OrderListType = {
-  name: string;
-  price: number;
-  quantity: number;
-  note: string;
-};
-
-const MainProductList: MainProductItemType[] = [
+const MainProductList: ProductType[] = [
   {
     id: 1,
     name: 'A5 日本和牛套餐',
@@ -47,30 +32,43 @@ const MainProductList: MainProductItemType[] = [
   },
 ];
 
-const OrderList: OrderListType[] = [
+const PromotionList: PromotionType[] = [
   {
-    name: '豪華全牛套餐',
-    price: 1980,
-    quantity: 1,
-    note: '',
+    toggle: false,
+    id: '1',
+    name: '生日優惠',
+    discountType: '全單優惠',
+    charge: {
+      discount: true,
+      discountPrice: 0.8,
+      allowance: false,
+    },
+    period: {
+      start: '2023/01/01',
+      end: '2023/12/31',
+    },
   },
   {
-    name: '澳洲極上牛舌',
-    price: 790,
-    quantity: 1,
-    note: '加大',
-  },
-  {
-    name: '可爾必思',
-    price: 140,
-    quantity: 1,
-    note: '少冰',
+    toggle: false,
+    id: '2',
+    name: '打卡優惠',
+    discountType: '指定商品',
+    charge: {
+      discount: false,
+      allowance: true,
+      allowancePrice: 100,
+      chargeProductIds: [1, 2, 3],
+    },
+    period: {
+      start: '2023/05/01',
+      end: '2023/08/31',
+    },
   },
 ];
 
 export const Constants = {
   MainProductList,
-  OrderList,
+  PromotionList,
 };
 
 export default Constants;

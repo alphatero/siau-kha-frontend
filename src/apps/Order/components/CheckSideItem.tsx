@@ -1,26 +1,22 @@
 import clsx from 'clsx';
 import { IconButton } from '@/components/common/IconButton';
 import { useModalStore } from '@/stores/modal';
-import { ModalCategory } from '@/types/order';
+import { ModalCategory, OrderItemType } from '@/types/order';
 import { useStore } from '../stores';
 
-type PropsType = {
-  name: string;
-  price: number;
-  quantity: number;
-  note?: string;
-}
-
-export const CheckSideItem = (props: PropsType) => {
+export const CheckSideItem = (props: OrderItemType) => {
   const {
     name, price, quantity, note,
   } = props;
 
   const { setIsOpen } = useModalStore();
-  const { setTriggerModal } = useStore();
+  const { setTriggerModal, setOrderItem } = useStore();
 
-  const openModal = (modalName: ModalCategory, memoItem: string) => {
-    console.log('memoItem', memoItem);
+  const handleClick = (
+    modalName: ModalCategory,
+    memoItem: OrderItemType = props,
+  ) => {
+    setOrderItem(memoItem);
     setTriggerModal(modalName);
     setIsOpen(true);
   };
@@ -35,7 +31,9 @@ export const CheckSideItem = (props: PropsType) => {
       <div className='flex w-full justify-between'>
         <div className='flex items-baseline space-x-1'>
           <h6 className="text-h6 text-black/85">{name}</h6>
-          { !!note && <span className="text-fs-6 text-secondary/85">{note}</span> }
+          <span className="text-fs-6 text-secondary/85">
+            {note.map((item) => item.selected && item.name)}
+          </span>
         </div>
         <span className="text-fs-6 text-black">NT${price}</span>
       </div>
@@ -58,7 +56,7 @@ export const CheckSideItem = (props: PropsType) => {
             containerClasses='text-black/50'
             iconClasses='h-6'
             icon='edit'
-            onClick={() => openModal('memo', name)}
+            onClick={() => handleClick('memo')}
           />
           <IconButton
             containerClasses='text-secondary/85'

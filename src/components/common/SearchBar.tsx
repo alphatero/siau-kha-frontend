@@ -32,7 +32,7 @@ export const SearchBar = (props: PropsType) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <input
-        id="searchLabel"
+        id="searchBar"
         type="text"
         className='flex-1 border-none px-0 py-3 focus:ring-transparent'
         placeholder={placeholder}

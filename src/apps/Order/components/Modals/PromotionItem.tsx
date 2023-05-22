@@ -20,16 +20,16 @@ export const PromotionItem = (props: {
         'cursor-pointer border-t border-black/10 last:border-y',
       )}
     >
-      <Radio
-        className='mt-1 h-4 w-4 checked:bg-primary'
-        onChange={() => handleClick(item.id)}
-        checked={selectedPromotionId === item.id}
-      />
-      <div className='flex space-x-5'>
-        <p>{item.name}</p>
-        <p>{item.discountType}</p>
+      <div className='flex flex-1'>
+        <Radio
+          className='mt-1 h-4 w-4 checked:bg-primary'
+          onChange={() => handleClick(item.id)}
+          checked={selectedPromotionId === item.id}
+        />
+        <p className='mx-5'>{item.name}</p>
+        <p className='ml-auto'>{item.discountType}</p>
       </div>
-      <div>
+      <div className='flex-none'>
         {
           item.charge.discount ? (
             <p>折扣<span className='ml-2 text-secondary'>
@@ -41,7 +41,7 @@ export const PromotionItem = (props: {
             </span></p>
           )
         }
-        <p className='text-black/50'>{item.period.start}-{item.period.end}</p>
+        <p className='whitespace-nowrap text-black/50'>{item.period.start}-{item.period.end}</p>
       </div>
     </label>
   );

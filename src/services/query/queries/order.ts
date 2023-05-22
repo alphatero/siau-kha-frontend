@@ -8,6 +8,9 @@ export const schema = {
   tags: {
     fn: api.fetchProductTag,
   },
+  promotions: {
+    fn: api.fetchPromotions,
+  },
 } as const;
 
 export const queries = createQueries(schema);

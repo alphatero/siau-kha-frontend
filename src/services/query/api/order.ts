@@ -1,10 +1,73 @@
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import {
-  TableStatus, TableType, ResDataType, ResType, ResTableType, ResTagType, TagType,
+  TableStatus, TableType, ResDataType, ResType, ResTableType, ResTagType, TagType, ActivityType, PromotionType, PromotionDiscountType,
 } from '@/types/order';
 import dayjs from 'dayjs';
 import { cookies } from '@/utils/cookies';
+
+const toDiscountType = (discountType: string): PromotionDiscountType => {
+  switch (discountType) {
+    case '0':
+      return PromotionDiscountType.ALL;
+    case '1':
+      return PromotionDiscountType.PRODUCT;
+    default:
+      return PromotionDiscountType.ALL;
+  }
+};
+
+const toPromotions = (data: ActivityType): PromotionType => ({
+  toggle: false,
+  id: data.id,
+  name: data.activities_name,
+  discountType: toDiscountType(data.discount_type),
+  charge: {
+    discount: data.charge_type === '0', // 折扣
+    discountPrice: data.discount, // 打折數 (0.8 = 8折)
+    allowance: data.charge_type === '1', // 折讓
+    allowancePrice: data.discount, // 折讓的金額 (100 = 100元)
+    chargeProductIds: data.act_products_list, // 指定商品的 id
+  },
+  period: {
+    start: data.start_time,
+    end: data.end_time,
+  },
+});
+
+export const fetchPromotions = async (): Promise<{
+  promotions: PromotionType[]
+}> => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const { token } = cookies.get('user');
+
+  try {
+    const res: AxiosResponse<{
+      status: 'success'
+      message: string;
+      data: {
+        activities: ActivityType[]
+      }
+    }> = await axios.get(
+      `${apiUrl}/activities/list`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const { data } = res;
+    const activities = data.data.activities ?? [];
+
+    const promotions: PromotionType[] = activities.map((activity) => toPromotions(activity));
+
+    return {
+      promotions,
+    };
+  } catch (error:unknown) {
+    throw new Error('fetchTable failed');
+  }
+};
 
 const toTableStatus = (status: string): TableStatus => {
   switch (status) {

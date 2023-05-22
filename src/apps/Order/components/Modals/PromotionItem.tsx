@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { PromotionType } from '@/types/order';
 import { Radio } from 'flowbite-react';
-import useStore from '../../stores';
+import { useStore } from '../../stores';
 
 export const PromotionItem = (props: {
   item: PromotionType;

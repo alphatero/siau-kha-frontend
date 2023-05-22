@@ -6,6 +6,11 @@ import {
 import dayjs from 'dayjs';
 import { cookies } from '@/utils/cookies';
 
+const convertTime = (time: string, formatSpec: string): string => {
+  const date = dayjs(time);
+  return date.format(formatSpec);
+};
+
 const toDiscountType = (discountType: string): PromotionDiscountType => {
   switch (discountType) {
     case '0':
@@ -30,8 +35,8 @@ const toPromotions = (data: ActivityType): PromotionType => ({
     chargeProductIds: data.act_products_list, // 指定商品的 id
   },
   period: {
-    start: data.start_time,
-    end: data.end_time,
+    start: convertTime(data.start_time, 'YYYY/MM/DD'),
+    end: convertTime(data.end_time, 'YYYY/MM/DD'),
   },
 });
 

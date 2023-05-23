@@ -1,5 +1,5 @@
 import {
-  PromotionType, ProductType, OrderItemType,
+  ProductType,
 } from '@/types/order';
 
 const MainProductList: ProductType[] = [
@@ -32,43 +32,8 @@ const MainProductList: ProductType[] = [
   },
 ];
 
-const PromotionList: PromotionType[] = [
-  {
-    toggle: false,
-    id: '1',
-    name: '生日優惠',
-    discountType: '全單優惠',
-    charge: {
-      discount: true,
-      discountPrice: 0.8,
-      allowance: false,
-    },
-    period: {
-      start: '2023/01/01',
-      end: '2023/12/31',
-    },
-  },
-  {
-    toggle: false,
-    id: '2',
-    name: '打卡優惠',
-    discountType: '指定商品',
-    charge: {
-      discount: false,
-      allowance: true,
-      allowancePrice: 100,
-      chargeProductIds: [1, 2, 3],
-    },
-    period: {
-      start: '2023/05/01',
-      end: '2023/08/31',
-    },
-  },
-];
-
 export const Constants = {
   MainProductList,
-  PromotionList,
 };
 
 export default Constants;

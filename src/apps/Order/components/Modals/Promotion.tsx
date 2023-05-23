@@ -2,7 +2,6 @@ import { Button, Modal } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
 import { useStore } from '../../stores';
-import { Constants } from '../../constants';
 import { PromotionItem } from './PromotionItem';
 
 export const Promotion = () => {
@@ -10,7 +9,7 @@ export const Promotion = () => {
     isOpen, setIsOpen,
   } = useModalStore();
 
-  const { setTriggerModal } = useStore();
+  const { setTriggerModal, promotionList } = useStore();
 
   const openModal = (modalName: ModalCategory) => {
     setTriggerModal(modalName);
@@ -26,7 +25,7 @@ export const Promotion = () => {
         <legend className='mx-auto mb-4 text-h4'>優惠活動</legend>
         <div className='text-fs-6 text-black/85'>
           {
-            Constants.PromotionList.map((item) => (
+            promotionList.map((item) => (
               <PromotionItem key={item.id} item={item} />
             ))
           }

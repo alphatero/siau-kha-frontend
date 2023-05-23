@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import {
-  ModalCategory, TableStatus, TableType, ProductType, OrderItemType, TagType,
+  ModalCategory, TableStatus, TableType, ProductType, OrderItemType, TagType, PromotionType,
 } from '@/types/order';
 
 type State = {
@@ -13,6 +13,7 @@ type State = {
   orderItem: OrderItemType;
   selectedPromotionId: string;
   tags: TagType[];
+  promotionList: PromotionType[];
 }
 
 type Action = {
@@ -25,6 +26,7 @@ type Action = {
   setOrderItem: (orderItem: State['orderItem']) => void;
   setSelectedPromotionId: (selectedPromotionId: State['selectedPromotionId']) => void;
   setTags: (tags: State['tags']) => void;
+  setPromotionList: (promotionList: State['promotionList']) => void;
 }
 
 const defaultState: State = {
@@ -138,6 +140,7 @@ const defaultState: State = {
   ],
   filteredProducts: [],
   triggerModal: null,
+  promotionList: [],
 };
 
 export const useStore = create<State & Action>((set) => ({
@@ -160,6 +163,8 @@ export const useStore = create<State & Action>((set) => ({
   setSelectedPromotionId: (selectedPromotionId) => set({ selectedPromotionId }),
 
   setTags: (tags) => set({ tags }),
+
+  setPromotionList: (promotionList) => set({ promotionList }),
 }));
 
 export default useStore;

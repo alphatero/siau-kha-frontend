@@ -11,6 +11,10 @@ export const schema = {
   promotions: {
     fn: api.fetchPromotions,
   },
+  products: (tagId: string) => ({
+    key: [tagId],
+    fn: () => api.fetchProducts(tagId),
+  }),
 } as const;
 
 export const queries = createQueries(schema);

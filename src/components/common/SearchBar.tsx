@@ -1,10 +1,12 @@
 import clsx from 'clsx';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { IconButton } from '@/components/common/IconButton';
+import { useEffect } from 'react';
 
 type PropsType = {
   placeholder: string;
   handleSearch: (searchText: string) => void;
+  isReset?: boolean;
 };
 
 type SearchText = {
@@ -12,15 +14,22 @@ type SearchText = {
 };
 
 export const SearchBar = (props: PropsType) => {
-  const { placeholder, handleSearch } = props;
+  const { placeholder, handleSearch, isReset } = props;
   const {
     register,
     handleSubmit,
+    reset,
   } = useForm<SearchText>();
 
   const onSubmit: SubmitHandler<SearchText> = (data: SearchText) => {
     handleSearch(data.content);
   };
+
+  useEffect(() => {
+    if (isReset) {
+      reset();
+    }
+  }, [isReset]);
 
   return (
     <form

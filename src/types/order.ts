@@ -3,6 +3,11 @@ export enum TableStatus {
   MEAL = '用餐中',
 }
 
+export enum MealType {
+  SINGLE = '單品',
+  SET = '套餐',
+}
+
 export type TableType = {
   name: string;
   status: TableStatus;
@@ -70,12 +75,11 @@ export type PromotionType = {
 
 export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;
 
-export type TagsType = '套餐' | '肉品' | '沙拉' | '飲料' | '海鮮' | '人氣單點';
-
 export type OrderItemType = {
+  id: string;
   name: string;
   price: number;
-  tags: TagsType | TagsType[];
+  tags: string | string[];
   quantity: number;
   note: {
     name: string;
@@ -111,4 +115,13 @@ export type ResProductType = {
   product_tags: string[];
   product_price: number;
   product_image: string;
+}
+
+export type ResProductItemType = {
+  id: string;
+  product_name: string;
+  product_type: '0' | '1'; // 0-單品 MealType.SINGLE | 1-套餐 MealType.SET
+  product_tags: string | string[];
+  product_price: number;
+  product_note: string[];
 }

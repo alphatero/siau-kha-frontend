@@ -2,6 +2,7 @@ import type { AxiosError } from 'axios';
 import axios from 'axios';
 import type { User, ResType, ResDataType } from '@/types/user';
 import { Role } from '@/types/user';
+import { cookies } from '@/utils/cookies';
 
 const toRole = (role: string): Role | '' => {
   switch (role) {
@@ -17,6 +18,38 @@ const toRole = (role: string): Role | '' => {
       return Role.counter;
     default:
       return '';
+  }
+};
+
+type ResCheckType = {
+  status: 'success' | 'error';
+  message: string;
+  data: {
+    hasExpired: boolean;
+    exp: number;
+  }
+}
+
+export const checkToken = async () => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  const { token } = cookies.get('user');
+
+  try {
+    const res: ResCheckType = await axios.post(
+      `${apiUrl}/auth/check`,
+      {
+        token,
+      },
+    );
+
+    const { data } = res;
+
+    if (!data.hasExpired) {
+      cookies.remove('user');
+    }
+  } catch (error: unknown) {
+    throw new Error('checkToken failed');
   }
 };
 

@@ -1,14 +1,16 @@
 import clsx from 'clsx';
 import Image from 'next/image';
-import { SearchBar } from '@/components/common';
+import { SearchBar, Loading } from '@/components/common';
 import { CheckSide } from './CheckSide';
-import { Constants } from '../constants';
 import { useStore } from '../stores';
+import { useUpdateProducts } from '../hooks/useUpdateProducts';
 
 export const Main = () => {
   const {
     setFilteredProductList, filteredProducts, products, isReset,
   } = useStore();
+
+  const { isLoading } = useUpdateProducts();
   // for search bar 模糊搜尋
   const handleSearch = (searchText: string) => {
     if (searchText === '') {
@@ -16,7 +18,7 @@ export const Main = () => {
       return;
     }
     const regex = new RegExp(`${searchText}`, 'i');
-    const filtered = Constants.MainProductList.filter((menu) => regex.test(menu.name));
+    const filtered = products.filter((menu) => regex.test(menu.name));
     setFilteredProductList(filtered);
   };
 
@@ -24,6 +26,7 @@ export const Main = () => {
     <div className={clsx(
       'flex flex-row',
       'h-full space-x-6 bg-highlight pl-6 pr-8',
+
     )}>
       <main className='flex-1'>
         <div className={clsx(
@@ -35,12 +38,14 @@ export const Main = () => {
           <p className="text-fs-6">餐點列表</p>
         </div>
         <SearchBar placeholder='餐點名稱' handleSearch={handleSearch} isReset={isReset} />
+        <div className='relative w-full'>
+
         <ul className={clsx(
           'mt-6 max-h-[75vh] overflow-y-auto',
           'flex flex-row flex-wrap items-start justify-between gap-6',
         )}>
           {
-            filteredProducts.map((menu, i) => (
+            isLoading ? <Loading/> : filteredProducts.map((menu, i) => (
               <li
                 key={i}
                 className={clsx(
@@ -64,7 +69,9 @@ export const Main = () => {
               </li>
             ))
           }
-        </ul>
+          </ul>
+
+       </div>
       </main>
       <CheckSide />
     </div>

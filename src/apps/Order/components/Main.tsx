@@ -50,7 +50,7 @@ export const Main = () => {
                 key={i}
                 className={clsx(
                   'group flex-[47%] grow-0',
-                  'flex flex-col items-center',
+                  'flex cursor-pointer flex-col items-center',
                 )}>
                 <div className={clsx(
                   'relative mb-5 h-[180px] w-full',

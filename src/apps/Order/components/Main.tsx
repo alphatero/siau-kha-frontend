@@ -1,13 +1,14 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { SearchBar } from '@/components/common';
-import { useEffect } from 'react';
 import { CheckSide } from './CheckSide';
 import { Constants } from '../constants';
 import { useStore } from '../stores';
 
 export const Main = () => {
-  const { setFilteredProductList, filteredProducts, products } = useStore();
+  const {
+    setFilteredProductList, filteredProducts, products, isReset,
+  } = useStore();
   // for search bar 模糊搜尋
   const handleSearch = (searchText: string) => {
     if (searchText === '') {
@@ -18,13 +19,6 @@ export const Main = () => {
     const filtered = Constants.MainProductList.filter((menu) => regex.test(menu.name));
     setFilteredProductList(filtered);
   };
-
-  useEffect(() => {
-    if (products.length === 0) {
-      return;
-    }
-    setFilteredProductList(products);
-  }, []);
 
   return (
     <div className={clsx(
@@ -40,7 +34,7 @@ export const Main = () => {
           <h2 className="text-h4">套餐</h2>
           <p className="text-fs-6">餐點列表</p>
         </div>
-        <SearchBar placeholder='餐點名稱' handleSearch={handleSearch} />
+        <SearchBar placeholder='餐點名稱' handleSearch={handleSearch} isReset={isReset} />
         <ul className={clsx(
           'mt-6 max-h-[75vh] overflow-y-auto',
           'flex flex-row flex-wrap items-start justify-between gap-6',

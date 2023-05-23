@@ -5,6 +5,7 @@ import {
 
 type State = {
   table: TableType;
+  isReset: boolean;
   list: TableType[];
   products: ProductType[];
   filteredProducts: ProductType[];
@@ -13,11 +14,13 @@ type State = {
   orderItem: OrderItemType;
   selectedPromotionId: string;
   tags: TagType[];
+  currentTag: TagType;
   promotionList: PromotionType[];
 }
 
 type Action = {
   setTable: (table: State['table']) => void;
+  setIsReset: (isReset: State['isReset']) => void;
   setList: (list: State['list']) => void;
   setProducts: (products: State['products']) => void;
   setTriggerModal: (triggerModal: State['triggerModal']) => void;
@@ -26,6 +29,7 @@ type Action = {
   setOrderItem: (orderItem: State['orderItem']) => void;
   setSelectedPromotionId: (selectedPromotionId: State['selectedPromotionId']) => void;
   setTags: (tags: State['tags']) => void;
+  setCurrentTag: (currentTag: State['currentTag']) => void;
   setPromotionList: (promotionList: State['promotionList']) => void;
 }
 
@@ -35,6 +39,7 @@ const defaultState: State = {
     status: TableStatus.IDEL,
     time: '0',
   },
+  isReset: false,
   list: [],
   orderList: [
     {
@@ -102,41 +107,37 @@ const defaultState: State = {
     note: [],
   },
   selectedPromotionId: '',
-  tags: [
-    {
-      id: '1',
-      name: '',
-      sortNo: 1,
-    },
-  ],
+  currentTag: {
+    id: '',
+    name: '',
+    sortNo: 0,
+  },
+  tags: [],
   products: [
-    {
-      id: 1,
-      name: 'A5 日本和牛套餐',
-      type: '單一',
-      tags: '肉品',
-      price: 2200,
-      image: '/images/01.jpg',
-      sortNo: 1,
-    },
-    {
-      id: 3,
-      name: '豪華全牛套餐',
-      type: '單一',
-      tags: '肉品',
-      price: 1980,
-      image: '/images/02.jpg',
-      sortNo: 4,
-    },
-    {
-      id: 8,
-      name: '經典霜降牛套餐',
-      type: '單一',
-      tags: '肉品',
-      price: 1880,
-      image: '/images/03.jpg',
-      sortNo: 9,
-    },
+    // {
+    //   id: '1',
+    //   name: 'A5 日本和牛套餐',
+    //   type: '單一',
+    //   tags: '肉品',
+    //   price: 2200,
+    //   image: '/images/01.jpg',
+    // },
+    // {
+    //   id: '3',
+    //   name: '豪華全牛套餐',
+    //   type: '單一',
+    //   tags: '肉品',
+    //   price: 1980,
+    //   image: '/images/02.jpg',
+    // },
+    // {
+    //   id: '8',
+    //   name: '經典霜降牛套餐',
+    //   type: '單一',
+    //   tags: '肉品',
+    //   price: 1880,
+    //   image: '/images/03.jpg',
+    // },
   ],
   filteredProducts: [],
   triggerModal: null,
@@ -147,6 +148,8 @@ export const useStore = create<State & Action>((set) => ({
   ...defaultState,
 
   setTable: (table) => set({ table }),
+
+  setIsReset: (isReset) => set({ isReset }),
 
   setList: (list) => set({ list }),
 
@@ -163,6 +166,8 @@ export const useStore = create<State & Action>((set) => ({
   setSelectedPromotionId: (selectedPromotionId) => set({ selectedPromotionId }),
 
   setTags: (tags) => set({ tags }),
+
+  setCurrentTag: (currentTag) => set({ currentTag }),
 
   setPromotionList: (promotionList) => set({ promotionList }),
 }));

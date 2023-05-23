@@ -99,7 +99,7 @@ export type ProductType = {
   id: string;
   name: string;
   type: string;
-  tags: string[];
+  tags: string | string[];
   price: number;
   image: string;
 }

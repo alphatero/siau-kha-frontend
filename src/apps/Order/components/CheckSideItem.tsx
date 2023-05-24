@@ -6,11 +6,13 @@ import { useStore } from '../stores';
 
 export const CheckSideItem = (props: OrderItemType) => {
   const {
-    name, price, quantity, note,
+    id, name, price, quantity, note,
   } = props;
 
   const { setIsOpen } = useModalStore();
-  const { setTriggerModal, setOrderItem } = useStore();
+  const {
+    setTriggerModal, setOrderItem, orderList, setOrderList,
+  } = useStore();
 
   const handleClick = (
     modalName: ModalCategory,
@@ -19,6 +21,11 @@ export const CheckSideItem = (props: OrderItemType) => {
     setOrderItem(memoItem);
     setTriggerModal(modalName);
     setIsOpen(true);
+  };
+
+  const removeItem = (clickId: string) => {
+    const filteredList = orderList.filter((item) => item.id !== clickId);
+    setOrderList(filteredList);
   };
 
   return (
@@ -62,6 +69,7 @@ export const CheckSideItem = (props: OrderItemType) => {
             containerClasses='text-secondary/85'
             iconClasses='h-6'
             icon='delete'
+            onClick={() => removeItem(id)}
           />
         </div>
       </div>

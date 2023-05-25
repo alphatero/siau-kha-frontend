@@ -5,8 +5,8 @@ export const Loading = () => (
     <div
       className={clsx(
         'flex items-center justify-center',
-        'fixed left-0 top-0',
-        'h-screen w-screen',
+        'absolute left-0 top-0',
+        'h-full w-full',
         'bg-black/50',
       )}
     >

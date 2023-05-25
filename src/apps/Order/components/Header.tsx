@@ -16,7 +16,7 @@ export const Header = () => {
   return (
     <div
       className={clsx(
-        'flex justify-between border border-gray-200',
+        'flex justify-between border border-gray-200 bg-white',
         'w-full px-6 py-2',
       )}
     >

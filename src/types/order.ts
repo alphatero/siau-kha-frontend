@@ -72,16 +72,6 @@ export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | n
 
 export type TagsType = '套餐' | '肉品' | '沙拉' | '飲料' | '海鮮' | '人氣單點';
 
-export type ProductType = {
-  id: number;
-  name: string;
-  type: '單一' | '套餐';
-  tags: TagsType | TagsType[];
-  price: number;
-  image: string;
-  sortNo: number;
-}
-
 export type OrderItemType = {
   name: string;
   price: number;
@@ -103,4 +93,22 @@ export type TagType = {
   id: string;
   name: string;
   sortNo: number;
+}
+
+export type ProductType = {
+  id: string;
+  name: string;
+  type: string;
+  tags: string | string[];
+  price: number;
+  image: string;
+}
+
+export type ResProductType = {
+  id: string;
+  product_name: string;
+  product_type: '1' | '2';
+  product_tags: string[];
+  product_price: number;
+  product_image: string;
 }

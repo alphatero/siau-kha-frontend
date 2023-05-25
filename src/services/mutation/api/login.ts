@@ -45,9 +45,10 @@ export const checkToken = async () => {
 
     const { data } = res;
 
-    if (!data.hasExpired) {
-      cookies.remove('user');
-    }
+    return {
+      hasExpired: data.hasExpired,
+      exp: data.exp,
+    };
   } catch (error: unknown) {
     throw new Error('checkToken failed');
   }

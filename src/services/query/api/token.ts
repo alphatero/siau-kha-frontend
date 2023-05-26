@@ -1,14 +1,15 @@
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
-import { cookies } from '@/utils/cookies';
 
-type ResCheckType = {
-  status: 'success' | 'error';
+export type ResType<T> = {
+  status: 'success'
   message: string;
-  data: {
-    hasExpired: boolean;
-    exp: number;
-  }
+  data: T
+}
+
+type TokenType = {
+  hasExpired: boolean;
+  exp: number;
 }
 
 export const checkToken = async (token: string) => {
@@ -22,7 +23,7 @@ export const checkToken = async (token: string) => {
   }
 
   try {
-    const res: ResCheckType = await axios.get(
+    const res: AxiosResponse<ResType<TokenType>> = await axios.get(
       `${apiUrl}/auth/check`,
       {
         headers: {
@@ -34,8 +35,8 @@ export const checkToken = async (token: string) => {
     const { data } = res;
 
     return {
-      hasExpired: data.hasExpired,
-      exp: data.exp,
+      hasExpired: data.data.hasExpired,
+      exp: data.data.exp,
     };
   } catch (error: unknown) {
     throw new Error('checkToken failed');

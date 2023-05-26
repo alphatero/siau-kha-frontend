@@ -2,7 +2,6 @@ import type { AxiosError } from 'axios';
 import axios from 'axios';
 import type { User, ResType, ResDataType } from '@/types/user';
 import { Role } from '@/types/user';
-import { cookies } from '@/utils/cookies';
 
 const toRole = (role: string): Role | '' => {
   switch (role) {
@@ -21,38 +20,45 @@ const toRole = (role: string): Role | '' => {
   }
 };
 
-type ResCheckType = {
-  status: 'success' | 'error';
-  message: string;
-  data: {
-    hasExpired: boolean;
-    exp: number;
-  }
-}
+// type ResCheckType = {
+//   status: 'success' | 'error';
+//   message: string;
+//   data: {
+//     hasExpired: boolean;
+//     exp: number;
+//   }
+// }
 
-export const checkToken = async () => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+// export const checkToken = async () => {
+//   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  const { token } = cookies.get('user');
+//   if (!cookies.get('user')) {
+//     return {
+//       hasExpired: true,
+//       exp: 0,
+//     };
+//   }
 
-  try {
-    const res: ResCheckType = await axios.post(
-      `${apiUrl}/auth/check`,
-      {
-        token,
-      },
-    );
+//   const { token } = cookies.get('user');
 
-    const { data } = res;
+//   try {
+//     const res: ResCheckType = await axios.post(
+//       `${apiUrl}/auth/check`,
+//       {
+//         Headers
+//       },
+//     );
 
-    return {
-      hasExpired: data.hasExpired,
-      exp: data.exp,
-    };
-  } catch (error: unknown) {
-    throw new Error('checkToken failed');
-  }
-};
+//     const { data } = res;
+
+//     return {
+//       hasExpired: data.hasExpired,
+//       exp: data.exp,
+//     };
+//   } catch (error: unknown) {
+//     throw new Error('checkToken failed');
+//   }
+// };
 
 export const login = async (user: User):Promise<ResDataType> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;

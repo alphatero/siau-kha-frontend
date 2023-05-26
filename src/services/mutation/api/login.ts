@@ -20,46 +20,6 @@ const toRole = (role: string): Role | '' => {
   }
 };
 
-// type ResCheckType = {
-//   status: 'success' | 'error';
-//   message: string;
-//   data: {
-//     hasExpired: boolean;
-//     exp: number;
-//   }
-// }
-
-// export const checkToken = async () => {
-//   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-//   if (!cookies.get('user')) {
-//     return {
-//       hasExpired: true,
-//       exp: 0,
-//     };
-//   }
-
-//   const { token } = cookies.get('user');
-
-//   try {
-//     const res: ResCheckType = await axios.post(
-//       `${apiUrl}/auth/check`,
-//       {
-//         Headers
-//       },
-//     );
-
-//     const { data } = res;
-
-//     return {
-//       hasExpired: data.hasExpired,
-//       exp: data.exp,
-//     };
-//   } catch (error: unknown) {
-//     throw new Error('checkToken failed');
-//   }
-// };
-
 export const login = async (user: User):Promise<ResDataType> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 

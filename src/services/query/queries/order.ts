@@ -17,4 +17,6 @@ export const schema = {
     queryKey: ['products', tagId],
     queryFn: () => api.fetchProducts(tagId),
   }),
-} 
+};
+
+export default schema;

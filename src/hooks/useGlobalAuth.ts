@@ -2,16 +2,20 @@ import useAuthStore from '@/stores/auth';
 import { useRouter } from 'next/router';
 import { Role } from '@/types/user';
 import { useCookies } from 'react-cookie';
-import { useCheckToken } from '@/services/query';
+import { useCheckToken, useSignOut } from '@/services/query';
+import { useState } from 'react';
 
 export const useGlobalAuth = () => {
   const [cookies,, removeCookie] = useCookies(['user']);
+  const [isSignOut, setIsSignOut] = useState(false);
   const {
     data, isLoading,
-  } = useCheckToken(cookies.user?.token ?? '');
+  } = useCheckToken(cookies.user?.token);
   const {
     user, setUser, setToken, logout,
   } = useAuthStore();
+  const { data: signOutRes } = useSignOut(isSignOut);
+
   const router = useRouter();
 
   const checkPage = () => {
@@ -28,6 +32,15 @@ export const useGlobalAuth = () => {
         return '/counter';
       default:
         return '/login';
+    }
+  };
+
+  const signOut = () => {
+    setIsSignOut(true);
+    if (signOutRes) {
+      removeCookie('user', { sameSite: 'strict' });
+      logout();
+      router.push('/login');
     }
   };
 
@@ -59,7 +72,7 @@ export const useGlobalAuth = () => {
     user,
     onRoute,
     isLoading,
-    logout,
+    signOut,
   };
 };
 

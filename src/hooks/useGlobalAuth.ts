@@ -2,12 +2,17 @@ import useAuthStore from '@/stores/auth';
 import { useRouter } from 'next/router';
 import { Role } from '@/types/user';
 import { useCookies } from 'react-cookie';
+import { useSignOut } from '@/services/query';
+import { useState } from 'react';
 
 export const useGlobalAuth = () => {
-  const [cookies] = useCookies(['user']);
+  const [cookies,, removeCookie] = useCookies(['user']);
+  const [isSignOut, setIsSignOut] = useState(false);
   const {
     user, setUser, setToken, isLoading, logout,
   } = useAuthStore();
+  const { data } = useSignOut(isSignOut);
+
   const router = useRouter();
 
   const checkPage = () => {
@@ -24,6 +29,15 @@ export const useGlobalAuth = () => {
         return '/counter';
       default:
         return '/login';
+    }
+  };
+
+  const signOut = () => {
+    setIsSignOut(true);
+    if (data) {
+      removeCookie('user', { sameSite: 'strict' });
+      logout();
+      router.push('/login');
     }
   };
 
@@ -49,7 +63,7 @@ export const useGlobalAuth = () => {
     user,
     onRoute,
     isLoading,
-    logout,
+    signOut,
   };
 };
 

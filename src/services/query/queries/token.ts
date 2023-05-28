@@ -5,6 +5,6 @@ export const schema = {
     queryKey: ['token', token],
     queryFn: () => api.checkToken(token),
   }),
-} 
+};
 
 export default schema;

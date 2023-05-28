@@ -1,20 +1,22 @@
-import { createQueries } from '@/utils/createQueries';
 import * as api from '../api/order';
 
 export const schema = {
   table: {
-    fn: api.fetchTable,
+    queryKey: ['table'],
+    queryFn: api.fetchTable,
   },
   tags: {
-    fn: api.fetchProductTag,
+    queryKey: ['tags'],
+    queryFn: api.fetchProductTag,
   },
   promotions: {
-    fn: api.fetchPromotions,
+    queryKey: ['promotions'],
+    queryFn: api.fetchPromotions,
   },
   products: (tagId: string) => ({
-    key: [tagId],
-    fn: () => api.fetchProducts(tagId),
+    queryKey: ['products', tagId],
+    queryFn: () => api.fetchProducts(tagId),
   }),
-} as const;
+};
 
-export const queries = createQueries(schema);
+export default schema;

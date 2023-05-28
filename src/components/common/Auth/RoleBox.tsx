@@ -1,19 +1,9 @@
 import clsx from 'clsx';
 import { useGlobalAuth } from '@/hooks/useGlobalAuth';
-import { useCookies } from 'react-cookie';
-import { useRouter } from 'next/router';
 import { Button } from '../Button';
 
 export const RoleBox = ({ position }:{position: string}) => {
-  const { logout, user } = useGlobalAuth();
-  const [, , removeCookie] = useCookies(['user']);
-  const router = useRouter();
-
-  const logOut = () => {
-    removeCookie('user', { sameSite: 'strict' });
-    logout();
-    router.push('/login');
-  };
+  const { signOut, user } = useGlobalAuth();
 
   return (
     <div
@@ -24,7 +14,7 @@ export const RoleBox = ({ position }:{position: string}) => {
         position === 'left' ? 'left-16' : 'right-20',
       )}
     >
-      <Button className="bg-warn/85 hover:bg-warn" onClick={() => logOut()}>
+      <Button className="bg-warn/85 hover:bg-warn" onClick={() => signOut()}>
         登出
       </Button>
       <h5 className="text-h5">{user.role}</h5>

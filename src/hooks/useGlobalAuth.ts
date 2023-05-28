@@ -2,16 +2,19 @@ import useAuthStore from '@/stores/auth';
 import { useRouter } from 'next/router';
 import { Role } from '@/types/user';
 import { useCookies } from 'react-cookie';
-import { useSignOut } from '@/services/query';
+import { useCheckToken, useSignOut } from '@/services/query';
 import { useState } from 'react';
 
 export const useGlobalAuth = () => {
   const [cookies,, removeCookie] = useCookies(['user']);
   const [isSignOut, setIsSignOut] = useState(false);
   const {
-    user, setUser, setToken, isLoading, logout,
+    data, isLoading,
+  } = useCheckToken(cookies.user?.token);
+  const {
+    user, setUser, setToken, logout,
   } = useAuthStore();
-  const { data } = useSignOut(isSignOut);
+  const { data: signOutRes } = useSignOut(isSignOut);
 
   const router = useRouter();
 
@@ -34,7 +37,7 @@ export const useGlobalAuth = () => {
 
   const signOut = () => {
     setIsSignOut(true);
-    if (data) {
+    if (signOutRes) {
       removeCookie('user', { sameSite: 'strict' });
       logout();
       router.push('/login');
@@ -56,7 +59,13 @@ export const useGlobalAuth = () => {
   };
 
   const onRoute = async () => {
-    checkCookies();
+    const hasExpired = data?.hasExpired;
+
+    if (hasExpired) {
+      removeCookie('user', { sameSite: 'strict' });
+      return router.push('/login');
+    }
+    return checkCookies();
   };
 
   return {

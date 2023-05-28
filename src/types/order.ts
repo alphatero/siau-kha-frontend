@@ -117,11 +117,23 @@ export type ResProductType = {
   product_image: string;
 }
 
+export type ProductNoteType = {
+  note_title: string;
+  use_momey: number; // 影響金額
+  is_food_consumption: boolean; // 是否消耗食材
+  note_food_consumption_list: { // (註記)食材消耗清單
+    note_food_id: string; // (註記)食材id
+    note_food_name: string; // (註記)食材名稱
+    note_food_quantity: number; // (註記)消耗食材數量
+    note_food_unit: string; // (註記)食材單位
+  }[];
+}
+
 export type ResProductItemType = {
   id: string;
   product_name: string;
   product_type: '0' | '1'; // 0-單品 MealType.SINGLE | 1-套餐 MealType.SET
   product_tags: string | string[];
   product_price: number;
-  product_note: string[];
+  product_note: ProductNoteType[];
 }

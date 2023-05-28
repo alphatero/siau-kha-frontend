@@ -141,7 +141,7 @@ const toOrderItem = (data: ResProductItemType): OrderItemType => ({
   tags: data.product_tags,
   quantity: 1,
   note: data.product_note.map((note) => ({
-    name: note,
+    name: note.note_title,
     selected: true,
   })),
 });
@@ -216,6 +216,7 @@ export const fetchProductItem = async (productId: string): Promise<{
     const { data } = res;
     const product = data.data.product ?? {};
 
+    console.log('product', product);
     const orderItem: OrderItemType = toOrderItem(product);
 
     return {

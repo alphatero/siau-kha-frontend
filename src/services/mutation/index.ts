@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { mutations } from './mutations/login';
+import { schema } from './mutations/login';
 
-export const useLogin = () => useMutation(mutations.login());
+export const useLogin = () => useMutation({ mutationFn: schema.login });
 
 export default useLogin;

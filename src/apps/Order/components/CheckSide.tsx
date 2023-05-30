@@ -1,13 +1,16 @@
+import { Spinner } from 'flowbite-react';
 import { Button } from '@/components/common';
 import { IconButton } from '@/components/common/IconButton';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
 import { useStore } from '../stores';
 import { CheckSideItem } from './CheckSideItem';
+import { useUpdateOrderItem } from '../hooks/useUpdateOrderItem';
 
 export const CheckSide = () => {
   const { setIsOpen } = useModalStore();
-  const { setTriggerModal, orderList } = useStore();
+  const { setTriggerModal, orderList, clickMenuItemTimes } = useStore();
+  const { orderItemIsLoading } = useUpdateOrderItem();
 
   const openModal = (modalName: ModalCategory) => {
     setTriggerModal(modalName);
@@ -37,6 +40,12 @@ export const CheckSide = () => {
                 />
               ))
             )
+          }
+          { clickMenuItemTimes > 0
+            && orderItemIsLoading
+            && <li className='rounded border border-black/10 px-4 py-3 text-center'>
+              <Spinner />
+            </li>
           }
         </ul>
         <hr className='my-4 bg-black/25' />

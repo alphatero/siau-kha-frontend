@@ -18,6 +18,7 @@ import {
 } from '@/types/order';
 import dayjs from 'dayjs';
 import { cookies } from '@/utils/cookies';
+import { get } from '@/utils/axios';
 
 const convertTime = (time: string, formatSpec: string): string => {
   const date = dayjs(time);
@@ -147,18 +148,20 @@ const toOrderItem = (data: ResProductItemType): OrderItemType => ({
 });
 
 export const fetchProductTag = async (): Promise<ResDataType<TagType[]>> => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const { token } = cookies.get('user');
 
   try {
-    const res: AxiosResponse<ResType<{product_tags: ResTagType[]}>> = await axios.get(
-      `${apiUrl}/product/tags`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
+    // const res: AxiosResponse<ResType<{product_tags: ResTagType[]}>> = await axios.get(
+    //   `${apiUrl}/product/tags`,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   },
+    // );
+
+    const res: AxiosResponse<ResType<{ product_tags: ResTagType[] }>> = await get('/product/tags');
+
     const { data } = res;
     const tags = data.data.product_tags ?? [];
 

@@ -22,8 +22,6 @@ const toRole = (role: string): Role | '' => {
 };
 
 export const login = async (user: User):Promise<ResDataType> => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
   try {
     const res = await request.post(
       '/auth/sign-in',

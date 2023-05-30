@@ -12,6 +12,8 @@ type State = {
   triggerModal: ModalCategory;
   orderList: OrderItemType[];
   orderItem: OrderItemType;
+  currentOrderItemId: string;
+  clickMenuItemTimes: number;
   selectedPromotionId: string;
   tags: TagType[];
   currentTag: TagType;
@@ -27,6 +29,8 @@ type Action = {
   setFilteredProductList: (filteredProducts: State['filteredProducts']) => void;
   setOrderList: (orderList: State['orderList']) => void;
   setOrderItem: (orderItem: State['orderItem']) => void;
+  setCurrentOrderItemId: (currentOrderItemId: State['currentOrderItemId']) => void;
+  setClickMenuItemTimes: (clickMenuItemTimes: State['clickMenuItemTimes']) => void;
   setSelectedPromotionId: (selectedPromotionId: State['selectedPromotionId']) => void;
   setTags: (tags: State['tags']) => void;
   setCurrentTag: (currentTag: State['currentTag']) => void;
@@ -110,7 +114,9 @@ const defaultState: State = {
     quantity: 1,
     note: [],
   },
+  clickMenuItemTimes: 0,
   selectedPromotionId: '',
+  currentOrderItemId: '',
   currentTag: {
     id: '',
     name: '',
@@ -166,6 +172,10 @@ export const useStore = create<State & Action>((set) => ({
   setOrderList: (orderList) => set({ orderList }),
 
   setOrderItem: (orderItem) => set({ orderItem }),
+
+  setCurrentOrderItemId: (currentOrderItemId) => set({ currentOrderItemId }),
+
+  setClickMenuItemTimes: (clickMenuItemTimes) => set({ clickMenuItemTimes }),
 
   setSelectedPromotionId: (selectedPromotionId) => set({ selectedPromotionId }),
 

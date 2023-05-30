@@ -1,18 +1,23 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { SearchBar, Loading } from '@/components/common';
-import { fetchProductItem } from '@/services/query/api/order';
-import { OrderItemType } from '@/types/order';
 import { CheckSide } from './CheckSide';
 import { useStore } from '../stores';
 import { useUpdateProducts } from '../hooks/useUpdateProducts';
 
 export const Main = () => {
   const {
-    setFilteredProductList, orderList, setOrderList, filteredProducts, products, isReset,
+    setFilteredProductList,
+    setClickMenuItemTimes,
+    clickMenuItemTimes,
+    setCurrentOrderItemId,
+    filteredProducts,
+    products,
+    isReset,
   } = useStore();
 
   const { isLoading } = useUpdateProducts();
+
   // for search bar 模糊搜尋
   const handleSearch = (searchText: string) => {
     if (searchText === '') {
@@ -24,27 +29,9 @@ export const Main = () => {
     setFilteredProductList(filtered);
   };
 
-  const generateNewOrderList = (orderItem: OrderItemType) => {
-    const isExist = orderList.some((item) => item.id === orderItem.id);
-
-    if (!isExist) return [...orderList, orderItem];
-
-    const newOrderList = orderList.map((item) => {
-      if (item.id === orderItem.id) {
-        return {
-          ...item,
-          quantity: item.quantity + 1,
-        };
-      }
-      return item;
-    });
-    return newOrderList;
-  };
-
-  const handleClick = async (productId: string) => {
-    const { orderItem } = await fetchProductItem(productId);
-    const newOrderList = generateNewOrderList(orderItem);
-    setOrderList(newOrderList);
+  const handleClick = (productId: string) => {
+    setCurrentOrderItemId(productId);
+    setClickMenuItemTimes(clickMenuItemTimes + 1);
   };
 
   return (

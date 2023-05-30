@@ -216,7 +216,6 @@ export const fetchProductItem = async (productId: string): Promise<{
     const { data } = res;
     const product = data.data.product ?? {};
 
-    console.log('product', product);
     const orderItem: OrderItemType = toOrderItem(product);
 
     return {

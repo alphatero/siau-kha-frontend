@@ -1,11 +1,17 @@
 import type { NextPageWithLayout } from '@/types';
-import { Menu, Sidebar } from './components';
 import { Modals } from './components/Modals';
+import { Menu, Sidebar, Table } from './components';
 
 const Counter: NextPageWithLayout = () => (
   <div className='flex w-full justify-between'>
     <Menu />
-    <h1>Counter</h1>
+    <div className="col-span-2 grid flex-1 grid-cols-2 grid-rows-2 gap-6 px-6 pb-8 pt-14">
+
+    <Table />
+    <Table />
+    <Table />
+    <Table />
+    </div>
     <Sidebar />
 
     <Modals />

@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { Loading } from '@/components/common';
+import { Spinner } from 'flowbite-react';
 import { useStandby } from '../../hooks/useStandby';
 
 export const Standby = () => {
   const { standbyList, isLoading } = useStandby();
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <div className='flex items-center justify-center'><Spinner/></div>;
 
   return (
   <ul className="z-10 w-[190px] space-y-4">

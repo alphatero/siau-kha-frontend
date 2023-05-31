@@ -7,10 +7,10 @@ const Counter: NextPageWithLayout = () => (
     <Menu />
     <div className="col-span-2 grid flex-1 grid-cols-2 grid-rows-2 gap-6 px-6 pb-8 pt-14">
 
+    <Table title='Table A1' isPayed={true} status='MEAL' customerNum={3} />
+    {/* <Table />
     <Table />
-    <Table />
-    <Table />
-    <Table />
+    <Table /> */}
     </div>
     <Sidebar />
 

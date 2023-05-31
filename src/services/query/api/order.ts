@@ -13,6 +13,8 @@ import {
   PromotionDiscountType,
   ProductType,
   ResProductType,
+  OrderItemType,
+  ResProductItemType,
 } from '@/types/order';
 import dayjs from 'dayjs';
 import { cookies } from '@/utils/cookies';
@@ -81,7 +83,7 @@ export const fetchPromotions = async (): Promise<{
       promotions,
     };
   } catch (error:unknown) {
-    throw new Error('fetchTable failed');
+    throw new Error('fetchPromotions failed');
   }
 };
 
@@ -130,6 +132,18 @@ const toProduct = (data: ResProductType) => ({
   tags: data.product_tags,
   type: data.product_type === '2' ? '套餐' : '單點',
   image: data.product_image,
+});
+
+const toOrderItem = (data: ResProductItemType): OrderItemType => ({
+  id: data.id,
+  name: data.product_name,
+  price: data.product_price,
+  tags: data.product_tags,
+  quantity: 1,
+  note: data.product_note.map((note) => ({
+    name: note.note_title,
+    selected: true,
+  })),
 });
 
 export const fetchProductTag = async (): Promise<ResDataType<TagType[]>> => {
@@ -181,6 +195,34 @@ export const fetchProducts = async (tagId: string): Promise<ResDataType<ProductT
     };
   } catch (error: unknown) {
     throw new Error('fetchProducts failed');
+  }
+};
+
+export const fetchProductItem = async (productId: string): Promise<{
+  orderItem: OrderItemType
+}> => {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const { token } = cookies.get('user');
+
+  try {
+    const res: AxiosResponse<ResType<{ product: ResProductItemType }>> = await axios.get(
+      `${apiUrl}/product/${productId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+    const { data } = res;
+    const product = data.data.product ?? {};
+
+    const orderItem: OrderItemType = toOrderItem(product);
+
+    return {
+      orderItem,
+    };
+  } catch (error: unknown) {
+    throw new Error('fetchProductItem failed');
   }
 };
 

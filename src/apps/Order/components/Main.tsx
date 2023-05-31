@@ -7,10 +7,17 @@ import { useUpdateProducts } from '../hooks/useUpdateProducts';
 
 export const Main = () => {
   const {
-    setFilteredProductList, filteredProducts, products, isReset,
+    setFilteredProductList,
+    setClickMenuItemTimes,
+    clickMenuItemTimes,
+    setCurrentOrderItemId,
+    filteredProducts,
+    products,
+    isReset,
   } = useStore();
 
   const { isLoading } = useUpdateProducts();
+
   // for search bar 模糊搜尋
   const handleSearch = (searchText: string) => {
     if (searchText === '') {
@@ -20,6 +27,11 @@ export const Main = () => {
     const regex = new RegExp(`${searchText}`, 'i');
     const filtered = products.filter((menu) => regex.test(menu.name));
     setFilteredProductList(filtered);
+  };
+
+  const handleClick = (productId: string) => {
+    setCurrentOrderItemId(productId);
+    setClickMenuItemTimes(clickMenuItemTimes + 1);
   };
 
   return (
@@ -48,6 +60,7 @@ export const Main = () => {
             isLoading ? <Loading/> : filteredProducts.map((menu, i) => (
               <li
                 key={i}
+                onClick={() => handleClick(menu.id)}
                 className={clsx(
                   'group flex-[47%] grow-0',
                   'flex cursor-pointer flex-col items-center',

@@ -12,6 +12,8 @@ type State = {
   triggerModal: ModalCategory;
   orderList: OrderItemType[];
   orderItem: OrderItemType;
+  currentOrderItemId: string;
+  clickMenuItemTimes: number;
   selectedPromotionId: string;
   tags: TagType[];
   currentTag: TagType;
@@ -27,6 +29,8 @@ type Action = {
   setFilteredProductList: (filteredProducts: State['filteredProducts']) => void;
   setOrderList: (orderList: State['orderList']) => void;
   setOrderItem: (orderItem: State['orderItem']) => void;
+  setCurrentOrderItemId: (currentOrderItemId: State['currentOrderItemId']) => void;
+  setClickMenuItemTimes: (clickMenuItemTimes: State['clickMenuItemTimes']) => void;
   setSelectedPromotionId: (selectedPromotionId: State['selectedPromotionId']) => void;
   setTags: (tags: State['tags']) => void;
   setCurrentTag: (currentTag: State['currentTag']) => void;
@@ -41,72 +45,18 @@ const defaultState: State = {
   },
   isReset: false,
   list: [],
-  orderList: [
-    {
-      name: '豪華全牛套餐',
-      price: 1980,
-      tags: '肉品',
-      quantity: 1,
-      note: [
-        {
-          name: '加大',
-          selected: false,
-        },
-        {
-          name: '減量',
-          selected: false,
-        },
-      ],
-    },
-    {
-      name: '澳洲極上牛舌',
-      price: 790,
-      tags: '肉品',
-      quantity: 1,
-      note: [
-        {
-          name: '加大',
-          selected: true,
-        },
-        {
-          name: '減量',
-          selected: false,
-        },
-      ],
-    },
-    {
-      name: '可爾必思',
-      price: 140,
-      tags: '飲料',
-      quantity: 1,
-      note: [
-        {
-          name: '去冰',
-          selected: false,
-        },
-        {
-          name: '微冰',
-          selected: false,
-        },
-        {
-          name: '少冰',
-          selected: true,
-        },
-        {
-          name: '正常冰',
-          selected: false,
-        },
-      ],
-    },
-  ],
+  orderList: [],
   orderItem: {
+    id: '12',
     name: '',
     price: 0,
     tags: '人氣單點',
     quantity: 1,
     note: [],
   },
+  clickMenuItemTimes: 0,
   selectedPromotionId: '',
+  currentOrderItemId: '',
   currentTag: {
     id: '',
     name: '',
@@ -162,6 +112,10 @@ export const useStore = create<State & Action>((set) => ({
   setOrderList: (orderList) => set({ orderList }),
 
   setOrderItem: (orderItem) => set({ orderItem }),
+
+  setCurrentOrderItemId: (currentOrderItemId) => set({ currentOrderItemId }),
+
+  setClickMenuItemTimes: (clickMenuItemTimes) => set({ clickMenuItemTimes }),
 
   setSelectedPromotionId: (selectedPromotionId) => set({ selectedPromotionId }),
 

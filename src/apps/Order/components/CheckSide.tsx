@@ -1,13 +1,16 @@
+import { Spinner } from 'flowbite-react';
 import { Button } from '@/components/common';
 import { IconButton } from '@/components/common/IconButton';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
 import { useStore } from '../stores';
 import { CheckSideItem } from './CheckSideItem';
+import { useUpdateOrderItem } from '../hooks/useUpdateOrderItem';
 
 export const CheckSide = () => {
   const { setIsOpen } = useModalStore();
-  const { setTriggerModal, orderList } = useStore();
+  const { setTriggerModal, orderList, clickMenuItemTimes } = useStore();
+  const { orderItemIsLoading } = useUpdateOrderItem();
 
   const openModal = (modalName: ModalCategory) => {
     setTriggerModal(modalName);
@@ -20,16 +23,29 @@ export const CheckSide = () => {
         <h2 className="text-h4 text-primary">點餐紀錄</h2>
         <ul className='mt-4 space-y-3'>
           {
-            orderList.map((order, i) => (
-              <CheckSideItem
-                key={i}
-                name={order.name}
-                price={order.price}
-                tags={order.tags}
-                quantity={order.quantity}
-                note={order.note}
-              />
-            ))
+            orderList.length === 0 ? (
+              <li className='rounded border border-black/10 px-4 py-3 text-center'>
+                <h2>尚未點餐</h2>
+              </li>
+            ) : (
+              orderList.map((order, i) => (
+                <CheckSideItem
+                  key={i}
+                  id={order.id}
+                  name={order.name}
+                  price={order.price}
+                  tags={order.tags}
+                  quantity={order.quantity}
+                  note={order.note}
+                />
+              ))
+            )
+          }
+          { clickMenuItemTimes > 0
+            && orderItemIsLoading
+            && <li className='rounded border border-black/10 px-4 py-3 text-center'>
+              <Spinner />
+            </li>
           }
         </ul>
         <hr className='my-4 bg-black/25' />

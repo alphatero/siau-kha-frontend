@@ -1,4 +1,4 @@
-import { Button, Icons } from '@/components/common';
+import { Icons } from '@/components/common';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { TableStatus } from '@/types/order';
@@ -6,14 +6,15 @@ import { TableStatus } from '@/types/order';
 type Props = {
   title: string;
   status: string;
-  customerNum: number;
+  customerNum?: number;
+  seat?: number;
   isPayed?: boolean;
   time?: string;
 };
 
 export const Table = (props: Props) => {
   const {
-    title, status, customerNum, isPayed, time,
+    title, status, customerNum, isPayed, time, seat,
   } = props;
 
   return (
@@ -27,7 +28,11 @@ export const Table = (props: Props) => {
         <h5 className="text-h5">{title}</h5>
 
         <div
-          className={clsx('bg-warn px-2 py-1 text-white', 'rounded', isPayed && 'opacity-0')}
+          className={clsx(
+            'bg-warn px-2 py-1 text-white',
+            'rounded',
+            (isPayed || status === TableStatus.IDEL) && 'opacity-0',
+          )}
         >
           未結帳
         </div>
@@ -39,12 +44,13 @@ export const Table = (props: Props) => {
           'space-y-4 px-6 py-5',
         )}
       >
-        <p className="flex items-center text-fs-6 text-black/85">{customerNum}/4
-          {
-            status === TableStatus.MEAL && (
-              <span className='ml-2 h-3 w-3'><Icons.Lock /></span>
-            )
-          }
+        <p className="flex items-center text-fs-6 text-black/85">
+          {customerNum}/{seat}
+          {status === TableStatus.MEAL && (
+            <span className="ml-2 h-3 w-3">
+              <Icons.Lock />
+            </span>
+          )}
         </p>
         <div
           className={clsx(

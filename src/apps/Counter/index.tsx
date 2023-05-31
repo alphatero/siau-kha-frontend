@@ -1,21 +1,36 @@
 import type { NextPageWithLayout } from '@/types';
+import { Loading } from '@/components/common';
 import { Modals } from './components/Modals';
 import { Menu, Sidebar, Table } from './components';
+import { useUpdateList } from './hooks/useUpdateList';
 
-const Counter: NextPageWithLayout = () => (
-  <div className='flex w-full justify-between'>
-    <Menu />
-    <div className="col-span-2 grid flex-1 grid-cols-2 grid-rows-2 gap-6 px-6 pb-8 pt-14">
+const Counter: NextPageWithLayout = () => {
+  const { isLoading, list } = useUpdateList();
 
-    <Table title='Table A1' isPayed={true} status='MEAL' customerNum={3} />
-    {/* <Table />
-    <Table />
-    <Table /> */}
+  return (
+    <div className="flex w-full justify-between">
+      <Menu />
+      <div className="col-span-2 grid flex-1 grid-cols-2 grid-rows-2 gap-6 px-6 pb-8 pt-14">
+        {isLoading ? (
+          <Loading />
+        ) : (
+          list.map((item) => (
+            <Table
+              title={item.name}
+              isPayed={item.isPay}
+              seat={item.seat}
+              status={item.status}
+              time={item.time}
+              customerNum={item.customer}
+              key={item.name}
+            />
+          ))
+        )}
+      </div>
+      <Sidebar />
+      <Modals />
     </div>
-    <Sidebar />
-
-    <Modals />
-  </div>
-);
+  );
+};
 
 export default Counter;

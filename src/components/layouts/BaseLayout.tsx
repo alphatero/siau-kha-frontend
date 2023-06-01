@@ -12,7 +12,7 @@ export const BaseLayout: FC<PropsWithChildren> = ({ children }) => {
   }, [cookies]);
 
   return (
-  <div className="flex min-h-screen bg-highlight">{children}</div>
+  <div className="flex h-screen bg-highlight">{children}</div>
   );
 };
 

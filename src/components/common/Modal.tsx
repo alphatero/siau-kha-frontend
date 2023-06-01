@@ -24,6 +24,7 @@ export const Modal = ({ children, onClose, isOpen }: ModalProps) => {
       <div
         className={clsx(
           'absolute rounded-md bg-white p-6',
+          'flex flex-col',
           'min-h-lg min-w-md',
           'animate-scale-up transition-all duration-200',
         )}

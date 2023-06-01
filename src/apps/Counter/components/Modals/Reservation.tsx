@@ -36,11 +36,11 @@ export const Reservation = () => {
       >
         <div className='space-y-4 text-black/85'>
 
-          <TextField label="請輸入顧客姓名" type="text" {...register('name')} />
+          <TextField label="請輸入顧客姓名" type="text" {...register('name')} placeholder='輸入姓名' />
 
-          <TextField label="請輸入電話" type="text" {...register('phone')} />
+          <TextField label="請輸入電話" type="text" {...register('phone')} placeholder='輸入電話'/>
 
-          <TextField label="請輸入用餐人數" type="number" {...register('customerNum')} />
+          <TextField label="請輸入用餐人數" type="number" {...register('customerNum')} placeholder='輸入人數' />
 
         </div>
 

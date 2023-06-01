@@ -89,12 +89,12 @@ export const fetchPromotions = async (): Promise<{
 
 const toTableStatus = (status: string): TableStatus => {
   switch (status) {
-    case 'IDEL':
-      return TableStatus.IDEL;
+    case 'IDLE':
+      return TableStatus.IDLE;
     case 'MEAL':
       return TableStatus.MEAL;
     default:
-      return TableStatus.IDEL;
+      return TableStatus.IDLE;
   }
 };
 

@@ -2,15 +2,21 @@ import { Button, Icons } from '@/components/common';
 import clsx from 'clsx';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
+import { usePatchTable } from '@/services/mutation';
 import { useStore } from '../stores';
 
 export const Header = () => {
   const { setTriggerModal, table } = useStore();
   const { setIsOpen } = useModalStore();
+  const { mutateAsync } = usePatchTable();
 
   const openModal = (modalName: ModalCategory) => {
     setTriggerModal(modalName);
     setIsOpen(true);
+  };
+
+  const onClick = () => {
+    mutateAsync({ id: table.id, status: table.status, customerNum: Number(table.customer) });
   };
 
   return (
@@ -38,7 +44,7 @@ export const Header = () => {
           點餐紀錄
         </Button>
         <div className="h-6 w-[1px] bg-gray-400" />
-        <Button color="secondary" className="flex whitespace-nowrap">
+        <Button color="secondary" className="flex whitespace-nowrap" onClick={onClick}>
           <span className="w-6">
             <Icons.Notification />
           </span>

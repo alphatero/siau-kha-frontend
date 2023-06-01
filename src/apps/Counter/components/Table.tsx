@@ -64,7 +64,7 @@ export const Table = (props: Props) => {
             <span className="text-fs-6 text-black/85">閒置</span>
           )}
         </div>
-        <div className="relative flex h-[120px] w-[120px] items-center space-x-2">
+        <div className="relative flex h-full w-full items-center space-x-2">
           <Image
             src={`/images/${status === TableStatus.MEAL ? 'meal' : 'idel'}.png`}
             alt="status"

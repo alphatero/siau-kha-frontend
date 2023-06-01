@@ -8,8 +8,9 @@ export const TextField = forwardRef((props: TextFieldProps, ref: ForwardedRef<HT
   const { label, ...rest } = props;
   return (
     <div className="flex flex-col space-y-2">
-      <label>{label}</label>
+      <label>{label} :</label>
       <input type="text"
+      placeholder={label}
       ref={ref}
         {...rest} className='rounded-md border border-black/10' />
     </div>

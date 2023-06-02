@@ -1,5 +1,6 @@
 import type { NextPageWithLayout } from '@/types';
 import { Loading } from '@/components/common';
+import clsx from 'clsx';
 import { Modals } from './components/Modals';
 import { Menu, Sidebar, Table } from './components';
 import { useUpdateList } from './hooks/useUpdateList';
@@ -10,7 +11,7 @@ const Counter: NextPageWithLayout = () => {
   return (
     <div className="flex w-full justify-between">
       <Menu />
-      <div className="col-span-2 grid flex-1 grid-cols-2 grid-rows-2 gap-6 px-6 pb-8 pt-14">
+      <div className={clsx('col-span-2 grid flex-1 grid-cols-2 grid-rows-2', 'gap-6 px-6 pb-8 pt-14')}>
         {isLoading ? (
           <Loading />
         ) : (

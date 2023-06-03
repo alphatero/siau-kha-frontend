@@ -1,11 +1,11 @@
 import type { NextPageWithLayout } from '@/types';
-import { Auth } from '@/components/common';
+import { Header, Main } from './components';
 
 const Kitchen: NextPageWithLayout = () => (
-  <div>
-    <h1>Kitchen</h1>
-    <Auth position='right' />
-  </div>
+    <div className='flex flex-1 flex-col'>
+     <Header />
+     <Main />
+    </div>
 );
 
 export default Kitchen;

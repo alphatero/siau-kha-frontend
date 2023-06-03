@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Icons } from '../Icons';
 import { RoleBox } from './RoleBox';
 
-export const Auth = ({ position }: {position: string}) => {
+export const Auth = ({ position, absolute }: {position: string, absolute: string}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ export const Auth = ({ position }: {position: string}) => {
         <Icons.User className="text-white" />
       </button>
 
-      {open && <RoleBox position={position} />}
+      {open && <RoleBox position={position} absolute={absolute}/>}
     </div>
   );
 };

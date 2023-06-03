@@ -39,8 +39,9 @@ type Action = {
 
 const defaultState: State = {
   table: {
+    id: '',
     name: 'A1',
-    status: TableStatus.IDEL,
+    status: TableStatus.IDLE,
     time: '0',
   },
   isReset: false,

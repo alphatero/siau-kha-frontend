@@ -1,5 +1,5 @@
 export enum TableStatus {
-  IDEL = '閒置',
+  IDLE = '閒置',
   MEAL = '用餐中',
 }
 
@@ -9,6 +9,7 @@ export enum MealType {
 }
 
 export type TableType = {
+  id: string;
   name: string;
   status: TableStatus;
   time: string;

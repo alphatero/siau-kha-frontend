@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { TableTab } from './TableTab';
+import { TableOrder } from './TableOrder';
 
 export const Main = () => {
   // TODO test data
@@ -61,6 +62,16 @@ export const Main = () => {
               </li>
             ))}
           </ul>
+          <div className={clsx(
+            'col-span-3 grid flex-1 grid-cols-3 grid-rows-1',
+            'gap-4',
+          )}>
+            {
+              list?.filter((table) => table.is_show).map((table) => (
+                <TableOrder tableName={table.table_name} key={table.id} />
+              ))
+            }
+          </div>
       </main>
   </div>);
 };

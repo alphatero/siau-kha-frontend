@@ -31,7 +31,7 @@ export const Table = (props: Props) => {
           className={clsx(
             'bg-warn px-2 py-1 text-white',
             'rounded',
-            (isPayed || status === TableStatus.IDEL) && 'opacity-0',
+            (isPayed || status === TableStatus.IDLE) && 'opacity-0',
           )}
         >
           未結帳

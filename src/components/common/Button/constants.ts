@@ -3,6 +3,7 @@ export const colors = {
   secondary: 'bg-secondary hover:bg-secondary-dark',
   black: 'bg-black',
   gray: 'bg-black/50',
+  warn: 'bg-warn',
 };
 
 export const outlineColors = {
@@ -10,4 +11,5 @@ export const outlineColors = {
   secondary: 'text-secondary border-secondary hover:bg-secondary hover:text-white',
   black: 'text-black border-black hover:bg-black hover:text-white',
   gray: 'text-black/50 border-black/50 hover:bg-black/50 hover:text-white',
+  warn: 'text-warn border-warn hover:bg-warn hover:text-white',
 };

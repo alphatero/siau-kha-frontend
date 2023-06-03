@@ -11,6 +11,7 @@ import TrashCan from '@/assets/svg/trash-can.svg';
 import User from '@/assets/svg/user.svg';
 import Settlement from '@/assets/svg/settlement.svg';
 import Bill from '@/assets/svg/bill.svg';
+import Lock from '@/assets/svg/lock.svg';
 
 export const Icons = {
   Change,
@@ -26,6 +27,7 @@ export const Icons = {
   User,
   Settlement,
   Bill,
+  Lock,
 };
 
 export default Icons;

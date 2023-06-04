@@ -8,7 +8,7 @@ export const Standby = () => {
   if (isLoading) return <div className='flex items-center justify-center'><Spinner /></div>;
 
   return (
-  <ul className="z-10 w-[190px] space-y-4 overflow-scroll">
+  <ul className="no-scrollbar z-10 h-full w-[190px] space-y-4 overflow-y-scroll">
     {standbyList?.map((item, index) => (
       <li
         className={clsx(

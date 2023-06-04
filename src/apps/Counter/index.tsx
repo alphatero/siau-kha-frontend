@@ -9,7 +9,7 @@ const Counter: NextPageWithLayout = () => {
   const { isLoading, list } = useUpdateList();
 
   return (
-    <div className="flex w-full justify-between">
+    <div className="flex w-full justify-between overflow-y-hidden">
       <Menu />
       <div className={clsx('col-span-2 grid flex-1 grid-cols-2 grid-rows-2', 'gap-6 px-6 pb-8 pt-14')}>
         {isLoading ? (

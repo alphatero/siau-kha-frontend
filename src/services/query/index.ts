@@ -11,6 +11,6 @@ export const usePromotions = () => useQuery({ ...schema.promotions });
 export const useProducts = (tagId: string) => useQuery({ ...schema.products(tagId), enabled: !!tagId });
 export const useOrderItem = (productId: string) => useQuery({ ...schema.orderItem(productId), enabled: !!productId });
 export const useSignOut = (enabled: boolean) => useQuery({ ...authSchema.signOut, enabled: !!enabled });
-export const useReservation = () => useQuery({ ...seat.getReservation });
+export const useReservation = () => useQuery({ ...seat.getReservation, enabled: false });
 
 export default useCheckToken;

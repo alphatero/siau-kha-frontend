@@ -5,7 +5,7 @@ import { useStandby } from '../../hooks/useStandby';
 export const Standby = () => {
   const { standbyList, isLoading } = useStandby();
 
-  if (isLoading) return <div className='flex items-center justify-center'><Spinner/></div>;
+  if (isLoading) return <div className='flex items-center justify-center'><Spinner /></div>;
 
   return (
   <ul className="z-10 w-[190px] space-y-4">

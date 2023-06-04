@@ -14,7 +14,7 @@ export const Menu = () => (
     <Logo />
 
     <div className={clsx(
-      'relative flex h-full flex-col',
+      'relative flex h-full flex-col overflow-hidden',
       'space-y-8 p-8',
     )}>
       <RegisterButton />

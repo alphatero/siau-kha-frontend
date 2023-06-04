@@ -18,7 +18,7 @@ export const Promotion = () => {
     >
       <fieldset className="flex flex-col justify-around">
         <legend className='mx-auto mb-4 text-h4'>優惠活動</legend>
-        <div className='text-fs-6 text-black/85'>
+        <div className='max-h-[515px] overflow-y-auto text-fs-6 text-black/85'>
           {
             promotionList.map((item) => (
               <PromotionItem key={item.id} item={item} />

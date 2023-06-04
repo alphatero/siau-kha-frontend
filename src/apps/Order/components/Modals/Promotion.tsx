@@ -1,6 +1,6 @@
+import clsx from 'clsx';
 import { Button, Modal } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
-import { ModalCategory } from '@/types/order';
 import { useStore } from '../../stores';
 import { PromotionItem } from './PromotionItem';
 
@@ -9,12 +9,7 @@ export const Promotion = () => {
     isOpen, setIsOpen,
   } = useModalStore();
 
-  const { setTriggerModal, promotionList } = useStore();
-
-  const openModal = (modalName: ModalCategory) => {
-    setTriggerModal(modalName);
-    setIsOpen(true);
-  };
+  const { promotionList } = useStore();
 
   return (
     <Modal
@@ -30,13 +25,27 @@ export const Promotion = () => {
             ))
           }
         </div>
-        <div className='absolute inset-x-0 bottom-0 mb-6 px-6'>
+        <div className={clsx(
+          'absolute inset-x-0 bottom-0',
+          'mb-6 flex space-x-6 px-6',
+        )}>
+          <Button
+            className={clsx(
+              'w-full py-2',
+              'border-black/50 text-black/50',
+              'hover:border-transparent hover:bg-black/50',
+            )}
+            color='black'
+            outline
+            onClick={() => setIsOpen(false)}
+          >
+            <span className='text-fs-6'>取消</span>
+          </Button>
           <Button
             className='w-full py-2'
             color='primary'
-            onClick={() => openModal('check')}
           >
-            <span className='text-h5'>送出訂單</span>
+            <span className='text-fs-6'>確認</span>
           </Button>
         </div>
       </fieldset>

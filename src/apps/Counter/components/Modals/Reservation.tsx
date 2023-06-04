@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import { Button, TextField } from '@/components/common';
 import { useForm } from 'react-hook-form';
 import { useModalStore } from '@/stores/modal';
+import { usePostReservation } from '@/services/mutation';
+import { useStandby } from '../../hooks/useStandby';
 
 type StandbyType = {
   name: string;
@@ -11,13 +13,17 @@ type StandbyType = {
 
 export const Reservation = () => {
   const { setIsOpen } = useModalStore();
+  const { mutateAsync } = usePostReservation();
+  const { refetch } = useStandby();
   const {
     register,
     handleSubmit,
   } = useForm<StandbyType>();
 
   const onSubmit = (data: StandbyType) => {
-    console.log(data);
+    mutateAsync(data);
+    setIsOpen(false);
+    refetch();
   };
   return (
     <div className="flex flex-1 flex-col space-y-6">

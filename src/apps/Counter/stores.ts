@@ -6,16 +6,19 @@ import {
 type State = {
   triggerModal: string | null;
   list: TableType[];
+  isFetch: boolean;
 }
 
 type Action = {
   setTriggerModal: (triggerModal: State['triggerModal']) => void;
   setList: (list: State['list']) => void;
+  setIsFetch: (isFetch: State['isFetch']) => void;
 }
 
 const defaultState: State = {
   triggerModal: null,
   list: [],
+  isFetch: true,
 };
 
 export const useStore = create<State & Action>((set, get) => ({
@@ -26,6 +29,8 @@ export const useStore = create<State & Action>((set, get) => ({
   },
 
   setList: (list) => set({ list }),
+
+  setIsFetch: (isFetch) => set({ isFetch }),
 
 }));
 

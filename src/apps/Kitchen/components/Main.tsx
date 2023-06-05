@@ -14,7 +14,7 @@ export const Main = () => {
       create_time: '2023-04-30T16:00:00.000Z',
       is_pay: false,
       order_id: '644e5571020c9409fe694db5',
-      is_show: true,
+      isShow: true,
     },
     {
       id: '644e54a6893f163f3a3678f8',
@@ -25,7 +25,7 @@ export const Main = () => {
       create_time: '2023-05-22T14:53:02.649Z',
       is_pay: false,
       order_id: '646b81cea4ea5e1bc53f7d8b',
-      is_show: true,
+      isShow: true,
     },
     {
       id: '644e54a8893f163f3a3678fa',
@@ -33,7 +33,7 @@ export const Main = () => {
       seat_max: 4,
       status: 'IDLE',
       order_id: '',
-      is_show: true,
+      isShow: true,
     },
     {
       id: '644e54ac893f163f3a3678fc',
@@ -41,7 +41,7 @@ export const Main = () => {
       seat_max: 6,
       status: 'IDLE',
       order_id: '',
-      is_show: false,
+      isShow: false,
     },
     {
       id: '644e54ac893f163f3a3678fd',
@@ -49,7 +49,7 @@ export const Main = () => {
       seat_max: 6,
       status: 'IDLE',
       order_id: '',
-      is_show: false,
+      isShow: false,
     },
   ];
 
@@ -58,16 +58,16 @@ export const Main = () => {
           <ul className="my-10 flex items-center border-b border-primary">
             {list?.map((table) => (
               <li key={table.id}>
-                <TableTab tableName={table.table_name} isShow={table.is_show}/>
+                <TableTab tableName={table.table_name} isShow={table.isShow}/>
               </li>
             ))}
           </ul>
           <div className={clsx(
-            'col-span-3 grid flex-1 grid-cols-3 grid-rows-1',
-            'gap-4',
+            'grid flex-1 gap-4',
+            'col-span-3 grid-cols-3 grid-rows-1',
           )}>
             {
-              list?.filter((table) => table.is_show).map((table) => (
+              list?.filter((table) => table.isShow).map((table) => (
                 <TableOrder tableName={table.table_name} key={table.id} />
               ))
             }

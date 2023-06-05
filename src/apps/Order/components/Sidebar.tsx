@@ -39,7 +39,7 @@ export const Sidebar = () => {
               </li>))}
       </ul>
       <div className="pl-4">
-        <Auth position="left" />
+        <Auth position="left" absolute='bottom'/>
       </div>
     </div>
   );

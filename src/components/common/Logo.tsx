@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { Icons } from './Icons';
 
-export const Logo = () => (
+export const Logo = ({ border = true }:{border?: boolean}) => (
   <h1
     className={clsx(
       'flex items-center justify-center',
       'space-x-2 px-2 py-4 text-h5',
-      'border-b border-black/10',
+      border && 'border-b border-black/10',
     )}
   >
     <span className="h-5 w-5 text-primary">

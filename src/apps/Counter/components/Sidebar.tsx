@@ -24,7 +24,7 @@ export const Sidebar = () => (
     </div>
 
     <div className="flex flex-col items-center space-y-4">
-      <Auth position="right" />
+      <Auth position="right" absolute='bottom'/>
       <IconButton containerClasses="w-10 text-primary" icon="settlement" />
     </div>
   </div>

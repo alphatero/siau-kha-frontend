@@ -20,7 +20,7 @@ export const Product = (props: Props) => {
     className={clsx(
       'rounded border px-3 py-2',
       isAlert ? ' border-warn' : 'border-black/10 ',
-      status === 'FINISH' ? 'bg-black/10' : '',
+      status === 'FINISH' && 'bg-black/10',
     )}>
       <div className='mb-4 flex items-center justify-between'>
         <div className='flex items-baseline space-x-1'>
@@ -33,9 +33,8 @@ export const Product = (props: Props) => {
       </div>
       <button className={clsx(
         'w-full rounded-s py-1',
-        isAlert ? 'bg-warn' : '',
-        status === 'FINISH' ? 'bg-black/25' : 'bg-primary',
-        status === 'FINISH' ? 'text-black/85' : 'text-white',
+        isAlert && 'bg-warn',
+        status === 'FINISH' ? 'bg-black/25 text-black/85' : 'bg-primary text-white',
       )}
       >
         <span className="text-fs-6">{`${status === 'IN_PROGRESS' ? '出菜' : '已完成'}`}</span>

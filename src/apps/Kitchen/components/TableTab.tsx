@@ -15,8 +15,8 @@ export const TableTab = (props: Props) => {
     <button
       className={clsx(
         'flex min-w-[147px] items-center justify-center rounded-t',
-        'px-4 py-2',
-        isShow ? 'border border-b-0 border-primary bg-primary/85 text-white' : 'border border-b-0 border-black/25 bg-black/10 text-black/85',
+        'border border-b-0 px-4 py-2',
+        isShow ? 'border-primary bg-primary/85 text-white' : ' border-black/25 bg-black/10 text-black/85',
       )}
     >
       { isShow

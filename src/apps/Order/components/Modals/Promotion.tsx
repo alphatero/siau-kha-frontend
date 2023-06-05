@@ -44,6 +44,7 @@ export const Promotion = () => {
           <Button
             className='w-full py-2'
             color='primary'
+            onClick={() => setIsOpen(false)}
           >
             <span className='text-fs-6'>確認</span>
           </Button>

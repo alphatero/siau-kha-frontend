@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 
 export const CurrentTime = () => {
   const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(new Date().toLocaleTimeString(
-        [],
-        { hour: '2-digit', minute: '2-digit', hour12: false },
-      ));
+      setCurrentTime(dayjs().format('HH:mm'));
     }, 1000);
 
     return () => {

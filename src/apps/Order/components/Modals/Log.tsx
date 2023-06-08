@@ -1,6 +1,8 @@
+import clsx from 'clsx';
 import { Modal } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { useStore } from '../../stores';
+import { LogButtons } from './LogButtons';
 
 export const Log = () => {
   const {
@@ -9,33 +11,27 @@ export const Log = () => {
 
   const { table } = useStore();
 
+  type OrderItem = {
+    name: string;
+    price: number;
+    quantity: number;
+    button: {
+      isCooking: boolean;
+      hasServed: boolean;
+    };
+  }
+
   type FirstOrderType = {
     title: string;
     orderTime: string;
-    orderList: {
-      name: string;
-      price: number;
-      quantity: number;
-      button: {
-        canRemove: boolean;
-        hasServed: boolean;
-      };
-    }[];
+    orderList: OrderItem[];
   };
 
   type AnotherOrderType = {
     title: string;
     dataList: {
-      sortNo: number;
-      orderList: {
-        name: string;
-        price: number;
-        quantity: number;
-        button: {
-          canRemove: boolean;
-          hasServed: boolean;
-        };
-      }[];
+      orderTime: string;
+      orderList: OrderItem[];
     }[];
   };
 
@@ -43,9 +39,6 @@ export const Log = () => {
     title: string;
     name: string;
     discount: number;
-    button: {
-      canRemove: boolean;
-    };
   };
 
   const logData: {
@@ -59,10 +52,10 @@ export const Log = () => {
       orderList: [
         {
           name: '澳洲牛舌',
-          price: 790,
+          price: 10790,
           quantity: 2,
           button: {
-            canRemove: true,
+            isCooking: true,
             hasServed: false,
           },
         },
@@ -71,7 +64,7 @@ export const Log = () => {
           price: 350,
           quantity: 3,
           button: {
-            canRemove: false,
+            isCooking: false,
             hasServed: true,
           },
         },
@@ -80,7 +73,7 @@ export const Log = () => {
           price: 1980,
           quantity: 1,
           button: {
-            canRemove: true,
+            isCooking: false,
             hasServed: false,
           },
         },
@@ -90,14 +83,14 @@ export const Log = () => {
       title: '加點',
       dataList: [
         {
-          sortNo: 1,
+          orderTime: '2023/06/05 12:00',
           orderList: [
             {
               name: '可爾必思',
               price: 90,
               quantity: 3,
               button: {
-                canRemove: true,
+                isCooking: false,
                 hasServed: false,
               },
             },
@@ -106,21 +99,21 @@ export const Log = () => {
               price: 350,
               quantity: 1,
               button: {
-                canRemove: false,
+                isCooking: false,
                 hasServed: true,
               },
             },
           ],
         },
         {
-          sortNo: 2,
+          orderTime: '2023/06/05 12:00',
           orderList: [
             {
               name: 'A5 日本和牛套餐',
               price: 2200,
               quantity: 1,
               button: {
-                canRemove: true,
+                isCooking: false,
                 hasServed: false,
               },
             },
@@ -129,7 +122,7 @@ export const Log = () => {
               price: 1880,
               quantity: 2,
               button: {
-                canRemove: true,
+                isCooking: false,
                 hasServed: true,
               },
             },
@@ -141,9 +134,6 @@ export const Log = () => {
       title: '折扣',
       name: '全單折讓 300 元優惠活動',
       discount: 300,
-      button: {
-        canRemove: true,
-      },
     },
   };
 
@@ -154,25 +144,53 @@ export const Log = () => {
     >
       <fieldset className="flex flex-col justify-around">
         <legend className='mx-auto mb-5 text-h4'>Table {table.name} 點餐紀錄</legend>
-        <div className='text-fs-6 text-black/85'>
-          <h3 className='text-h5 text-primary'>{logData.firstOrder.title}</h3>
-          <ul>
-            {
-              logData.firstOrder.orderList.map((item) => (
-                <li className='mb-2 flex justify-between' key={item.name}>
-                  <span>{item.name}</span>
-                  <span>{item.price}</span>
-                  <span>{item.quantity}</span>
-                </li>
-              ))
-            }
-          </ul>
+        <ul className='text-fs-6 text-black/85'>
+          <li className='mb-4'>
+            <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
+              {logData.firstOrder.title}
+            </h3>
+            <ul>
+              {
+                logData.firstOrder.orderList.map((item) => (
+                  <li
+                    className='mb-2 flex items-center justify-between space-x-4'
+                    key={`firstOrder-${item.name}`}
+                  >
+                    <p>{item.name}</p>
+                    <div className='flex flex-1 justify-end whitespace-nowrap'>
+                      <span>${item.price}</span>
+                      <div className='pl-2'>
+                        <span>x {item.quantity}</span>
+                        <span className='px-2'>=</span>
+                        <span className={clsx(
+                          'px-1',
+                          'rounded-md border border-secondary text-secondary',
+                        )}>${item.price * item.quantity}</span>
+                      </div>
+                    </div>
+                    <div className='shrink-0 basis-[130px]'>
+                      <LogButtons
+                        isCooking={item.button.isCooking}
+                        hasServed={item.button.hasServed}
+                      />
+                    </div>
+                  </li>
+                ))
+              }
+            </ul>
+            <p className='mt-2 whitespace-nowrap text-right text-black/50'>送出時間：{logData.firstOrder.orderTime}</p>
+          </li>
 
           {
             logData.anotherOrder.dataList.map((anotherOrderItem) => (
-              <>
-                <h3 className='text-h5 text-primary'>{logData.anotherOrder.title}</h3>
-                <ul key={anotherOrderItem.sortNo}>
+              <li
+                className='mb-4'
+                key={anotherOrderItem.orderTime}
+              >
+                <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
+                  {logData.anotherOrder.title}
+                </h3>
+                <ul>
                   {
                     anotherOrderItem.orderList.map((item) => (
                       <li className='mb-2 flex justify-between' key={item.name}>
@@ -183,16 +201,19 @@ export const Log = () => {
                     ))
                   }
                 </ul>
-              </>
+                <p>送出時間：{anotherOrderItem.orderTime}</p>
+              </li>
             ))
           }
 
-          <h3 className='text-h5 text-primary'>{logData.promotionInfo.title}</h3>
+          <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
+            {logData.promotionInfo.title}
+          </h3>
           <div>
             <span>{logData.promotionInfo.name}</span>
             <span>折扣{logData.promotionInfo.discount}</span>
           </div>
-        </div>
+        </ul>
       </fieldset>
     </Modal>
   );

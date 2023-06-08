@@ -153,11 +153,11 @@ export const Log = () => {
               {
                 logData.firstOrder.orderList.map((item) => (
                   <li
-                    className='mb-2 flex items-center justify-between space-x-4'
+                    className='mb-2 flex items-center justify-between'
                     key={`firstOrder-${item.name}`}
                   >
                     <p>{item.name}</p>
-                    <div className='flex flex-1 justify-end whitespace-nowrap'>
+                    <div className='ml-auto flex justify-end whitespace-nowrap'>
                       <span>${item.price}</span>
                       <div className='pl-2'>
                         <span>x {item.quantity}</span>
@@ -165,10 +165,10 @@ export const Log = () => {
                         <span className={clsx(
                           'px-1',
                           'rounded-md border border-secondary text-secondary',
-                        )}>${item.price * item.quantity}</span>
+                        )}>$ {item.price * item.quantity}</span>
                       </div>
                     </div>
-                    <div className='shrink-0 basis-[130px]'>
+                    <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
                       <LogButtons
                         isCooking={item.button.isCooking}
                         hasServed={item.button.hasServed}
@@ -193,15 +193,33 @@ export const Log = () => {
                 <ul>
                   {
                     anotherOrderItem.orderList.map((item) => (
-                      <li className='mb-2 flex justify-between' key={item.name}>
-                        <span>{item.name}</span>
-                        <span>{item.price}</span>
-                        <span>{item.quantity}</span>
+                      <li
+                        className='mb-2 flex items-center justify-between'
+                        key={`anotherOrderItem-${item.name}`}
+                      >
+                        <p className='mr-4'>{item.name}</p>
+                        <div className='ml-auto flex justify-end whitespace-nowrap'>
+                          <span>${item.price}</span>
+                          <div className='pl-2'>
+                            <span>x {item.quantity}</span>
+                            <span className='px-2'>=</span>
+                            <span className={clsx(
+                              'px-1',
+                              'rounded-md border border-secondary text-secondary',
+                            )}>$ {item.price * item.quantity}</span>
+                          </div>
+                        </div>
+                        <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
+                          <LogButtons
+                            isCooking={item.button.isCooking}
+                            hasServed={item.button.hasServed}
+                          />
+                        </div>
                       </li>
                     ))
                   }
                 </ul>
-                <p>送出時間：{anotherOrderItem.orderTime}</p>
+                <p className='mt-2 whitespace-nowrap text-right text-black/50'>送出時間：{anotherOrderItem.orderTime}</p>
               </li>
             ))
           }

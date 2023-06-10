@@ -6,6 +6,7 @@ import { useModalStore } from '@/stores/modal';
 import { useStore } from '../stores';
 
 type Props = {
+  id: string;
   title: string;
   status: string;
   customerNum?: number;
@@ -16,7 +17,7 @@ type Props = {
 
 export const Table = (props: Props) => {
   const {
-    title, status, customerNum, isPayed, time, seat,
+    id, title, status, customerNum, isPayed, time, seat,
   } = props;
 
   const { setIsOpen } = useModalStore();
@@ -29,7 +30,7 @@ export const Table = (props: Props) => {
     }
     setTriggerModal('tableMeal');
     setIsOpen(true);
-    setSelectedTable(title);
+    setSelectedTable(id);
   };
 
   return (

@@ -11,16 +11,18 @@ type OnMealType = {
 export const TableMeal = () => {
   const { setIsOpen } = useModalStore();
 
-  const { selectedTable } = useStore();
+  const { selectedTable, list, setTableOnMeal } = useStore();
 
   const {
     register,
     handleSubmit,
   } = useForm<OnMealType>();
 
-  const onSubmit = () => {
+  const onSubmit = (data: OnMealType) => {
     setIsOpen(false);
-    console.log('儲存');
+    console.log('儲存', data);
+    // FIXME: need update list
+    setTableOnMeal(selectedTable, data.customerNum);
   };
   return (
     <div className="flex flex-1 flex-col space-y-6">
@@ -30,7 +32,7 @@ export const TableMeal = () => {
           'pb-4 text-h5',
         )}
       >
-        {selectedTable}
+        {list.find((t) => t.id === selectedTable)?.name}
         <span
           className={clsx(
             'rounded-md border border-info text-fs-6 text-info',

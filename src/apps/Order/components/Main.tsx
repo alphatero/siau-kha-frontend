@@ -1,19 +1,21 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { SearchBar, Loading } from '@/components/common';
-import { CheckSide } from './CheckSide';
+import { OrderItemType, ProductType } from '@/types/order';
+import { CheckSide } from './OrderList';
 import { useStore } from '../stores';
 import { useUpdateProducts } from '../hooks/useUpdateProducts';
 
 export const Main = () => {
   const {
+    orderList,
     setFilteredProductList,
-    setClickMenuItemTimes,
-    clickMenuItemTimes,
-    setCurrentOrderItemId,
+    setOrderList,
     filteredProducts,
     products,
     isReset,
+    orderNumber,
+    setOrderNumber,
   } = useStore();
 
   const { isLoading } = useUpdateProducts();
@@ -29,9 +31,50 @@ export const Main = () => {
     setFilteredProductList(filtered);
   };
 
-  const handleClick = (productId: string) => {
-    setCurrentOrderItemId(productId);
-    setClickMenuItemTimes(clickMenuItemTimes + 1);
+  // 確認點擊的餐點的note跟currentNote是否一樣
+  const checkNote = (orderItem: OrderItemType, product: ProductType) => {
+    if (orderItem.note.length !== product.note.length) {
+      return false;
+    }
+    if (orderItem.currentNote) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleClick = (product: ProductType) => {
+    // 如果點擊的餐點已經在點餐清單中，則數量+1
+    const repeatItem = orderList.filter((item) => item.id === product.id && checkNote(item, product));
+    if (repeatItem.length > 0) {
+      const newItems = orderList.map((item) => {
+        if (item.id !== product.id) {
+          setOrderNumber(orderNumber + 1);
+          return {
+            ...item,
+            idx: orderNumber + 1,
+          };
+        }
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      });
+      setOrderList(newItems);
+      return;
+    }
+
+    // 如果點擊的餐點不在點餐清單中，則新增一筆
+    const newItem: OrderItemType = {
+      idx: orderNumber + 1,
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      note: product.note,
+      tags: product.tags,
+      quantity: 1,
+    };
+    setOrderNumber(orderNumber + 1);
+    setOrderList([...orderList, newItem]);
   };
 
   return (
@@ -57,10 +100,10 @@ export const Main = () => {
           'flex flex-row flex-wrap items-start justify-between gap-6',
         )}>
           {
-            isLoading ? <Loading/> : filteredProducts.map((menu, i) => (
+            isLoading ? <Loading/> : filteredProducts.map((menu: ProductType, i) => (
               <li
                 key={i}
-                onClick={() => handleClick(menu.id)}
+                onClick={() => handleClick(menu)}
                 className={clsx(
                   'group flex-[47%] grow-0',
                   'flex cursor-pointer flex-col items-center',

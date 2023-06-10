@@ -6,12 +6,11 @@ import { useStore } from '../stores';
 
 export const CheckSideItem = (props: OrderItemType) => {
   const {
-    id, name, price, quantity, note,
+    name, price, quantity, currentNote, idx,
   } = props;
-
   const { setIsOpen } = useModalStore();
   const {
-    setTriggerModal, setOrderItem, orderList, setOrderList,
+    setTriggerModal, setOrderItem, setOrderList, orderList,
   } = useStore();
 
   const handleClick = (
@@ -23,9 +22,39 @@ export const CheckSideItem = (props: OrderItemType) => {
     setIsOpen(true);
   };
 
-  const removeItem = (clickId: string) => {
-    const filteredList = orderList.filter((item) => item.id !== clickId);
+  const removeItem = (clickId: number) => {
+    const filteredList = orderList.filter((item) => item.idx !== clickId);
     setOrderList(filteredList);
+  };
+
+  const handleMinus = (i: number) => {
+    if (quantity === 1) return;
+
+    const newList = orderList.map((item) => {
+      if (item.idx === i) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+        };
+      }
+      return item;
+    });
+
+    setOrderList(newList);
+  };
+
+  const handlePlus = (i: number) => {
+    const newList = orderList.map((item) => {
+      if (item.idx === i) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    });
+
+    setOrderList(newList);
   };
 
   return (
@@ -39,16 +68,17 @@ export const CheckSideItem = (props: OrderItemType) => {
         <div className='flex items-baseline space-x-1'>
           <h6 className="text-h6 text-black/85">{name}</h6>
           <span className="text-fs-6 text-secondary/85">
-            {note.map((item) => item.selected && item.name)}
+            {currentNote}
           </span>
         </div>
-        <span className="text-fs-6 text-black">NT${price}</span>
+        <span className="text-fs-6 text-black">NT${price * quantity}</span>
       </div>
       <div className='flex w-full items-end justify-between'>
         <div className='flex items-center'>
           <IconButton
             containerClasses='h-8 w-8 rounded-full bg-black/85 p-2 text-white'
             icon='minus'
+            onClick={() => handleMinus(idx)}
           />
           <span className='inline-block w-10 text-center text-black/85'>
             {quantity}
@@ -56,6 +86,7 @@ export const CheckSideItem = (props: OrderItemType) => {
           <IconButton
             containerClasses='h-8 w-8 rounded-full bg-black/85 p-2 text-white'
             icon='plus'
+            onClick={() => handlePlus(idx)}
           />
         </div>
         <div className='space-x-8'>
@@ -69,7 +100,7 @@ export const CheckSideItem = (props: OrderItemType) => {
             containerClasses='text-secondary/85'
             iconClasses='h-6'
             icon='delete'
-            onClick={() => removeItem(id)}
+            onClick={() => removeItem(idx)}
           />
         </div>
       </div>

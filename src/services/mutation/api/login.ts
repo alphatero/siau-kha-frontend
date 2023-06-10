@@ -1,5 +1,4 @@
 import type { AxiosError } from 'axios';
-// import axios from 'axios';
 import { request } from '@/utils/axios';
 import type { User, ResType, ResDataType } from '@/types/user';
 import { Role } from '@/types/user';

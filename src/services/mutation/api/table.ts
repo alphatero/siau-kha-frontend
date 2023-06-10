@@ -1,6 +1,5 @@
 import { TableStatus } from '@/types/order';
-import { cookies } from '@/utils/cookies';
-import axios from 'axios';
+import { patch } from '@/utils/axios';
 
 const toStatus = (status: TableStatus) => {
   switch (status) {
@@ -21,21 +20,11 @@ type ResDataType = {
 
 export const patchTable = async (resData: ResDataType) => {
   const { id, status, customerNum } = resData;
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const { token } = cookies.get('user');
 
-  const res = await axios.patch(
-    `${apiUrl}/table/${id}`,
-    {
-      status: toStatus(status),
-      customer_num: customerNum,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  );
+  const res = await patch(`/table/${id}`, {
+    status: toStatus(status),
+    customer_num: customerNum,
+  });
   return res;
 };
 

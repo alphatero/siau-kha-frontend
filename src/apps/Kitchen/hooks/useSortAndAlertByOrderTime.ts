@@ -46,7 +46,7 @@ function useSortAndAlertByOrderTime(data: Array<Product>): Array<AlertedProduct>
     return () => {
       clearInterval(intervalIdRef.current); // 防止內存溢出
     };
-  }, [data]); // 每當rawData變化時，都會重新設置間隔
+  }, [data, sortedData]); // 每當rawData變化時，都會重新設置間隔
 
   return sortedData;
 }

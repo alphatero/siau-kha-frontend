@@ -1,10 +1,12 @@
 import clsx from 'clsx';
+import { AlertType } from '@/types/kitchen';
 
 type Props = {
   productName: string,
   note?: string,
   status: string,
-  isAlert: boolean,
+  alertType: AlertType,
+  orderTime: string,
 };
 
 export const Product = (props: Props) => {
@@ -12,28 +14,44 @@ export const Product = (props: Props) => {
     productName,
     note,
     status,
-    isAlert,
+    alertType,
+    orderTime
   } = props;
 
   return (
     <div
     className={clsx(
       'rounded border px-3 py-2',
-      isAlert ? ' border-warn' : 'border-black/10 ',
+      status !== 'FINISH' && alertType === AlertType.HIGH ? ' border-warn' : 'border-black/10 ',
       status === 'FINISH' && 'bg-black/10',
     )}>
-      <div className='mb-4 flex items-center justify-between'>
+      <div className='flex items-center justify-between mb-4'>
         <div className='flex items-baseline space-x-1'>
           <h6 className="text-h6 text-black/85">{productName}</h6>
           <span className="text-fs-6 text-secondary/85">
             {note}
           </span>
         </div>
-        <span className="text-fs-7 text-info">15:29</span>
+        <span 
+          className={
+            clsx(
+              'text-fs-7 text-info',
+              
+              status !== 'FINISH' ? {
+                'text-warn': alertType === AlertType.HIGH,
+                'text-primary': alertType === AlertType.MIDDLE,
+                'text-secondary': alertType === AlertType.LOW,
+              }: {},
+              status === 'FINISH' ? 'text-black/85' : 'text-info',
+            )}>{orderTime}</span>
       </div>
       <button className={clsx(
         'w-full rounded-s py-1',
-        isAlert && 'bg-warn',
+        status !== 'FINISH' ? {
+          'bg-warn': alertType === AlertType.HIGH,
+          'bg-primary': alertType === AlertType.MIDDLE,
+          'bg-secondary': alertType === AlertType.LOW,
+        } : {},
         status === 'FINISH' ? 'bg-black/25 text-black/85' : 'bg-primary text-white',
       )}
       >

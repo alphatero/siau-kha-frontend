@@ -236,6 +236,13 @@ export const Log = () => {
               <Button color='warn'>取消</Button>
             </div>
           </li>
+
+          <li>
+            <h3 className='mb-2 flex justify-end border-b-2 border-b-primary pb-1 text-h5 text-primary'>
+              <span>總額：</span>
+              <span>$2,371</span>
+            </h3>
+          </li>
         </ul>
       </fieldset>
     </Modal>

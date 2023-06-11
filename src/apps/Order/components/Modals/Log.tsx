@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Modal } from '@/components/common';
+import { Modal, Button } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { useStore } from '../../stores';
 import { LogButtons } from './LogButtons';
@@ -224,13 +224,18 @@ export const Log = () => {
             ))
           }
 
-          <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
-            {logData.promotionInfo.title}
-          </h3>
-          <div>
-            <span>{logData.promotionInfo.name}</span>
-            <span>折扣{logData.promotionInfo.discount}</span>
-          </div>
+          <li className='mb-4'>
+            <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
+              {logData.promotionInfo.title}
+            </h3>
+            <div className='mb-2 flex items-center justify-between'>
+              <span>{logData.promotionInfo.name}</span>
+              <span className='rounded-md border border-secondary px-1 text-secondary'>
+                折扣{logData.promotionInfo.discount}
+              </span>
+              <Button color='warn'>取消</Button>
+            </div>
+          </li>
         </ul>
       </fieldset>
     </Modal>

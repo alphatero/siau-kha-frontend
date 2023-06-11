@@ -35,9 +35,12 @@ export const useGlobalAuth = () => {
     }
   };
 
-  const signOut = () => {
+  const signOut = async () => {
     setIsSignOut(true);
-    if (signOutRes) {
+
+    const res = await signOutRes;
+
+    if (res) {
       removeCookie('user', { sameSite: 'strict' });
       logout();
       router.push('/login');

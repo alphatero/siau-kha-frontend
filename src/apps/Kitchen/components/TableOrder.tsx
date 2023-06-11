@@ -23,7 +23,7 @@ export const TableOrder = (props: Props) => {
       note: '瘦肉多一點',
       status: ProductDetailStatus.IN_PROGRESS,
       is_delete: false,
-      order_time: '2023-06-11 08:21',
+      order_time: '2023-06-12 00:02',
     },
     {
       id: '2',
@@ -31,7 +31,7 @@ export const TableOrder = (props: Props) => {
       note: '少冰',
       status: ProductDetailStatus.IN_PROGRESS,
       is_delete: false,
-      order_time: '2023-06-11 08:28',
+      order_time: '2023-06-12 00:07',
     },
     {
       id: '3',
@@ -39,7 +39,7 @@ export const TableOrder = (props: Props) => {
       note: '少冰',
       status: ProductDetailStatus.IN_PROGRESS,
       is_delete: false,
-      order_time: '2023-06-11 08:32',
+      order_time: '2023-06-12 00:11',
     },
     {
       id: '4',

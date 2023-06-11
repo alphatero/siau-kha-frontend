@@ -1,8 +1,8 @@
 import { Modal, Button } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
-import { ModalLogType } from '@/types/order';
 import { useStore } from '../../stores';
 import { LogItem } from './LogItem';
+import { ModalLogData } from '../../constants';
 
 export const Log = () => {
   const {
@@ -10,98 +10,6 @@ export const Log = () => {
   } = useModalStore();
 
   const { table } = useStore();
-
-  const logData: ModalLogType = {
-    firstOrder: {
-      title: '訂單內容',
-      orderTime: '2023/06/05 12:00',
-      orderList: [
-        {
-          name: '澳洲牛舌',
-          price: 10790,
-          quantity: 2,
-          button: {
-            isCooking: true,
-            hasServed: false,
-          },
-        },
-        {
-          name: '北海道干貝',
-          price: 350,
-          quantity: 3,
-          button: {
-            isCooking: false,
-            hasServed: true,
-          },
-        },
-        {
-          name: '豪華全牛套餐',
-          price: 1980,
-          quantity: 1,
-          button: {
-            isCooking: false,
-            hasServed: false,
-          },
-        },
-      ],
-    },
-    anotherOrder: {
-      title: '加點',
-      dataList: [
-        {
-          orderTime: '2023/06/05 12:00',
-          orderList: [
-            {
-              name: '可爾必思',
-              price: 90,
-              quantity: 3,
-              button: {
-                isCooking: false,
-                hasServed: false,
-              },
-            },
-            {
-              name: '明蝦',
-              price: 350,
-              quantity: 1,
-              button: {
-                isCooking: false,
-                hasServed: true,
-              },
-            },
-          ],
-        },
-        {
-          orderTime: '2023/06/05 12:00',
-          orderList: [
-            {
-              name: 'A5 日本和牛套餐',
-              price: 2200,
-              quantity: 1,
-              button: {
-                isCooking: false,
-                hasServed: false,
-              },
-            },
-            {
-              name: '經典霜降牛套餐',
-              price: 1880,
-              quantity: 2,
-              button: {
-                isCooking: false,
-                hasServed: true,
-              },
-            },
-          ],
-        },
-      ],
-    },
-    promotionInfo: {
-      title: '折扣',
-      name: '全單折讓 300 元優惠活動',
-      discount: 300,
-    },
-  };
 
   return (
     <Modal
@@ -113,11 +21,11 @@ export const Log = () => {
         <ul className='text-fs-6 text-black/85'>
           <li className='mb-4'>
             <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
-              {logData.firstOrder.title}
+              {ModalLogData.firstOrder.title}
             </h3>
             <ul>
               {
-                logData.firstOrder.orderList.map((item) => (
+                ModalLogData.firstOrder.orderList.map((item) => (
                   <LogItem
                     key={`firstOrder-${item.name}`}
                     name={item.name}
@@ -128,17 +36,17 @@ export const Log = () => {
                 ))
               }
             </ul>
-            <p className='mt-2 whitespace-nowrap text-right text-black/50'>送出時間：{logData.firstOrder.orderTime}</p>
+            <p className='mt-2 whitespace-nowrap text-right text-black/50'>送出時間：{ModalLogData.firstOrder.orderTime}</p>
           </li>
 
           {
-            logData.anotherOrder.dataList.map((anotherOrderItem) => (
+            ModalLogData.anotherOrder.dataList.map((anotherOrderItem) => (
               <li
                 className='mb-4'
                 key={anotherOrderItem.orderTime}
               >
                 <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
-                  {logData.anotherOrder.title}
+                  {ModalLogData.anotherOrder.title}
                 </h3>
                 <ul>
                   {
@@ -160,12 +68,12 @@ export const Log = () => {
 
           <li className='mb-4'>
             <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
-              {logData.promotionInfo.title}
+              {ModalLogData.promotionInfo.title}
             </h3>
             <div className='mb-2 flex items-center justify-between'>
-              <span>{logData.promotionInfo.name}</span>
+              <span>{ModalLogData.promotionInfo.name}</span>
               <span className='rounded-md border border-secondary px-1 text-secondary'>
-                折扣{logData.promotionInfo.discount}
+                折扣{ModalLogData.promotionInfo.discount}
               </span>
               <Button color='warn'>取消</Button>
             </div>

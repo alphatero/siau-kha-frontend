@@ -1,5 +1,4 @@
 import type { AxiosResponse } from 'axios';
-import axios from 'axios';
 import {
   TableStatus,
   TableType,
@@ -17,7 +16,7 @@ import {
   ResProductItemType,
 } from '@/types/order';
 import dayjs from 'dayjs';
-import { cookies } from '@/utils/cookies';
+import { get } from '@/utils/axios';
 
 const convertTime = (time: string, formatSpec: string): string => {
   const date = dayjs(time);
@@ -52,40 +51,6 @@ const toPromotions = (data: ActivityType): PromotionType => ({
     end: convertTime(data.end_time, 'YYYY/MM/DD'),
   },
 });
-
-export const fetchPromotions = async (): Promise<{
-  promotions: PromotionType[]
-}> => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const { token } = cookies.get('user');
-
-  try {
-    const res: AxiosResponse<{
-      status: 'success'
-      message: string;
-      data: {
-        activities: ActivityType[]
-      }
-    }> = await axios.get(
-      `${apiUrl}/activities/list`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-    const { data } = res;
-    const activities = data.data.activities ?? [];
-
-    const promotions: PromotionType[] = activities.map((activity) => toPromotions(activity));
-
-    return {
-      promotions,
-    };
-  } catch (error:unknown) {
-    throw new Error('fetchPromotions failed');
-  }
-};
 
 const toTableStatus = (status: string): TableStatus => {
   switch (status) {
@@ -147,109 +112,75 @@ const toOrderItem = (data: ResProductItemType): OrderItemType => ({
 });
 
 export const fetchProductTag = async (): Promise<ResDataType<TagType[]>> => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const { token } = cookies.get('user');
+  const res: AxiosResponse<ResType<{ product_tags: ResTagType[] }>> = await get('/product/tags');
 
-  try {
-    const res: AxiosResponse<ResType<{product_tags: ResTagType[]}>> = await axios.get(
-      `${apiUrl}/product/tags`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-    const { data } = res;
-    const tags = data.data.product_tags ?? [];
+  const { data } = res;
+  const tags = data.data.product_tags ?? [];
 
-    const list: TagType[] = tags.map((tag) => toTag(tag));
+  const list: TagType[] = tags.map((tag) => toTag(tag));
 
-    return {
-      list,
-    };
-  } catch (error: unknown) {
-    throw new Error('fetchProductTag failed');
-  }
+  return {
+    list,
+  };
 };
 
 export const fetchProducts = async (tagId: string): Promise<ResDataType<ProductType[]>> => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const { token } = cookies.get('user');
+  const res: AxiosResponse<ResType<{ product_list: ResProductType[] }>> = await get(`/product/list?tag_id=${tagId}`);
 
-  try {
-    const res: AxiosResponse<ResType<{ product_list: ResProductType[] }>> = await axios.get(
-      `${apiUrl}/product/list?tag_id=${tagId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-    const { data } = res;
-    const products = data.data.product_list ?? [];
+  const { data } = res;
+  const products = data.data.product_list ?? [];
 
-    const list: ProductType[] = products.map((product) => toProduct(product));
+  const list: ProductType[] = products.map((product) => toProduct(product));
 
-    return {
-      list,
-    };
-  } catch (error: unknown) {
-    throw new Error('fetchProducts failed');
-  }
+  return {
+    list,
+  };
 };
 
 export const fetchProductItem = async (productId: string): Promise<{
   orderItem: OrderItemType
 }> => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const { token } = cookies.get('user');
+  const res: AxiosResponse<ResType<{ product: ResProductItemType }>> = await get(`/product/${productId}`);
 
-  try {
-    const res: AxiosResponse<ResType<{ product: ResProductItemType }>> = await axios.get(
-      `${apiUrl}/product/${productId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-    const { data } = res;
-    const product = data.data.product ?? {};
+  const { data } = res;
 
-    const orderItem: OrderItemType = toOrderItem(product);
+  const product = data.data.product ?? {};
 
-    return {
-      orderItem,
-    };
-  } catch (error: unknown) {
-    throw new Error('fetchProductItem failed');
-  }
+  const orderItem: OrderItemType = toOrderItem(product);
+
+  return {
+    orderItem,
+  };
+};
+
+export const fetchPromotions = async (): Promise<{
+  promotions: PromotionType[]
+}> => {
+  const res: AxiosResponse<ResType<{ activities: ActivityType[] }>> = await get('/activities/list');
+
+  const { data } = res;
+
+  const activities = data.data.activities ?? [];
+
+  const promotions: PromotionType[] = activities.map((activity) => toPromotions(activity));
+
+  return {
+    promotions,
+  };
 };
 
 export const fetchTable = async (): Promise<ResDataType<TableType[]>> => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const { token } = cookies.get('user');
+  const res: AxiosResponse<ResType<{ table_list: ResTableType[] }>> = await get('/table/list');
 
-  try {
-    const res: AxiosResponse<ResType<{table_list: ResTableType[]}>> = await axios.get(
-      `${apiUrl}/table/list`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-    const { data } = res;
-    const tables = data.data.table_list ?? [];
+  const { data } = res;
 
-    const list: TableType[] = tables.map((table) => toTable(table));
+  const tables = data.data.table_list ?? [];
 
-    return {
-      list,
-    };
-  } catch (error:unknown) {
-    throw new Error('fetchTable failed');
-  }
+  const list: TableType[] = tables.map((table) => toTable(table));
+
+  return {
+    list,
+  };
 };
 
 export default fetchTable;

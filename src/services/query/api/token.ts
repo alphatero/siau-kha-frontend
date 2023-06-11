@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import axios from 'axios';
+import { get } from '@/utils/axios';
 
 export type ResType<T> = {
   status: 'success'
@@ -13,8 +13,6 @@ type TokenType = {
 }
 
 export const checkToken = async (token: string) => {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
   if (!token) {
     return {
       hasExpired: true,
@@ -22,25 +20,14 @@ export const checkToken = async (token: string) => {
     };
   }
 
-  try {
-    const res: AxiosResponse<ResType<TokenType>> = await axios.get(
-      `${apiUrl}/auth/check`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
+  const res: AxiosResponse<ResType<TokenType>> = await get('/auth/check');
 
-    const { data } = res;
+  const { data } = res;
 
-    return {
-      hasExpired: data.data.hasExpired,
-      exp: data.data.exp,
-    };
-  } catch (error: unknown) {
-    throw new Error('checkToken failed');
-  }
+  return {
+    hasExpired: data.data.hasExpired,
+    exp: data.data.exp,
+  };
 };
 
 export default checkToken;

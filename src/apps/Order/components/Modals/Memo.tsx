@@ -149,13 +149,6 @@ export const Memo = () => {
         )}>
           <Button
             className='w-full py-2'
-            color='secondary'
-            outline
-          >
-            <span className='text-fs-6'>新增其他註記</span>
-          </Button>
-          <Button
-            className='w-full py-2'
             color='primary'
             onClick={onClick}
           >

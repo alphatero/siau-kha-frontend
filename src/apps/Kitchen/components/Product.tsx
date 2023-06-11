@@ -15,7 +15,7 @@ export const Product = (props: Props) => {
     note,
     status,
     alertType,
-    orderTime
+    orderTime,
   } = props;
 
   return (
@@ -32,16 +32,15 @@ export const Product = (props: Props) => {
             {note}
           </span>
         </div>
-        <span 
+        <span
           className={
             clsx(
               'text-fs-7 text-info',
-              
               status !== 'FINISH' ? {
                 'text-warn': alertType === AlertType.HIGH,
                 'text-primary': alertType === AlertType.MIDDLE,
                 'text-secondary': alertType === AlertType.LOW,
-              }: {},
+              } : {},
               status === 'FINISH' ? 'text-black/85' : 'text-info',
             )}>{orderTime}</span>
       </div>

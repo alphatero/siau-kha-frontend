@@ -1,12 +1,11 @@
-import { useMemo } from 'react'
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { ProductFilterButton } from './ProductFilterButton';
-import { Product } from './Product';
-import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime'
-
 import type { Product as ProductType } from '@/types/kitchen';
 import { ProductDetailStatus } from '@/types/kitchen';
+
+import { ProductFilterButton } from './ProductFilterButton';
+import { Product } from './Product';
+import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime';
 
 type Props = {
   tableName: string;
@@ -24,7 +23,7 @@ export const TableOrder = (props: Props) => {
       note: '瘦肉多一點',
       status: ProductDetailStatus.IN_PROGRESS,
       is_delete: false,
-      order_time: "2023-06-11 08:21",
+      order_time: '2023-06-11 08:21',
     },
     {
       id: '2',
@@ -32,7 +31,7 @@ export const TableOrder = (props: Props) => {
       note: '少冰',
       status: ProductDetailStatus.IN_PROGRESS,
       is_delete: false,
-      order_time: "2023-06-11 08:28"
+      order_time: '2023-06-11 08:28',
     },
     {
       id: '3',
@@ -40,20 +39,18 @@ export const TableOrder = (props: Props) => {
       note: '少冰',
       status: ProductDetailStatus.IN_PROGRESS,
       is_delete: false,
-      order_time: "2023-06-11 08:32"
+      order_time: '2023-06-11 08:32',
     },
     {
       id: '4',
       product_name: '安格斯牛小排',
       status: ProductDetailStatus.FINISH,
       is_delete: false,
-      order_time: "2023-06-11 08:01"
+      order_time: '2023-06-11 08:01',
     },
-  ];  
+  ];
 
-  const sortedAndAlertedData = useSortAndAlertByOrderTime(
-    useMemo(() => productList, [productList])
-  );
+  const sortedAndAlertedData = useSortAndAlertByOrderTime(productList);
 
   return (
     <div
@@ -85,10 +82,10 @@ export const TableOrder = (props: Props) => {
         {
           sortedAndAlertedData?.map((product) => (
             <li key={product.id} className='w-full'>
-              <Product 
-                productName={product.product_name} 
-                note={product.note} 
-                status={product.status} 
+              <Product
+                productName={product.product_name}
+                note={product.note}
+                status={product.status}
                 alertType={product.alertType}
                 orderTime={dayjs(product.order_time).format('HH:mm')}
               />

@@ -3,6 +3,7 @@ import { Modal, Button } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { useStore } from '../../stores';
 import { LogButtons } from './LogButtons';
+import { LogItem } from './LogItem';
 
 export const Log = () => {
   const {
@@ -152,29 +153,13 @@ export const Log = () => {
             <ul>
               {
                 logData.firstOrder.orderList.map((item) => (
-                  <li
-                    className='mb-2 flex items-center justify-between'
+                  <LogItem
                     key={`firstOrder-${item.name}`}
-                  >
-                    <p>{item.name}</p>
-                    <div className='ml-auto flex justify-end whitespace-nowrap'>
-                      <span>${item.price}</span>
-                      <div className='pl-2'>
-                        <span>x {item.quantity}</span>
-                        <span className='px-2'>=</span>
-                        <span className={clsx(
-                          'px-1',
-                          'rounded-md border border-secondary text-secondary',
-                        )}>$ {item.price * item.quantity}</span>
-                      </div>
-                    </div>
-                    <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
-                      <LogButtons
-                        isCooking={item.button.isCooking}
-                        hasServed={item.button.hasServed}
-                      />
-                    </div>
-                  </li>
+                    name={item.name}
+                    price={item.price}
+                    quantity={item.quantity}
+                    button={item.button}
+                  />
                 ))
               }
             </ul>
@@ -193,29 +178,13 @@ export const Log = () => {
                 <ul>
                   {
                     anotherOrderItem.orderList.map((item) => (
-                      <li
-                        className='mb-2 flex items-center justify-between'
+                      <LogItem
                         key={`anotherOrderItem-${item.name}`}
-                      >
-                        <p className='mr-4'>{item.name}</p>
-                        <div className='ml-auto flex justify-end whitespace-nowrap'>
-                          <span>${item.price}</span>
-                          <div className='pl-2'>
-                            <span>x {item.quantity}</span>
-                            <span className='px-2'>=</span>
-                            <span className={clsx(
-                              'px-1',
-                              'rounded-md border border-secondary text-secondary',
-                            )}>$ {item.price * item.quantity}</span>
-                          </div>
-                        </div>
-                        <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
-                          <LogButtons
-                            isCooking={item.button.isCooking}
-                            hasServed={item.button.hasServed}
-                          />
-                        </div>
-                      </li>
+                        name={item.name}
+                        price={item.price}
+                        quantity={item.quantity}
+                        button={item.button}
+                      />
                     ))
                   }
                 </ul>

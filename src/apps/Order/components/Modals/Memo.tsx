@@ -41,7 +41,9 @@ export const Memo = () => {
           title: data.anotherNote,
         },
       ],
+      currentNote: data.anotherNote,
     });
+    setCheckedMemo(data.anotherNote);
 
     setOrderList(
       orderList.map((item) => {

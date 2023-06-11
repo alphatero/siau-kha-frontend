@@ -47,16 +47,14 @@ export const Main = () => {
     const repeatItem = orderList.filter((item) => item.id === product.id && checkNote(item, product));
     if (repeatItem.length > 0) {
       const newItems = orderList.map((item) => {
-        if (item.id !== product.id) {
-          setOrderNumber(orderNumber + 1);
+        if (item.id === product.id && !item.currentNote) {
           return {
             ...item,
-            idx: orderNumber + 1,
+            quantity: item.quantity + 1,
           };
         }
         return {
           ...item,
-          quantity: item.quantity + 1,
         };
       });
       setOrderList(newItems);

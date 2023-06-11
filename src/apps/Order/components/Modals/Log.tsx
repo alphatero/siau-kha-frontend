@@ -1,8 +1,7 @@
-import clsx from 'clsx';
 import { Modal, Button } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
+import { ModalLogType } from '@/types/order';
 import { useStore } from '../../stores';
-import { LogButtons } from './LogButtons';
 import { LogItem } from './LogItem';
 
 export const Log = () => {
@@ -12,41 +11,7 @@ export const Log = () => {
 
   const { table } = useStore();
 
-  type OrderItem = {
-    name: string;
-    price: number;
-    quantity: number;
-    button: {
-      isCooking: boolean;
-      hasServed: boolean;
-    };
-  }
-
-  type FirstOrderType = {
-    title: string;
-    orderTime: string;
-    orderList: OrderItem[];
-  };
-
-  type AnotherOrderType = {
-    title: string;
-    dataList: {
-      orderTime: string;
-      orderList: OrderItem[];
-    }[];
-  };
-
-  type PromotionInfoType = {
-    title: string;
-    name: string;
-    discount: number;
-  };
-
-  const logData: {
-    firstOrder: FirstOrderType;
-    anotherOrder: AnotherOrderType;
-    promotionInfo: PromotionInfoType;
-  } = {
+  const logData: ModalLogType = {
     firstOrder: {
       title: '訂單內容',
       orderTime: '2023/06/05 12:00',

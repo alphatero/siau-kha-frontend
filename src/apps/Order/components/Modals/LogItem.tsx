@@ -1,17 +1,8 @@
 import clsx from 'clsx';
+import { ModalLogItem } from '@/types/order';
 import { LogButtons } from './LogButtons';
 
-type PropsType = {
-  name: string;
-  price: number;
-  quantity: number;
-  button: {
-    isCooking: boolean;
-    hasServed: boolean;
-  };
-}
-
-export const LogItem = (props: PropsType) => {
+export const LogItem = (props: ModalLogItem) => {
   const {
     name, price, quantity, button,
   } = props;

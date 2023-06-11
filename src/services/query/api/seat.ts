@@ -3,6 +3,7 @@ import { ResStandbyType, ResType, StandbyType } from '@/types/seat';
 import { get } from '@/utils/axios';
 
 const toReservation = (data: ResStandbyType): StandbyType => ({
+  id: data.id,
   name: data.name,
   phone: data.phone,
   customerNum: data.customer_num,

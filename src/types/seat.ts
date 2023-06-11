@@ -5,12 +5,14 @@ export interface ResType<T> {
 }
 
 export type ResStandbyType = {
+  id: string;
   name: string
   phone: string;
   customer_num: number
 }
 
 export type StandbyType = {
+  id: string;
   name: string;
   phone: string;
   customerNum: number;

@@ -2,8 +2,11 @@ import { Icons } from '@/components/common';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { TableStatus } from '@/types/order';
+import { useModalStore } from '@/stores/modal';
+import { useStore } from '../stores';
 
 type Props = {
+  id: string;
   title: string;
   status: string;
   customerNum?: number;
@@ -14,8 +17,21 @@ type Props = {
 
 export const Table = (props: Props) => {
   const {
-    title, status, customerNum, isPayed, time, seat,
+    id, title, status, customerNum, isPayed, time, seat,
   } = props;
+
+  const { setIsOpen } = useModalStore();
+
+  const { setTriggerModal, setSelectedTable } = useStore();
+
+  const handleOpenModal = () => {
+    if (status !== TableStatus.IDLE) {
+      return;
+    }
+    setTriggerModal('tableMeal');
+    setIsOpen(true);
+    setSelectedTable(id);
+  };
 
   return (
     <div
@@ -23,6 +39,7 @@ export const Table = (props: Props) => {
         'flex w-full flex-col',
         'rounded-md border border-black/10 bg-white',
       )}
+      onClick={handleOpenModal}
     >
       <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
         <h5 className="text-h5">{title}</h5>

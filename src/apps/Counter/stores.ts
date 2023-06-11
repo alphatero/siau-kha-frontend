@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import {
+  TableStatus,
   TableType,
 } from '@/types/order';
 
@@ -7,18 +8,22 @@ type State = {
   triggerModal: string | null;
   list: TableType[];
   isFetch: boolean;
+  selectedTable: string;
 }
 
 type Action = {
   setTriggerModal: (triggerModal: State['triggerModal']) => void;
   setList: (list: State['list']) => void;
   setIsFetch: (isFetch: State['isFetch']) => void;
+  setSelectedTable: (selectedTable: State['selectedTable']) => void;
+  setTableOnMeal: (id: string, customerNum: number) => void;
 }
 
 const defaultState: State = {
   triggerModal: null,
   list: [],
   isFetch: true,
+  selectedTable: '',
 };
 
 export const useStore = create<State & Action>((set, get) => ({
@@ -32,6 +37,21 @@ export const useStore = create<State & Action>((set, get) => ({
 
   setIsFetch: (isFetch) => set({ isFetch }),
 
+  setSelectedTable: (selectedTable) => set({ selectedTable }),
+
+  setTableOnMeal: (id, customerNum) => {
+    const updateList = get().list.map((t) => {
+      if (t.id === id) {
+        return {
+          ...t,
+          status: TableStatus.MEAL,
+          customer: customerNum,
+        };
+      }
+      return t;
+    });
+    set({ list: updateList });
+  },
 }));
 
 export default useStore;

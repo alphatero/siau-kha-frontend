@@ -17,6 +17,7 @@ const Counter: NextPageWithLayout = () => {
         ) : (
           list.map((item) => (
             <Table
+              id={item.id}
               title={item.name}
               isPayed={item.isPay}
               seat={item.seat}

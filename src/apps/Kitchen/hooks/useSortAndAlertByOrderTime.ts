@@ -51,6 +51,7 @@ function useSortAndAlertByOrderTime(rawData: Array<Product>): Array<AlertedProdu
   }, []); // 每當rawData變化時，都會重新設置間隔
 
   useEffect(() => {
+    if (intervalIdRef.current) clearInterval(intervalIdRef.current); // 如果timer已存在則清空
     intervalIdRef.current = setInterval(() => sortAndAlert(rawData), 60 * 1000); // 每60秒重新計算一次
 
     return () => {

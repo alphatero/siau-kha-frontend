@@ -6,6 +6,7 @@ import { usePostReservation } from '@/services/mutation';
 import { useStandby } from '../../hooks/useStandby';
 
 type StandbyType = {
+  id: string;
   name: string;
   customerNum: number;
   phone: string;

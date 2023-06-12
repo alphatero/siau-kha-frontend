@@ -1,9 +1,21 @@
 import clsx from 'clsx';
 import { Spinner } from 'flowbite-react';
+import { useModalStore } from '@/stores/modal';
 import { useStandby } from '../../hooks/useStandby';
+import { useStore } from '../../stores';
 
 export const Standby = () => {
   const { standbyList, isLoading } = useStandby();
+
+  const { setIsOpen } = useModalStore();
+
+  const { setTriggerModal, setSelectedStandby } = useStore();
+
+  const handleOpenModal = (id: string) => {
+    setTriggerModal('reservationMeal');
+    setIsOpen(true);
+    setSelectedStandby(id);
+  };
 
   if (isLoading) return <div className='flex items-center justify-center'><Spinner /></div>;
 
@@ -18,6 +30,7 @@ export const Standby = () => {
           'cursor-pointer',
         )}
         key={index}
+        onClick={() => handleOpenModal(item.id)}
       >
         <p className="flex justify-between">
           <span className="text-fs-6 text-black/85">{item.name}</span>

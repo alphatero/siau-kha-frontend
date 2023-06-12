@@ -8,7 +8,9 @@ export const postReservation = async (data: StandbyType) => {
     customer_num: Number(data.customerNum),
   });
 
-  return res;
+  return {
+    status: 'success',
+  };
 };
 
 export default postReservation;

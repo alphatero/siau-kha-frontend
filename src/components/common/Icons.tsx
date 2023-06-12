@@ -13,6 +13,7 @@ import Settlement from '@/assets/svg/settlement.svg';
 import Bill from '@/assets/svg/bill.svg';
 import Lock from '@/assets/svg/lock.svg';
 import Done from '@/assets/svg/done.svg';
+import Back from '@/assets/svg/back.svg';
 
 export const Icons = {
   Change,
@@ -30,6 +31,7 @@ export const Icons = {
   Bill,
   Lock,
   Done,
+  Back,
 };
 
 export default Icons;

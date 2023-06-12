@@ -4,6 +4,7 @@ import { useStore } from '../../stores';
 import { Reservation } from './Reservation';
 import { TableMeal } from './TableMeal';
 import { ReservationMeal } from './ReservationMeal';
+import { Calculator } from './Calculator';
 
 export const Modals = () => {
   const { triggerModal } = useStore();
@@ -13,6 +14,7 @@ export const Modals = () => {
       {triggerModal === 'reservation' && <Reservation />}
       {triggerModal === 'tableMeal' && <TableMeal />}
       {triggerModal === 'reservationMeal' && <ReservationMeal />}
+      {triggerModal === 'calculate' && <Calculator />}
     </Modal>
   );
 };

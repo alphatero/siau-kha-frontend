@@ -78,15 +78,16 @@ export type PromotionType = {
 export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;
 
 export type OrderItemType = {
+  idx: number;
   id: string;
   name: string;
   price: number;
   tags: string | string[];
   quantity: number;
   note: {
-    name: string;
-    selected: boolean;
+    title: string;
   }[];
+  currentNote?: string;
 };
 
 export type ResTagType = {
@@ -108,6 +109,21 @@ export type ProductType = {
   tags: string | string[];
   price: number;
   image: string;
+  note: {
+    title: string;
+  }[];
+}
+
+export type ProductNoteType = {
+  note_title: string;
+  use_momey: number; // 影響金額
+  is_food_consumption: boolean; // 是否消耗食材
+  note_food_consumption_list?: { // (註記)食材消耗清單
+    note_food_id: string; // (註記)食材id
+    note_food_name: string; // (註記)食材名稱
+    note_food_quantity: number; // (註記)消耗食材數量
+    note_food_unit: string; // (註記)食材單位
+  }[];
 }
 
 export type ResProductType = {
@@ -117,18 +133,7 @@ export type ResProductType = {
   product_tags: string[];
   product_price: number;
   product_image: string;
-}
-
-export type ProductNoteType = {
-  note_title: string;
-  use_momey: number; // 影響金額
-  is_food_consumption: boolean; // 是否消耗食材
-  note_food_consumption_list: { // (註記)食材消耗清單
-    note_food_id: string; // (註記)食材id
-    note_food_name: string; // (註記)食材名稱
-    note_food_quantity: number; // (註記)消耗食材數量
-    note_food_unit: string; // (註記)食材單位
-  }[];
+  product_note: ProductNoteType[];
 }
 
 export type ResProductItemType = {

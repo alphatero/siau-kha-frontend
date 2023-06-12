@@ -12,8 +12,6 @@ import {
   PromotionDiscountType,
   ProductType,
   ResProductType,
-  OrderItemType,
-  ResProductItemType,
 } from '@/types/order';
 import dayjs from 'dayjs';
 import { get } from '@/utils/axios';
@@ -97,17 +95,9 @@ const toProduct = (data: ResProductType) => ({
   tags: data.product_tags,
   type: data.product_type === '2' ? '套餐' : '單點',
   image: data.product_image,
-});
-
-const toOrderItem = (data: ResProductItemType): OrderItemType => ({
-  id: data.id,
-  name: data.product_name,
-  price: data.product_price,
-  tags: data.product_tags,
-  quantity: 1,
   note: data.product_note.map((note) => ({
-    name: note.note_title,
-    selected: true,
+    title: note.note_title,
+    isFoodConsumption: note.is_food_consumption,
   })),
 });
 
@@ -134,22 +124,6 @@ export const fetchProducts = async (tagId: string): Promise<ResDataType<ProductT
 
   return {
     list,
-  };
-};
-
-export const fetchProductItem = async (productId: string): Promise<{
-  orderItem: OrderItemType
-}> => {
-  const res: AxiosResponse<ResType<{ product: ResProductItemType }>> = await get(`/product/${productId}`);
-
-  const { data } = res;
-
-  const product = data.data.product ?? {};
-
-  const orderItem: OrderItemType = toOrderItem(product);
-
-  return {
-    orderItem,
   };
 };
 

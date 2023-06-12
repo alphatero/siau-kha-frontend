@@ -12,12 +12,12 @@ type State = {
   triggerModal: ModalCategory;
   orderList: OrderItemType[];
   orderItem: OrderItemType;
-  currentOrderItemId: string;
   clickMenuItemTimes: number;
   selectedPromotionId: string;
   tags: TagType[];
   currentTag: TagType;
   promotionList: PromotionType[];
+  orderNumber: number;
 }
 
 type Action = {
@@ -29,12 +29,13 @@ type Action = {
   setFilteredProductList: (filteredProducts: State['filteredProducts']) => void;
   setOrderList: (orderList: State['orderList']) => void;
   setOrderItem: (orderItem: State['orderItem']) => void;
-  setCurrentOrderItemId: (currentOrderItemId: State['currentOrderItemId']) => void;
   setClickMenuItemTimes: (clickMenuItemTimes: State['clickMenuItemTimes']) => void;
   setSelectedPromotionId: (selectedPromotionId: State['selectedPromotionId']) => void;
   setTags: (tags: State['tags']) => void;
   setCurrentTag: (currentTag: State['currentTag']) => void;
   setPromotionList: (promotionList: State['promotionList']) => void;
+  resetOrderItem: () => void;
+  setOrderNumber: (orderNumber: State['orderNumber']) => void;
 }
 
 const defaultState: State = {
@@ -48,16 +49,16 @@ const defaultState: State = {
   list: [],
   orderList: [],
   orderItem: {
-    id: '12',
+    idx: 0,
+    id: '',
     name: '',
     price: 0,
-    tags: '人氣單點',
+    tags: '',
     quantity: 1,
     note: [],
   },
   clickMenuItemTimes: 0,
   selectedPromotionId: '',
-  currentOrderItemId: '',
   currentTag: {
     id: '',
     name: '',
@@ -65,34 +66,11 @@ const defaultState: State = {
   },
   tags: [],
   products: [
-    // {
-    //   id: '1',
-    //   name: 'A5 日本和牛套餐',
-    //   type: '單一',
-    //   tags: '肉品',
-    //   price: 2200,
-    //   image: '/images/01.jpg',
-    // },
-    // {
-    //   id: '3',
-    //   name: '豪華全牛套餐',
-    //   type: '單一',
-    //   tags: '肉品',
-    //   price: 1980,
-    //   image: '/images/02.jpg',
-    // },
-    // {
-    //   id: '8',
-    //   name: '經典霜降牛套餐',
-    //   type: '單一',
-    //   tags: '肉品',
-    //   price: 1880,
-    //   image: '/images/03.jpg',
-    // },
   ],
   filteredProducts: [],
   triggerModal: null,
   promotionList: [],
+  orderNumber: 0,
 };
 
 export const useStore = create<State & Action>((set) => ({
@@ -114,8 +92,6 @@ export const useStore = create<State & Action>((set) => ({
 
   setOrderItem: (orderItem) => set({ orderItem }),
 
-  setCurrentOrderItemId: (currentOrderItemId) => set({ currentOrderItemId }),
-
   setClickMenuItemTimes: (clickMenuItemTimes) => set({ clickMenuItemTimes }),
 
   setSelectedPromotionId: (selectedPromotionId) => set({ selectedPromotionId }),
@@ -125,6 +101,10 @@ export const useStore = create<State & Action>((set) => ({
   setCurrentTag: (currentTag) => set({ currentTag }),
 
   setPromotionList: (promotionList) => set({ promotionList }),
+
+  resetOrderItem: () => set({ orderItem: defaultState.orderItem }),
+
+  setOrderNumber: (orderNumber) => set({ orderNumber }),
 }));
 
 export default useStore;

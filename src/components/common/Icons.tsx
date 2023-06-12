@@ -14,6 +14,7 @@ import Bill from '@/assets/svg/bill.svg';
 import Lock from '@/assets/svg/lock.svg';
 import Done from '@/assets/svg/done.svg';
 import Back from '@/assets/svg/back.svg';
+import BackSpace from '@/assets/svg/backspace.svg';
 
 export const Icons = {
   Change,
@@ -32,6 +33,7 @@ export const Icons = {
   Lock,
   Done,
   Back,
+  BackSpace,
 };
 
 export default Icons;

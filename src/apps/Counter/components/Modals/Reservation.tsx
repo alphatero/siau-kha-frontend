@@ -21,10 +21,13 @@ export const Reservation = () => {
     handleSubmit,
   } = useForm<StandbyType>();
 
-  const onSubmit = (data: StandbyType) => {
-    mutateAsync(data);
+  const onSubmit = async (data: StandbyType) => {
+    const res = await mutateAsync(data);
     setIsOpen(false);
-    refetch();
+
+    if (res.status === 'success') {
+      refetch();
+    }
   };
   return (
     <div className="flex flex-1 flex-col space-y-6">

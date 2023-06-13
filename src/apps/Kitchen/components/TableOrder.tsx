@@ -6,6 +6,8 @@ import { ProductDetailStatus } from '@/types/kitchen';
 import { ProductFilterButton } from './ProductFilterButton';
 import { Product } from './Product';
 import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime';
+import { FilterButton } from '../constants';
+import { useState } from 'react';
 
 type Props = {
   tableName: string;
@@ -52,6 +54,8 @@ export const TableOrder = (props: Props) => {
 
   const sortedAndAlertedData = useSortAndAlertByOrderTime(productList);
 
+  const [productFilter, setProductFilter] = useState('all');
+
   return (
     <div
       className={clsx(
@@ -64,15 +68,19 @@ export const TableOrder = (props: Props) => {
       </div>
 
       <ul className='flex gap-[10px] px-6 pb-4 pt-6'>
-        <li>
-          <ProductFilterButton title='全部' active={true} quantity={8} />
-        </li>
-        <li>
-          <ProductFilterButton title='未出菜' active={false} quantity={2} />
-        </li>
-        <li>
-          <ProductFilterButton title='已出菜' active={false} quantity={6} />
-        </li>
+        {
+          FilterButton.map((button) => (
+            <li key={button.status}>
+              <ProductFilterButton
+                title={button.title}
+                active={productFilter === button.status}
+                quantity={sortedAndAlertedData.filter((product) => product.status === button.status).length}
+                onClick={() => setProductFilter(button.status)}
+              />
+            </li>
+          ))
+            
+        }
       </ul>
 
       <ul className={clsx(
@@ -80,17 +88,19 @@ export const TableOrder = (props: Props) => {
         'flex flex-row flex-wrap gap-y-4',
       )}>
         {
-          sortedAndAlertedData?.map((product) => (
-            <li key={product.id} className='w-full'>
-              <Product
-                productName={product.product_name}
-                note={product.note}
-                status={product.status}
-                alertType={product.alertType}
-                orderTime={dayjs(product.order_time).format('HH:mm')}
-              />
-            </li>
-          ))
+          sortedAndAlertedData
+            .filter((product) => productFilter === 'all' || product.status === productFilter)
+            ?.map((product) => (
+              <li key={product.id} className='w-full'>
+                <Product
+                  productName={product.product_name}
+                  note={product.note}
+                  status={product.status}
+                  alertType={product.alertType}
+                  orderTime={dayjs(product.order_time).format('HH:mm')}
+                />
+              </li>
+            ))
         }
       </ul>
     </div>

@@ -1,12 +1,14 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Button, Icons } from '@/components/common';
+import { useModalStore } from '@/stores/modal';
 import { CalButton } from './CalButton';
 
 export const CountSide = () => {
+  const { setIsOpen } = useModalStore();
   const [input, setInput] = useState('');
-
   const handleClick = (num: number | string) => {
+    if (Number(input) + Number(num) === 0) return;
     setInput(input + num.toString());
   };
 
@@ -23,6 +25,7 @@ export const CountSide = () => {
 
   const handleSave = () => {
     console.log('save');
+    setIsOpen(false);
   };
 
   return (
@@ -83,7 +86,7 @@ export const CountSide = () => {
         </Button>
       </div>
       <div className="flex justify-between space-x-4">
-        <Button outline color="secondary" className="w-full">
+        <Button outline color="secondary" className="w-full" onClick={() => setIsOpen(false)}>
           取消
         </Button>
         <Button color="primary" className="w-full" onClick={handleSave}>

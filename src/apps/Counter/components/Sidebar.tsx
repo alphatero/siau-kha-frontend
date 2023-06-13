@@ -8,7 +8,7 @@ export const Sidebar = () => {
   const { setIsOpen } = useModalStore();
 
   const onClick = () => {
-    setTriggerModal('calculate');
+    setTriggerModal('selectTable');
     setIsOpen(true);
   };
 

@@ -9,7 +9,14 @@ export const Promotion = () => {
     isOpen, setIsOpen,
   } = useModalStore();
 
-  const { promotionList } = useStore();
+  const { promotionList, setCurrentPromotion, selectedPromotionId } = useStore();
+
+  const handleSelectPromotion = () => {
+    const selectedPromotion = promotionList.find((item) => item.id === selectedPromotionId);
+    if (!selectedPromotion) return;
+    setCurrentPromotion(selectedPromotion);
+    setIsOpen(false);
+  };
 
   return (
     <Modal
@@ -44,7 +51,7 @@ export const Promotion = () => {
           <Button
             className='w-full py-2'
             color='primary'
-            onClick={() => setIsOpen(false)}
+            onClick={handleSelectPromotion}
           >
             <span className='text-fs-6'>確認</span>
           </Button>

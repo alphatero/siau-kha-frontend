@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { Product as ProductType } from '@/types/kitchen';
@@ -7,7 +8,6 @@ import { ProductFilterButton } from './ProductFilterButton';
 import { Product } from './Product';
 import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime';
 import { FilterButton } from '../constants';
-import { useState } from 'react';
 
 type Props = {
   tableName: string;
@@ -79,7 +79,6 @@ export const TableOrder = (props: Props) => {
               />
             </li>
           ))
-            
         }
       </ul>
 

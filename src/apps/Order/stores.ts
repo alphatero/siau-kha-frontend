@@ -46,6 +46,7 @@ const defaultState: State = {
     name: 'A1',
     status: TableStatus.IDLE,
     time: '0',
+    orderId: '',
   },
   isReset: false,
   list: [],

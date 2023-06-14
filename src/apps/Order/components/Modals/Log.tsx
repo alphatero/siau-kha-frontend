@@ -1,15 +1,30 @@
 import { Modal, Button } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
+import { useEffect } from 'react';
 import { useStore } from '../../stores';
 import { LogItem } from './LogItem';
 import { ModalLogData } from '../../constants';
+import { useUpdateOrderLog } from '../../hooks/useUpdateOrderLog';
 
 export const Log = () => {
   const {
     isOpen, setIsOpen,
   } = useModalStore();
 
-  const { table } = useStore();
+  const { table, setOrderLog, orderLog } = useStore();
+
+  const { isLoading } = useUpdateOrderLog();
+
+  useEffect(() => {
+    console.log('=====-------------------------=====');
+    if (isLoading) {
+      console.log('isLoading', isLoading);
+      setOrderLog({
+        ...orderLog,
+      });
+    }
+    console.log('orderLog', orderLog);
+  }, [isLoading]);
 
   return (
     <Modal
@@ -40,19 +55,19 @@ export const Log = () => {
           </li>
 
           {
-            ModalLogData.anotherOrder.dataList.map((anotherOrderItem) => (
+            ModalLogData.anotherOrder.dataList.map((anotherOrderItem, index) => (
               <li
                 className='mb-4'
-                key={anotherOrderItem.orderTime}
+                key={`anotherOrderItem-${index}`}
               >
                 <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
                   {ModalLogData.anotherOrder.title}
                 </h3>
                 <ul>
                   {
-                    anotherOrderItem.orderList.map((item) => (
+                    anotherOrderItem.orderList.map((item, itemIndex) => (
                       <LogItem
-                        key={`anotherOrderItem-${item.name}`}
+                        key={`anotherOrderItem-orderList-${itemIndex}`}
                         name={item.name}
                         price={item.price}
                         quantity={item.quantity}

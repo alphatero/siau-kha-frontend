@@ -17,6 +17,10 @@ export const schema = {
     queryKey: ['products', tagId],
     queryFn: () => api.fetchProducts(tagId),
   }),
+  orderLog: (orderId: string) => ({
+    queryKey: ['orderLog', orderId],
+    queryFn: () => api.fetchOrderLog(orderId),
+  }),
 };
 
 export default schema;

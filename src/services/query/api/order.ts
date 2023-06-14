@@ -12,9 +12,11 @@ import {
   PromotionDiscountType,
   ProductType,
   ResProductType,
+  ModalLogType,
 } from '@/types/order';
 import dayjs from 'dayjs';
 import { get } from '@/utils/axios';
+import { ModalLogData } from '@/apps/Order/constants';
 
 const convertTime = (time: string, formatSpec: string): string => {
   const date = dayjs(time);
@@ -101,6 +103,9 @@ const toProduct = (data: ResProductType) => ({
   })),
 });
 
+// TODO: mock data
+const toOrderLog = (): ModalLogType => ModalLogData;
+
 export const fetchProductTag = async (): Promise<ResDataType<TagType[]>> => {
   const res: AxiosResponse<ResType<{ product_tags: ResTagType[] }>> = await get('/product/tags');
 
@@ -140,6 +145,26 @@ export const fetchPromotions = async (): Promise<{
 
   return {
     promotions,
+  };
+};
+
+export const fetchOrderLog = async (orderId: string): Promise<{
+  orderLog: ModalLogType
+}> => {
+  console.log('fetchOrderLog orderId', orderId);
+
+  // const res: AxiosResponse<ResType<{ product: ResProductItemType }>> = await get(`/order-detail/${orderId}`);
+
+  // const { data } = res;
+
+  // const product = data.data.product ?? {};
+
+  // const orderItem: OrderItemType = toOrderItem(product);
+
+  const orderLog: ModalLogType = toOrderLog();
+
+  return {
+    orderLog,
   };
 };
 

@@ -8,6 +8,23 @@ export enum MealType {
   SET = '套餐',
 }
 
+export type ResProductDetailType = {
+  id: string;
+  product_name: string;
+  product_price: string;
+  product_quantity: string;
+  product_note: string;
+  product_final_price: string;
+  status: string;
+  is_delete: boolean;
+}
+
+export type ResOrderDetailType = {
+  id: string;
+  product_detail: ResProductDetailType[];
+  create_time: string;
+}
+
 export type TableType = {
   id: string;
   name: string;
@@ -17,6 +34,8 @@ export type TableType = {
   seat?: number;
   customer?: number;
   isPay?: boolean;
+  orderId: string;
+  orderDetail?: ResOrderDetailType[];
 };
 
 export type ResTableType = {
@@ -27,6 +46,8 @@ export type ResTableType = {
   seat_max?: number;
   customer_num?: number;
   is_pay?: boolean;
+  order_id: string;
+  order_detail?: ResOrderDetailType[];
 }
 
 export type ResType<T> = {

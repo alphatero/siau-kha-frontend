@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { Button, Modal } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
+import { usePostPromotion } from '@/services/mutation';
 import { useStore } from '../../stores';
 import { PromotionItem } from './PromotionItem';
 
@@ -8,8 +9,25 @@ export const Promotion = () => {
   const {
     isOpen, setIsOpen,
   } = useModalStore();
+  const { mutateAsync } = usePostPromotion();
 
-  const { promotionList } = useStore();
+  const {
+    promotionList, setCurrentPromotion, selectedPromotionId, table,
+  } = useStore();
+
+  const { orderId } = table;
+
+  const handleSelectPromotion = async () => {
+    const selectedPromotion = promotionList.find((item) => item.id === selectedPromotionId);
+    if (!selectedPromotion) return;
+
+    const { status } = await mutateAsync({ orderId, promotionId: selectedPromotion.id });
+
+    if (status === 'success') {
+      setCurrentPromotion(selectedPromotion);
+      setIsOpen(false);
+    }
+  };
 
   return (
     <Modal
@@ -44,7 +62,7 @@ export const Promotion = () => {
           <Button
             className='w-full py-2'
             color='primary'
-            onClick={() => setIsOpen(false)}
+            onClick={handleSelectPromotion}
           >
             <span className='text-fs-6'>確認</span>
           </Button>

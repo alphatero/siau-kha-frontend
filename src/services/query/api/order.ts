@@ -80,6 +80,8 @@ const toTable = (data: ResTableType) => ({
   seat: data.seat_max ?? 0,
   status: toTableStatus(data.status),
   name: data.table_name,
+  orderId: data.order_id,
+  orderDetail: data.order_detail,
 });
 
 const toTag = (data: ResTagType) => ({

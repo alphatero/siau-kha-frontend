@@ -19,6 +19,11 @@ export const Header = () => {
     mutateAsync({ id: table.id, status: table.status, customerNum: Number(table.customer) });
   };
 
+  const handlePromotionModal = () => {
+    if (table.orderId === '') return;
+    openModal('promotion');
+  };
+
   return (
     <div
       className={clsx(
@@ -37,7 +42,7 @@ export const Header = () => {
       </div>
 
       <div className="flex items-center space-x-4">
-        <Button color="primary" outline onClick={() => openModal('promotion')}>
+        <Button color="primary" outline onClick={handlePromotionModal}>
           優惠活動
         </Button>
         <Button color="primary" onClick={() => openModal('log')}>

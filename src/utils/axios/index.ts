@@ -18,7 +18,7 @@ export const baseInstance = () => {
 
 export const request = baseInstance();
 
-export const post = async <T>(url: string, data: T, config?: AxiosRequestConfig) => {
+export const post = async <T>(url: string, data?: T, config?: AxiosRequestConfig) => {
   const axiosInstance = baseInstance();
   const { token } = cookies.get('user');
 

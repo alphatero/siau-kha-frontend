@@ -18,6 +18,7 @@ type State = {
   currentTag: TagType;
   promotionList: PromotionType[];
   orderNumber: number;
+  currentPromotion: PromotionType | null;
 }
 
 type Action = {
@@ -36,6 +37,7 @@ type Action = {
   setPromotionList: (promotionList: State['promotionList']) => void;
   resetOrderItem: () => void;
   setOrderNumber: (orderNumber: State['orderNumber']) => void;
+  setCurrentPromotion: (currentPromotion: State['currentPromotion']) => void;
 }
 
 const defaultState: State = {
@@ -44,6 +46,7 @@ const defaultState: State = {
     name: 'A1',
     status: TableStatus.IDLE,
     time: '0',
+    orderId: '',
   },
   isReset: false,
   list: [],
@@ -71,6 +74,7 @@ const defaultState: State = {
   triggerModal: null,
   promotionList: [],
   orderNumber: 0,
+  currentPromotion: null,
 };
 
 export const useStore = create<State & Action>((set) => ({
@@ -105,6 +109,8 @@ export const useStore = create<State & Action>((set) => ({
   resetOrderItem: () => set({ orderItem: defaultState.orderItem }),
 
   setOrderNumber: (orderNumber) => set({ orderNumber }),
+
+  setCurrentPromotion: (currentPromotion) => set({ currentPromotion }),
 }));
 
 export default useStore;

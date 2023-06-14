@@ -1,17 +1,22 @@
 import clsx from 'clsx';
 import { PromotionType } from '@/types/order';
 import { Radio } from 'flowbite-react';
+import { useEffect } from 'react';
 import { useStore } from '../../stores';
 
 export const PromotionItem = (props: {
   item: PromotionType;
 }) => {
   const { item } = props;
-  const { selectedPromotionId, setSelectedPromotionId } = useStore();
+  const { selectedPromotionId, setSelectedPromotionId, currentPromotion } = useStore();
 
   const handleClick = (clickPromotionId: string) => {
     setSelectedPromotionId(clickPromotionId);
   };
+
+  useEffect(() => {
+    setSelectedPromotionId(currentPromotion?.id ?? '');
+  }, [currentPromotion]);
 
   return (
     <label

@@ -54,7 +54,7 @@ export const TableOrder = (props: Props) => {
 
   const sortedAndAlertedData = useSortAndAlertByOrderTime(productList);
 
-  const [productFilter, setProductFilter] = useState('all');
+  const [productFilter, setProductFilter] = useState(ProductDetailStatus.ALL);
 
   return (
     <div
@@ -88,7 +88,7 @@ export const TableOrder = (props: Props) => {
       )}>
         {
           sortedAndAlertedData
-            .filter((product) => productFilter === 'all' || product.status === productFilter)
+            .filter((product) => productFilter === ProductDetailStatus.ALL || product.status === productFilter)
             ?.map((product) => (
               <li key={product.id} className='w-full'>
                 <Product

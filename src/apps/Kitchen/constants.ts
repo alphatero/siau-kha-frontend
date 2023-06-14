@@ -3,7 +3,7 @@ import { ProductDetailStatus } from '@/types/kitchen';
 export const FilterButton = [
   {
     title: '全部',
-    status: 'all',
+    status: ProductDetailStatus.ALL,
   },
   {
     title: '未出菜',

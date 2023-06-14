@@ -5,7 +5,7 @@ import { Icons } from './Icons';
 type PropsType = {
   containerClasses?: string;
   iconClasses?: string;
-  icon: 'edit' | 'delete' | 'plus' | 'minus' | 'search' | 'bill' | 'settlement' | 'done'
+  icon: 'edit' | 'delete' | 'plus' | 'minus' | 'search' | 'bill' | 'settlement' | 'done' | 'back';
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export const IconButton = (props: PropsType) => {
@@ -29,6 +29,8 @@ export const IconButton = (props: PropsType) => {
         return <Icons.Settlement className={clsx(iconClass)} />;
       case 'done':
         return <Icons.Done className={clsx(iconClass)} />;
+      case 'back':
+        return <Icons.Back className={clsx(iconClass)} />;
       case 'search':
       default:
         return <Icons.Magnifier className={clsx(iconClass)} />;

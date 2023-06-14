@@ -23,7 +23,7 @@ export const Button = (props: ButtonProps) => {
       className={clsx(
         'transition-all duration-200 ',
         outline
-          ? `border py-[3px] ${outlineClasses}`
+          ? `border bg-white py-[3px] ${outlineClasses}`
           : `py-1 text-white ${classes}`,
         !icon && 'rounded-md px-2',
         className,

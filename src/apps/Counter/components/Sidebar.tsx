@@ -1,7 +1,18 @@
 import { Auth, IconButton } from '@/components/common';
 import clsx from 'clsx';
+import { useModalStore } from '@/stores/modal';
+import { useStore } from '../stores';
 
-export const Sidebar = () => (
+export const Sidebar = () => {
+  const { setTriggerModal } = useStore();
+  const { setIsOpen } = useModalStore();
+
+  const onClick = () => {
+    setTriggerModal('selectTable');
+    setIsOpen(true);
+  };
+
+  return (
   <div
     className={clsx(
       'h-screen bg-white px-4 py-6',
@@ -25,9 +36,10 @@ export const Sidebar = () => (
 
     <div className="flex flex-col items-center space-y-4">
       <Auth position="right" absolute='bottom'/>
-      <IconButton containerClasses="w-10 text-primary" icon="settlement" />
+      <IconButton containerClasses="w-10 text-primary" icon="settlement" onClick={onClick}/>
     </div>
   </div>
-);
+  );
+};
 
 export default Sidebar;

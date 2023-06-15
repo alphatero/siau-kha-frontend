@@ -166,6 +166,12 @@ export type ResProductItemType = {
   product_note: ProductNoteType[];
 }
 
+export type ProductDetailType = {
+  product_id: string;
+  product_quantity: number;
+  product_note: string[];
+}
+
 // Order Log Type for Order Modal's Log Component
 export type ModalLogItem = {
   name: string;

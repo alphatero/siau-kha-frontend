@@ -1,7 +1,7 @@
 import { Button, Icons } from '@/components/common';
 import clsx from 'clsx';
 import { useModalStore } from '@/stores/modal';
-import { ModalCategory } from '@/types/order';
+import { ModalCategory, TableStatus } from '@/types/order';
 import { usePatchTable } from '@/services/mutation';
 import { useStore } from '../stores';
 
@@ -16,7 +16,7 @@ export const Header = () => {
   };
 
   const onClick = () => {
-    mutateAsync({ id: table.id, status: table.status, customerNum: Number(table.customer) });
+    mutateAsync({ id: table.id, status: TableStatus.IDLE, customerNum: 0 });
   };
 
   const handlePromotionModal = () => {

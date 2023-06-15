@@ -38,6 +38,7 @@ export const Table = (props: Props) => {
       className={clsx(
         'flex w-full flex-col',
         'rounded-md border border-black/10 bg-white',
+        'cursor-pointer',
       )}
       onClick={handleOpenModal}
     >

@@ -1,3 +1,5 @@
+import { ProductDetailStatus } from './kitchen';
+
 export enum TableStatus {
   IDLE = '閒置',
   MEAL = '用餐中',
@@ -164,6 +166,27 @@ export type ResProductItemType = {
   product_tags: string | string[];
   product_price: number;
   product_note: ProductNoteType[];
+}
+
+export type ResLogProductType = {
+  id: string;
+  is_delete: boolean;
+  product_name: string;
+  product_note: string[];
+  product_price: number;
+  product_quantity: number;
+  status: ProductDetailStatus;
+}
+
+export type ResLogDetailType = {
+  id: string;
+  create_time: string;
+  product_detail: ResLogProductType[];
+}
+
+export type ResLogType = {
+  order_detail: ResLogDetailType[];
+  total: number;
 }
 
 // Order Log Type for Order Modal's Log Component

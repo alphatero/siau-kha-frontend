@@ -12,6 +12,7 @@ import {
   PromotionDiscountType,
   ProductType,
   ResProductType,
+  ResLogType,
   ModalLogType,
 } from '@/types/order';
 import dayjs from 'dayjs';
@@ -155,7 +156,9 @@ export const fetchOrderLog = async (orderId: string): Promise<{
 }> => {
   console.log('fetchOrderLog orderId', orderId);
 
-  // const res: AxiosResponse<ResType<{ product: ResProductItemType }>> = await get(`/order-detail/${orderId}`);
+  const res: AxiosResponse<ResType<{ orderLog: ResLogType }>> = await get(`/order-detail?id=${orderId}`);
+
+  console.log('fetchOrderLog res', res);
 
   // const { data } = res;
 

@@ -3,7 +3,8 @@ import clsx from 'clsx';
 type Props = {
   title: string,
   quantity: number,
-  active: boolean
+  active: boolean,
+  onClick: () => void,
 };
 
 export const ProductFilterButton = (props: Props) => {
@@ -11,13 +12,15 @@ export const ProductFilterButton = (props: Props) => {
     title,
     quantity,
     active,
+    onClick,
   } = props;
 
   return (
     <button className={clsx(
-      'rounded-full px-2 py-1 hover:bg-primary/80 hover:text-white',
+      'rounded-full px-2 py-1',
       active ? 'border border-primary bg-primary text-white' : 'border border-primary bg-white text-primary',
     )}
+      onClick={() => onClick()}
     >
       <span className="text-fs-6">{`${title}(${quantity})`}</span>
     </button>

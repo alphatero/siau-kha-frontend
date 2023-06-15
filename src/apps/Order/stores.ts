@@ -19,6 +19,7 @@ type State = {
   promotionList: PromotionType[];
   orderNumber: number;
   orderLog: any;
+  currentPromotion: PromotionType | null;
 }
 
 type Action = {
@@ -38,6 +39,7 @@ type Action = {
   resetOrderItem: () => void;
   setOrderNumber: (orderNumber: State['orderNumber']) => void;
   setOrderLog: (orderLog: State['orderLog']) => void;
+  setCurrentPromotion: (currentPromotion: State['currentPromotion']) => void;
 }
 
 const defaultState: State = {
@@ -46,6 +48,7 @@ const defaultState: State = {
     name: 'A1',
     status: TableStatus.IDLE,
     time: '0',
+    orderId: '',
   },
   isReset: false,
   list: [],
@@ -74,6 +77,7 @@ const defaultState: State = {
   promotionList: [],
   orderNumber: 0,
   orderLog: {},
+  currentPromotion: null,
 };
 
 export const useStore = create<State & Action>((set) => ({
@@ -110,6 +114,8 @@ export const useStore = create<State & Action>((set) => ({
   setOrderNumber: (orderNumber) => set({ orderNumber }),
 
   setOrderLog: (orderLog) => set({ orderLog }),
+
+  setCurrentPromotion: (currentPromotion) => set({ currentPromotion }),
 }));
 
 export default useStore;

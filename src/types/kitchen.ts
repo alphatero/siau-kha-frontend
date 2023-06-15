@@ -1,4 +1,5 @@
 export enum ProductDetailStatus {
+  ALL = 'ALL',
   IN_PROGRESS = 'IN_PROGRESS',
   FINISH = 'FINISH',
   SUCCESS = 'SUCCESS',

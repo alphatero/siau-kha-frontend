@@ -22,6 +22,7 @@ module.exports = {
         warn: '#DA483B',
         highlight: '#FDFDF3',
         info: '#4F7B6D',
+        cover: '#FDFDF3',
       },
       fontFamily: {
         'noto-sans': ['Noto Sans TC', 'sans-serif'],

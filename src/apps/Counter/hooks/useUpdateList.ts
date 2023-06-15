@@ -4,7 +4,7 @@ import { useStore } from '../stores';
 
 export const useUpdateList = () => {
   const { setList, list } = useStore();
-  const { data, isLoading } = useTable();
+  const { data, isLoading, refetch } = useTable();
 
   useEffect(() => {
     if (data) {
@@ -15,6 +15,7 @@ export const useUpdateList = () => {
   return {
     isLoading,
     list,
+    refetch,
   };
 };
 

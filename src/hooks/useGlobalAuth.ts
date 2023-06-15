@@ -38,13 +38,13 @@ export const useGlobalAuth = () => {
   const signOut = async () => {
     setIsSignOut(true);
 
-    const res = await signOutRes;
+    await signOutRes;
 
-    if (res) {
-      removeCookie('user', { sameSite: 'strict' });
-      logout();
-      router.push('/login');
-    }
+    // if (res) {
+    removeCookie('user', { sameSite: 'strict' });
+    logout();
+    router.push('/login');
+    // }
   };
 
   const checkCookies = () => {

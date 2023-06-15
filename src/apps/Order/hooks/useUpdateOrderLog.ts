@@ -3,12 +3,14 @@ import { useEffect } from 'react';
 import { useStore } from '../stores';
 
 export const useUpdateOrderLog = () => {
-  const { setOrderLog } = useStore();
-  const { data, isLoading } = useOrderLog('傳進去的參數-id');
-  // const promotionList = usePromotions().data?.promotions || [];
+  const { table, setOrderLog } = useStore();
+  const { orderId } = table;
+  const { data, isLoading } = useOrderLog(orderId);
 
   useEffect(() => {
     if (data) {
+      console.log('table order id:', orderId);
+      console.log('useUpdateOrderLog data:', data);
       console.log('useUpdateOrderLog data.orderLog:');
       setOrderLog(data.orderLog);
     }

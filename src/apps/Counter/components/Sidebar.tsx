@@ -4,13 +4,16 @@ import { useModalStore } from '@/stores/modal';
 import { useStore } from '../stores';
 
 export const Sidebar = () => {
-  const { setTriggerModal } = useStore();
+  const { setTriggerModal, list } = useStore();
   const { setIsOpen } = useModalStore();
 
-  const onClick = () => {
+  const handleBill = () => {
     setTriggerModal('selectTable');
     setIsOpen(true);
   };
+
+  // 計算 list 中 isPayed 為 false 的數量
+  const unpaidCount = list.filter((item) => !item.isPay).length;
 
   return (
   <div
@@ -28,15 +31,15 @@ export const Sidebar = () => {
           '-translate-y-2 translate-x-2',
         )}
       >
-        2
+        {unpaidCount}
       </span>
 
-      <IconButton containerClasses="w-12 text-primary" icon="bill" />
+      <IconButton containerClasses="w-12 text-primary" icon="bill" onClick={handleBill} />
     </div>
 
     <div className="flex flex-col items-center space-y-4">
       <Auth position="right" absolute='bottom'/>
-      <IconButton containerClasses="w-10 text-primary" icon="settlement" onClick={onClick}/>
+      <IconButton containerClasses="w-10 text-primary" icon="settlement" />
     </div>
   </div>
   );

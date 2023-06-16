@@ -221,7 +221,19 @@ export type ModalLogPromotionInfo = {
 };
 
 export type ModalLogType = {
-  firstOrder: ModalLogFirstOrder;
-  anotherOrder: ModalLogAnotherOrder;
-  promotionInfo: ModalLogPromotionInfo;
+  orderLogList: {
+    id: string;
+    createTime: string;
+    detail: {
+      id: string;
+      name: string;
+      price: number;
+      finalPrice: number;
+      quantity: number;
+      note: string[];
+      status: ProductDetailStatus;
+      isDelete: boolean;
+    }[];
+  }[],
+  total: number;
 };

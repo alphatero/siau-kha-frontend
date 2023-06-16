@@ -18,7 +18,6 @@ type Action = {
   setIsFetch: (isFetch: State['isFetch']) => void;
   setSelectedTable: (selectedTable: State['selectedTable']) => void;
   setSelectedStandby: (selectedStandby: State['selectedStandby']) => void;
-  setTableOnMeal: (id: string, customerNum: number) => void;
 }
 
 const defaultState: State = {
@@ -29,7 +28,7 @@ const defaultState: State = {
   selectedStandby: '',
 };
 
-export const useStore = create<State & Action>((set, get) => ({
+export const useStore = create<State & Action>((set) => ({
   ...defaultState,
 
   setTriggerModal: (triggerModal) => {
@@ -41,20 +40,6 @@ export const useStore = create<State & Action>((set, get) => ({
   setIsFetch: (isFetch) => set({ isFetch }),
 
   setSelectedTable: (selectedTable) => set({ selectedTable }),
-
-  setTableOnMeal: (id, customerNum) => {
-    const updateList = get().list.map((t) => {
-      if (t.id === id) {
-        return {
-          ...t,
-          status: TableStatus.MEAL,
-          customer: customerNum,
-        };
-      }
-      return t;
-    });
-    set({ list: updateList });
-  },
 
   setSelectedStandby: (selectedStandby) => set({ selectedStandby }),
 }));

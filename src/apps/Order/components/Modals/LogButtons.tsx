@@ -2,13 +2,16 @@ import clsx from 'clsx';
 import { Button } from '@/components/common';
 
 type Props = {
+  removeItem: () => void;
   isDelete: boolean;
   isCooking: boolean;
   hasServed: boolean;
 }
 
 export const LogButtons = (props: Props) => {
-  const { isDelete, isCooking, hasServed } = props;
+  const {
+    removeItem, isDelete, isCooking, hasServed,
+  } = props;
 
   return (
     <div className={clsx(
@@ -16,6 +19,7 @@ export const LogButtons = (props: Props) => {
       'space-x-4 whitespace-nowrap',
     )}>
       <Button
+        onClick={removeItem}
         color={isDelete ? 'gray' : 'warn'}
         disabled={isDelete || hasServed}
       >退點</Button>

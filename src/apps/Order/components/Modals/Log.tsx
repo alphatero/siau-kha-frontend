@@ -44,6 +44,7 @@ export const Log = () => {
                         item.detail.map((detailItem: ModalLogListDetailType) => (
                           <LogItem
                             key={detailItem.id}
+                            id={detailItem.id}
                             name={detailItem.name}
                             price={detailItem.price}
                             quantity={detailItem.quantity}

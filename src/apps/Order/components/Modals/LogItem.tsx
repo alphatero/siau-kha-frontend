@@ -1,12 +1,14 @@
 import { ModalLogListDetailType } from '@/types/order';
 import { LogButtons } from './LogButtons';
 
-type PropsType = Omit<ModalLogListDetailType, 'id'>;
-
-export const LogItem = (props: PropsType) => {
+export const LogItem = (props: ModalLogListDetailType) => {
   const {
-    name, price, quantity, note, status, isDelete,
+    id, name, price, quantity, note, status, isDelete,
   } = props;
+
+  const removeOrderItem = (currentId: string) => {
+    console.log('removeOrderItem', currentId);
+  };
 
   return (
     <li className='mb-2 flex items-start justify-between'>
@@ -38,6 +40,7 @@ export const LogItem = (props: PropsType) => {
       </div>
       <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
         <LogButtons
+          removeItem={() => removeOrderItem(id)}
           isDelete={isDelete}
           isCooking={status !== 'FINISH'}
           hasServed={status === 'SUCCESS'}

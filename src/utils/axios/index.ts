@@ -56,3 +56,16 @@ export const patch = async <T>(url: string, data: T, config?: AxiosRequestConfig
   });
   return res;
 };
+
+export const deleteApi = async (url: string, config?: AxiosRequestConfig) => {
+  const axiosInstance = baseInstance();
+  const { token } = cookies.get('user');
+
+  const res = await axiosInstance.delete(url, {
+    ...config,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};

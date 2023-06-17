@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useModalStore } from '@/stores/modal';
 import { useMemo, useState } from 'react';
 import { TableStatus } from '@/types/order';
-import { usePatchReservation } from '@/services/mutation';
+import { useDeleteReservation, usePatchReservation } from '@/services/mutation';
 import { useStore } from '../../stores';
 import { useStandby } from '../../hooks/useStandby';
 import { useUpdateList } from '../../hooks/useUpdateList';
@@ -23,6 +23,7 @@ export const ReservationMeal = () => {
   const { standbyList, refetch: standbyRefetch } = useStandby();
   const { list, refetch } = useUpdateList();
   const { mutateAsync } = usePatchReservation();
+  const { mutateAsync: deleteMutateAsync } = useDeleteReservation();
   const [table, setTable] = useState<string>(list.filter((t) => t.status === TableStatus.IDLE)?.[0]?.id ?? '');
 
   const {
@@ -39,6 +40,15 @@ export const ReservationMeal = () => {
 
     if (res.status === 'success') {
       refetch();
+      standbyRefetch();
+    }
+  };
+
+  const onCancel = async () => {
+    const res = await deleteMutateAsync(selectedStandby);
+    setIsOpen(false);
+
+    if (res.status === 'success') {
       standbyRefetch();
     }
   };
@@ -92,7 +102,7 @@ export const ReservationMeal = () => {
         <input type="hidden" {...register('id')} value={selectedStandby} />
 
         <div className="flex justify-between space-x-4">
-          <Button type="button" className="w-full" outline color="gray" onClick={() => setIsOpen(false)}>
+          <Button type="button" className="w-full" outline color="gray" onClick={onCancel}>
             取消候位
           </Button>
           <Button type="submit" className="w-full">

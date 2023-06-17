@@ -10,7 +10,9 @@ export const Log = () => {
     isOpen, setIsOpen,
   } = useModalStore();
 
-  const { table, orderLog, currentPromotion } = useStore();
+  const {
+    table, orderLog, currentPromotion, setCurrentPromotion,
+  } = useStore();
 
   const { isLoading } = useUpdateOrderLog();
 
@@ -82,7 +84,10 @@ export const Log = () => {
                         }
                       </span>
                     </div>
-                    <Button color='warn'>取消</Button>
+                    <Button
+                      onClick={() => setCurrentPromotion(null)}
+                      color='warn'
+                    >取消</Button>
                   </>
                 ) : (
                   <span>無</span>

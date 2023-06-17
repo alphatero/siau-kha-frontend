@@ -9,9 +9,6 @@ export const useUpdateOrderLog = () => {
 
   useEffect(() => {
     if (data) {
-      console.log('table order id:', orderId);
-      console.log('useUpdateOrderLog data:', data);
-      console.log('useUpdateOrderLog data.orderLog:');
       setOrderLog(data.orderLog);
     }
   }, [data]);

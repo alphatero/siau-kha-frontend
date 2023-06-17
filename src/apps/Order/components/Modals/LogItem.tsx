@@ -1,4 +1,3 @@
-// import { ModalLogItem } from '@/types/order';
 import { ModalLogListDetailType } from '@/types/order';
 import { LogButtons } from './LogButtons';
 

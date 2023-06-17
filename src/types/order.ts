@@ -189,37 +189,6 @@ export type ResLogType = {
   total: number;
 }
 
-// Order Log Type for Order Modal's Log Component
-export type ModalLogItem = {
-  name: string;
-  price: number;
-  quantity: number;
-  button: {
-    isCooking: boolean;
-    hasServed: boolean;
-  };
-}
-
-export type ModalLogFirstOrder = {
-  title: string;
-  orderTime: string;
-  orderList: ModalLogItem[];
-};
-
-export type ModalLogAnotherOrder = {
-  title: string;
-  dataList: {
-    orderTime: string;
-    orderList: ModalLogItem[];
-  }[];
-};
-
-export type ModalLogPromotionInfo = {
-  title: string;
-  name: string;
-  discount: number;
-};
-
 export type ModalLogListDetailType = {
   id: string;
   name: string;

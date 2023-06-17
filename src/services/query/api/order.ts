@@ -13,11 +13,11 @@ import {
   ProductType,
   ResProductType,
   ResLogType,
+  ResLogDetailType,
   ModalLogType,
 } from '@/types/order';
 import dayjs from 'dayjs';
 import { get } from '@/utils/axios';
-import { ModalLogData } from '@/apps/Order/constants';
 
 const convertTime = (time: string, formatSpec: string): string => {
   const date = dayjs(time);
@@ -106,8 +106,28 @@ const toProduct = (data: ResProductType) => ({
   })),
 });
 
-// TODO: mock data
-const toOrderLog = (): ModalLogType => ModalLogData;
+const toOrderLog = (data: ResLogType): ModalLogType => {
+  const dataList = data.order_detail.map((item: ResLogDetailType) => ({
+    id: item.id,
+    createTime: convertTime(item.create_time, 'YYYY/MM/DD HH:mm'),
+    detail: item.product_detail.map((detail) => ({
+      id: detail.id,
+      name: detail.product_name,
+      price: detail.product_price,
+      quantity: detail.product_quantity,
+      note: detail.product_note,
+      status: detail.status,
+      isDelete: detail.is_delete,
+    })),
+  }));
+
+  const responseData = {
+    orderLogList: dataList,
+    total: data.total,
+  };
+
+  return responseData;
+};
 
 export const fetchProductTag = async (): Promise<ResDataType<TagType[]>> => {
   const res: AxiosResponse<ResType<{ product_tags: ResTagType[] }>> = await get('/product/tags');
@@ -154,19 +174,9 @@ export const fetchPromotions = async (): Promise<{
 export const fetchOrderLog = async (orderId: string): Promise<{
   orderLog: ModalLogType
 }> => {
-  console.log('fetchOrderLog orderId', orderId);
-
-  const res: AxiosResponse<ResType<{ orderLog: ResLogType }>> = await get(`/order-detail?id=${orderId}`);
-
-  console.log('fetchOrderLog res', res);
-
-  // const { data } = res;
-
-  // const product = data.data.product ?? {};
-
-  // const orderItem: OrderItemType = toOrderItem(product);
-
-  const orderLog: ModalLogType = toOrderLog();
+  const res = await get(`/order-detail?id=${orderId}`);
+  const resData = res.data.data;
+  const orderLog = toOrderLog(resData);
 
   return {
     orderLog,

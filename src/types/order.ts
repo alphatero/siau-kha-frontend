@@ -220,20 +220,23 @@ export type ModalLogPromotionInfo = {
   discount: number;
 };
 
+export type ModalLogListDetailType = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  note: string[];
+  status: ProductDetailStatus;
+  isDelete: boolean;
+}
+
+export type ModalLogListType = {
+  id: string;
+  createTime: string;
+  detail: ModalLogListDetailType[];
+}
+
 export type ModalLogType = {
-  orderLogList: {
-    id: string;
-    createTime: string;
-    detail: {
-      id: string;
-      name: string;
-      price: number;
-      finalPrice: number;
-      quantity: number;
-      note: string[];
-      status: ProductDetailStatus;
-      isDelete: boolean;
-    }[];
-  }[],
+  orderLogList: ModalLogListType[],
   total: number;
 };

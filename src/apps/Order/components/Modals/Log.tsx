@@ -10,7 +10,7 @@ export const Log = () => {
     isOpen, setIsOpen,
   } = useModalStore();
 
-  const { table, orderLog } = useStore();
+  const { table, orderLog, currentPromotion } = useStore();
 
   const { isLoading } = useUpdateOrderLog();
 
@@ -71,11 +71,25 @@ export const Log = () => {
               套用的折扣活動
             </h3>
             <div className='mb-2 flex items-center justify-between'>
-              <span>折扣活動的名稱</span>
-              <span className='rounded-md border border-secondary px-1 text-secondary'>
-                折扣金額
-              </span>
-              <Button color='warn'>取消</Button>
+              {
+                currentPromotion ? (
+                  <>
+                    <span>{currentPromotion.name}</span>
+                    <span className='rounded-md border border-secondary px-1 text-secondary'>
+                      {
+                        currentPromotion.charge.discount ? (
+                          <>折扣：{currentPromotion.charge.discountPrice}%</>
+                        ) : (
+                          <>折讓：${currentPromotion.charge.allowancePrice}元</>
+                        )
+                      }
+                    </span>
+                    <Button color='warn'>取消</Button>
+                  </>
+                ) : (
+                  <span>無</span>
+                )
+              }
             </div>
           </li>
 

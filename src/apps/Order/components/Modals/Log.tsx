@@ -1,4 +1,4 @@
-import { Modal, Button } from '@/components/common';
+import { Modal, Button, Loading } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { ModalLogListDetailType, ModalLogListType } from '@/types/order';
 import { useStore } from '../../stores';
@@ -25,9 +25,7 @@ export const Log = () => {
           <li className='max-h-[450px] overflow-y-auto'>
             {
               isLoading && (
-                <div className='flex h-full items-center justify-center'>
-                  <p className='text-h4 text-black/50'>Loading...</p>
-                </div>
+                <Loading />
               )
             }
             {

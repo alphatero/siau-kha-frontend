@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { SearchBar, Loading } from '@/components/common';
-import { OrderItemType, ProductType } from '@/types/order';
+import { OrderItemType, ProductType, TableStatus } from '@/types/order';
 import { CheckSide } from './OrderList';
 import { useStore } from '../stores';
 import { useUpdateProducts } from '../hooks/useUpdateProducts';
@@ -16,6 +16,7 @@ export const Main = () => {
     isReset,
     orderNumber,
     setOrderNumber,
+    table,
   } = useStore();
 
   const { isLoading } = useUpdateProducts();
@@ -43,6 +44,7 @@ export const Main = () => {
   };
 
   const handleClick = (product: ProductType) => {
+    if (table.status === TableStatus.IDLE) return;
     // 如果點擊的餐點已經在點餐清單中，則數量+1
     const repeatItem = orderList.filter((item) => item.id === product.id && checkNote(item, product));
     if (repeatItem.length > 0) {

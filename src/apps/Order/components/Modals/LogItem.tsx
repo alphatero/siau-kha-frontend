@@ -1,7 +1,10 @@
 // import { ModalLogItem } from '@/types/order';
+import { ModalLogListDetailType } from '@/types/order';
 import { LogButtons } from './LogButtons';
 
-export const LogItem = (props: any) => {
+type PropsType = Omit<ModalLogListDetailType, 'id'>;
+
+export const LogItem = (props: PropsType) => {
   const {
     name, price, quantity, note, status, isDelete,
   } = props;
@@ -19,7 +22,7 @@ export const LogItem = (props: any) => {
               )
             }
             {
-              note.map((item: any, index: number) => (
+              note.map((item: string, index: number) => (
                 <span className='text-secondary' key={index}>{item}</span>
               ))
             }

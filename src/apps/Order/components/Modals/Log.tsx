@@ -1,9 +1,8 @@
 import { Modal, Button } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
-import { useEffect } from 'react';
+import { ModalLogListDetailType, ModalLogListType } from '@/types/order';
 import { useStore } from '../../stores';
 import { LogItem } from './LogItem';
-import { ModalLogData } from '../../constants';
 import { useUpdateOrderLog } from '../../hooks/useUpdateOrderLog';
 
 export const Log = () => {
@@ -11,20 +10,9 @@ export const Log = () => {
     isOpen, setIsOpen,
   } = useModalStore();
 
-  const { table, setOrderLog, orderLog } = useStore();
+  const { table, orderLog } = useStore();
 
   const { isLoading } = useUpdateOrderLog();
-
-  useEffect(() => {
-    console.log('=====-------------------------=====');
-    if (isLoading) {
-      console.log('isLoading', isLoading);
-      setOrderLog({
-        ...orderLog,
-      });
-    }
-    console.log('orderLog', orderLog);
-  }, [isLoading]);
 
   return (
     <Modal
@@ -36,34 +24,46 @@ export const Log = () => {
         <ul className='text-fs-6 text-black/85'>
           <li className='max-h-[450px] overflow-y-auto'>
             {
-              ModalLogData.orderLogList.map((item, index) => (
-                <div
-                  className='mb-4'
-                  key={`item-${index}`}
-                >
-                  <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
-                    {index === 0 ? '訂單內容' : '加點' }
-                  </h3>
-                  <ul>
-                    {
-                      item.detail.map((detailItem) => (
-                        <LogItem
-                          key={detailItem.id}
-                          name={detailItem.name}
-                          price={detailItem.finalPrice}
-                          quantity={detailItem.quantity}
-                          note={detailItem.note}
-                          status={detailItem.status}
-                          isDelete={detailItem.isDelete}
-                        />
-                      ))
-                    }
-                  </ul>
-                  <p className='mt-2 whitespace-nowrap text-right text-black/50'>
-                    送出時間：{item.createTime}
-                  </p>
+              isLoading && (
+                <div className='flex h-full items-center justify-center'>
+                  <p className='text-h4 text-black/50'>Loading...</p>
                 </div>
-              ))
+              )
+            }
+            {
+              orderLog?.orderLogList && orderLog.orderLogList.length > 0 && (
+                orderLog.orderLogList.map((
+                  item: ModalLogListType,
+                  index: number,
+                ) => (
+                  <div
+                    className='mb-4'
+                    key={`item-${index}`}
+                  >
+                    <h3 className='mb-2 border-b-2 border-b-primary pb-1 text-h5 text-primary'>
+                      {index === 0 ? '訂單內容' : '加點' }
+                    </h3>
+                    <ul>
+                      {
+                        item.detail.map((detailItem: ModalLogListDetailType) => (
+                          <LogItem
+                            key={detailItem.id}
+                            name={detailItem.name}
+                            price={detailItem.price}
+                            quantity={detailItem.quantity}
+                            note={detailItem.note}
+                            status={detailItem.status}
+                            isDelete={detailItem.isDelete}
+                          />
+                        ))
+                      }
+                    </ul>
+                    <p className='mt-2 whitespace-nowrap text-right text-black/50'>
+                      送出時間：{item.createTime}
+                    </p>
+                  </div>
+                ))
+              )
             }
           </li>
 
@@ -84,7 +84,7 @@ export const Log = () => {
           <li>
             <h3 className='mb-2 flex justify-end border-b-2 border-b-primary pb-1 text-h5 text-primary'>
               <span>總額：</span>
-              <span>$ {ModalLogData.total}</span>
+              <span>$ {orderLog.total}</span>
             </h3>
           </li>
         </ul>

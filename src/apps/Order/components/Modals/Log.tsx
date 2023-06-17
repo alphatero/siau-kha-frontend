@@ -23,11 +23,7 @@ export const Log = () => {
         <legend className='mx-auto mb-5 text-h4'>Table {table.name} 點餐紀錄</legend>
         <ul className='text-fs-6 text-black/85'>
           <li className='max-h-[450px] overflow-y-auto'>
-            {
-              isLoading && (
-                <Loading />
-              )
-            }
+            { isLoading && <Loading /> }
             {
               orderLog?.orderLogList && orderLog.orderLogList.length > 0 && (
                 orderLog.orderLogList.map((
@@ -74,16 +70,18 @@ export const Log = () => {
               {
                 currentPromotion ? (
                   <>
-                    <span>{currentPromotion.name}</span>
-                    <span className='rounded-md border border-secondary px-1 text-secondary'>
-                      {
-                        currentPromotion.charge.discount ? (
-                          <>折扣：{currentPromotion.charge.discountPrice}%</>
-                        ) : (
-                          <>折讓：${currentPromotion.charge.allowancePrice}元</>
-                        )
-                      }
-                    </span>
+                    <div>
+                      <span className='mb-1 block'>{currentPromotion.name}</span>
+                      <span className='rounded-md border border-secondary px-1 text-secondary'>
+                        {
+                          currentPromotion.charge.discount ? (
+                            <>折扣：{currentPromotion.charge.discountPrice}%</>
+                          ) : (
+                            <>折讓：${currentPromotion.charge.allowancePrice}元</>
+                          )
+                        }
+                      </span>
+                    </div>
                     <Button color='warn'>取消</Button>
                   </>
                 ) : (

@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { Button, TextField } from '@/components/common';
 import { useForm } from 'react-hook-form';
 import { useModalStore } from '@/stores/modal';
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { TableStatus } from '@/types/order';
 import { useDeleteReservation, usePatchReservation } from '@/services/mutation';
 import { useStore } from '../../stores';
@@ -76,10 +76,10 @@ export const ReservationMeal = () => {
 
           {
               list.filter((t, i) => (table === '' ? i === 0 : t.id === table)).map((item) => (
-                <>
+                <Fragment key={item.id}>
                   <TextField label="請輸入用餐人數" type="number" placeholder='輸入人數'
                   {...register('customerNum', { required: '此為必填', min: { value: 1, message: '至少1位' }, max: { value: item.seat ? item.seat + 2 : 0, message: `最多${item.seat ? item.seat + 2 : 0}位` } })} /><p className='mt-1 text-warn'>{errors.customerNum?.message}</p>
-                </>
+                </Fragment>
               ))
           }
 

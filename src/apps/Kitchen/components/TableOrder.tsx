@@ -1,58 +1,33 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import type { Product as ProductType } from '@/types/kitchen';
+import type { ProductDetailType, KitchenTableType } from '@/types/kitchen';
 import { ProductDetailStatus } from '@/types/kitchen';
+
+import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime';
+import useStore from '../stores';
+import { FilterButton } from '../constants';
 
 import { ProductFilterButton } from './ProductFilterButton';
 import { Product } from './Product';
-import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime';
-import { FilterButton } from '../constants';
 
 type Props = {
-  tableName: string;
+  table: KitchenTableType;
 };
 
 export const TableOrder = (props: Props) => {
   const {
-    tableName,
+    table: {
+      name: tableName,
+      orderDetail
+    },
   } = props;
 
-  const productList: Array<ProductType> = [
-    {
-      id: '1',
-      product_name: 'A5 日本和牛套餐',
-      note: '瘦肉多一點',
-      status: ProductDetailStatus.IN_PROGRESS,
-      is_delete: false,
-      order_time: '2023-06-12 10:44',
-    },
-    {
-      id: '2',
-      product_name: '燒角精選飲品',
-      note: '少冰',
-      status: ProductDetailStatus.IN_PROGRESS,
-      is_delete: false,
-      order_time: '2023-06-12 10:49',
-    },
-    {
-      id: '3',
-      product_name: '燒角精選飲品',
-      note: '少冰',
-      status: ProductDetailStatus.IN_PROGRESS,
-      is_delete: false,
-      order_time: '2023-06-12 10:54',
-    },
-    {
-      id: '4',
-      product_name: '安格斯牛小排',
-      status: ProductDetailStatus.FINISH,
-      is_delete: false,
-      order_time: '2023-06-11 08:01',
-    },
-  ];
+  // const { 
+  //   tableList,
+  // } = useStore()
 
-  const sortedAndAlertedData = useSortAndAlertByOrderTime(productList);
+  const sortedAndAlertedData = useSortAndAlertByOrderTime(orderDetail?.flat() || []);
 
   const [productFilter, setProductFilter] = useState(ProductDetailStatus.ALL);
 
@@ -92,11 +67,12 @@ export const TableOrder = (props: Props) => {
             ?.map((product) => (
               <li key={product.id} className='w-full'>
                 <Product
-                  productName={product.product_name}
-                  note={product.note}
+                  productName={product.productName}
+                  note={product.productNote}
                   status={product.status}
                   alertType={product.alertType}
-                  orderTime={dayjs(product.order_time).format('HH:mm')}
+                  quantity={product.productQuantity}
+                  orderTime={dayjs(product.orderTime).format('HH:mm')}
                 />
               </li>
             ))

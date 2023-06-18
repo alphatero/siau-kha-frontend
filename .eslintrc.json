@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb-base",
+    "plugin:tailwindcss/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "max-len": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"], 
+    "import/extensions": ["error", {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }]
+  },
+  "plugins": [
+    "@typescript-eslint", "react"
+  ]
+}

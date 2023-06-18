@@ -2,9 +2,20 @@
 ![點餐頁面](https://raw.githubusercontent.com/alphatero/siau-kha-frontend/401fc66c96adbcc67cde2d83695eeffe23387e4d/siau-kha-demo-image.png)
 
 ## 專案介紹
+**燒角** 是一款專為燒烤店設計的 POS 系統專案。
 > 台語諧音「燒烤」，意思是燒烤店，同時也有搞笑的感覺
 > 題目理念：希望能打造餐廳餐點及客人管理友善的系統
 - [線上觀看連結](https://siau-kha-frontend.vercel.app)
+
+## 專案團隊
+
+| 開發人員 | 負責開發範圍 |
+| -------- | -------------------------------------- |
+| 羔羊     | 後端開發 |
+| yuyu    | 前端開發/後端開發 |
+| eddie    | 前端開發/後端開發 |
+| alpha    | 前端開發 |
+| 鉛筆     | 前端開發 |
 
 ## 安裝本專案
 - Node.js 版本必需為 v18.15.0

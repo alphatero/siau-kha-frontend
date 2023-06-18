@@ -1,13 +1,26 @@
 import { ModalLogListDetailType } from '@/types/order';
+import { useDeleteOrderItem } from '@/services/mutation';
 import { LogButtons } from './LogButtons';
+import { useStore } from '../../stores';
 
-export const LogItem = (props: ModalLogListDetailType) => {
+export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
   const {
-    id, name, price, quantity, note, status, isDelete,
+    id, name, price, quantity, note, status, isDelete, detailId,
   } = props;
 
-  const removeOrderItem = (currentId: string) => {
+  const { table } = useStore();
+
+  const { mutateAsync } = useDeleteOrderItem();
+
+  const removeOrderItem = async (currentId: string) => {
     console.log('removeOrderItem', currentId);
+    const res = await mutateAsync({
+      orderId: table.orderId,
+      detailId,
+      productId: id,
+    });
+
+    console.log('status', res.status);
   };
 
   return (

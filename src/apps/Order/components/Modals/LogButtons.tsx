@@ -1,16 +1,16 @@
 import clsx from 'clsx';
 import { Button } from '@/components/common';
+import { ProductDetailStatus } from '@/types/kitchen';
 
 type Props = {
   removeItem: () => void;
   isDelete: boolean;
-  isCooking: boolean;
-  hasServed: boolean;
+  status: ProductDetailStatus;
 }
 
 export const LogButtons = (props: Props) => {
   const {
-    removeItem, isDelete, isCooking, hasServed,
+    removeItem, isDelete, status,
   } = props;
 
   return (
@@ -21,10 +21,10 @@ export const LogButtons = (props: Props) => {
       <Button
         onClick={removeItem}
         color={isDelete ? 'gray' : 'warn'}
-        disabled={isDelete || hasServed}
+        disabled={status !== ProductDetailStatus.SUCCESS}
       >退點</Button>
       {
-        isCooking ? (
+        status === ProductDetailStatus.IN_PROGRESS ? (
           <Button
             color="secondary"
             outline
@@ -33,9 +33,9 @@ export const LogButtons = (props: Props) => {
         ) : (
           <Button
             color="primary"
-            outline={hasServed}
-            disabled={hasServed}
-          >{hasServed ? '已上菜' : '上菜'}</Button>
+            outline={status === ProductDetailStatus.SUCCESS}
+            disabled={status === ProductDetailStatus.SUCCESS}
+          >{status === ProductDetailStatus.SUCCESS ? '已上菜' : '上菜'}</Button>
         )
       }
     </div>

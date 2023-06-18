@@ -42,8 +42,7 @@ export const LogItem = (props: ModalLogListDetailType) => {
         <LogButtons
           removeItem={() => removeOrderItem(id)}
           isDelete={isDelete}
-          isCooking={status !== 'FINISH'}
-          hasServed={status === 'SUCCESS'}
+          status={status}
         />
       </div>
     </li>

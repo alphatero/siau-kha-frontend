@@ -1,5 +1,5 @@
 import { MealStandbyType, StandbyType } from '@/types/seat';
-import { deleteApi, patch, post } from '@/utils/axios';
+import { del, patch, post } from '@/utils/axios';
 
 export const postReservation = async (data: StandbyType) => {
   const res = await post('/reservation', {
@@ -22,7 +22,7 @@ export const patchReservation = async (data: MealStandbyType) => {
 };
 
 export const deleteReservation = async (id: string) => {
-  await deleteApi(`/reservation/${id}`);
+  await del(`/reservation/${id}`);
 
   return {
     status: 'success',

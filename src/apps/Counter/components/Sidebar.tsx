@@ -1,6 +1,7 @@
 import { Auth, IconButton } from '@/components/common';
 import clsx from 'clsx';
 import { useModalStore } from '@/stores/modal';
+import { TableStatus } from '@/types/order';
 import { useStore } from '../stores';
 
 export const Sidebar = () => {
@@ -13,7 +14,7 @@ export const Sidebar = () => {
   };
 
   // 計算 list 中 isPayed 為 false 的數量
-  const unpaidCount = list.filter((item) => !item.isPay).length;
+  const unpaidCount = list.filter((item) => !item.isPay && item.status === TableStatus.MEAL).length;
 
   return (
   <div

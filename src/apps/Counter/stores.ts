@@ -9,6 +9,7 @@ type State = {
   list: TableType[];
   isFetch: boolean;
   selectedTable: string;
+  selectedCheckout: string;
   selectedStandby: string;
 }
 
@@ -19,6 +20,7 @@ type Action = {
   setSelectedTable: (selectedTable: State['selectedTable']) => void;
   setSelectedStandby: (selectedStandby: State['selectedStandby']) => void;
   setTableOnMeal: (id: string, customerNum: number) => void;
+  setSelectedCheckout: (selectedCheckout: State['selectedCheckout']) => void;
 }
 
 const defaultState: State = {
@@ -27,6 +29,7 @@ const defaultState: State = {
   isFetch: true,
   selectedTable: '',
   selectedStandby: '',
+  selectedCheckout: '',
 };
 
 export const useStore = create<State & Action>((set, get) => ({
@@ -57,6 +60,8 @@ export const useStore = create<State & Action>((set, get) => ({
   },
 
   setSelectedStandby: (selectedStandby) => set({ selectedStandby }),
+
+  setSelectedCheckout: (selectedCheckout) => set({ selectedCheckout }),
 }));
 
 export default useStore;

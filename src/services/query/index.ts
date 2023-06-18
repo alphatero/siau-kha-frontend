@@ -3,6 +3,7 @@ import { schema } from './queries/order';
 import { schema as tokenSchema } from './queries/token';
 import { schema as authSchema } from './queries/auth';
 import { seat } from './queries/seat';
+import { checkout } from './queries/checkout';
 
 export const useCheckToken = (token: string) => useQuery({ ...tokenSchema.checkToken(token), enabled: !!token });
 export const useTable = () => useQuery({ ...schema.table });
@@ -12,5 +13,6 @@ export const useProducts = (tagId: string) => useQuery({ ...schema.products(tagI
 export const useOrderLog = (orderId: string) => useQuery({ ...schema.orderLog(orderId), enabled: !!orderId });
 export const useSignOut = (enabled: boolean) => useQuery({ ...authSchema.signOut, enabled: !!enabled });
 export const useReservation = () => useQuery({ ...seat.getReservation, enabled: false });
+export const useCheckoutList = (orderId: string) => useQuery({ ...checkout.getList(orderId), enabled: !!orderId });
 
 export default useCheckToken;

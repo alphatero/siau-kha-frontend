@@ -1,4 +1,5 @@
 # 燒角 Siau Kha（點餐系統）－前端
+![點餐頁面](https://raw.githubusercontent.com/alphatero/siau-kha-frontend/401fc66c96adbcc67cde2d83695eeffe23387e4d/siau-kha-demo-image.png)
 
 ## 專案介紹
 > 台語諧音「燒烤」，意思是燒烤店，同時也有搞笑的感覺

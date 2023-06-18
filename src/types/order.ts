@@ -1,3 +1,5 @@
+import { ProductDetailStatus } from './kitchen';
+
 export enum TableStatus {
   IDLE = '閒置',
   MEAL = '用餐中',
@@ -172,39 +174,44 @@ export type ProductDetailType = {
   product_note: string[];
 }
 
-// Order Log Type for Order Modal's Log Component
-export type ModalLogItem = {
+export type ResLogProductType = {
+  id: string;
+  is_delete: boolean;
+  product_name: string;
+  product_note: string[];
+  product_price: number;
+  product_quantity: number;
+  status: ProductDetailStatus;
+}
+
+export type ResLogDetailType = {
+  id: string;
+  create_time: string;
+  product_detail: ResLogProductType[];
+}
+
+export type ResLogType = {
+  order_detail: ResLogDetailType[];
+  total: number;
+}
+
+export type ModalLogListDetailType = {
+  id: string;
   name: string;
   price: number;
   quantity: number;
-  button: {
-    isCooking: boolean;
-    hasServed: boolean;
-  };
+  note: string[];
+  status: ProductDetailStatus;
+  isDelete: boolean;
 }
 
-export type ModalLogFirstOrder = {
-  title: string;
-  orderTime: string;
-  orderList: ModalLogItem[];
-};
-
-export type ModalLogAnotherOrder = {
-  title: string;
-  dataList: {
-    orderTime: string;
-    orderList: ModalLogItem[];
-  }[];
-};
-
-export type ModalLogPromotionInfo = {
-  title: string;
-  name: string;
-  discount: number;
-};
+export type ModalLogListType = {
+  id: string;
+  createTime: string;
+  detail: ModalLogListDetailType[];
+}
 
 export type ModalLogType = {
-  firstOrder: ModalLogFirstOrder;
-  anotherOrder: ModalLogAnotherOrder;
-  promotionInfo: ModalLogPromotionInfo;
+  orderLogList: ModalLogListType[],
+  total: number;
 };

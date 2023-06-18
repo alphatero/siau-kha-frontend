@@ -12,6 +12,9 @@ import {
   PromotionDiscountType,
   ProductType,
   ResProductType,
+  ResLogType,
+  ResLogDetailType,
+  ModalLogType,
 } from '@/types/order';
 import dayjs from 'dayjs';
 import { get } from '@/utils/axios';
@@ -103,6 +106,29 @@ const toProduct = (data: ResProductType) => ({
   })),
 });
 
+const toOrderLog = (data: ResLogType): ModalLogType => {
+  const dataList = data.order_detail.map((item: ResLogDetailType) => ({
+    id: item.id,
+    createTime: convertTime(item.create_time, 'YYYY/MM/DD HH:mm'),
+    detail: item.product_detail.map((detail) => ({
+      id: detail.id,
+      name: detail.product_name,
+      price: detail.product_price,
+      quantity: detail.product_quantity,
+      note: detail.product_note,
+      status: detail.status,
+      isDelete: detail.is_delete,
+    })),
+  }));
+
+  const responseData = {
+    orderLogList: dataList,
+    total: data.total,
+  };
+
+  return responseData;
+};
+
 export const fetchProductTag = async (): Promise<ResDataType<TagType[]>> => {
   const res: AxiosResponse<ResType<{ product_tags: ResTagType[] }>> = await get('/product/tags');
 
@@ -142,6 +168,18 @@ export const fetchPromotions = async (): Promise<{
 
   return {
     promotions,
+  };
+};
+
+export const fetchOrderLog = async (orderId: string): Promise<{
+  orderLog: ModalLogType
+}> => {
+  const res = await get(`/order-detail?id=${orderId}`);
+  const resData = res.data.data;
+  const orderLog = toOrderLog(resData);
+
+  return {
+    orderLog,
   };
 };
 

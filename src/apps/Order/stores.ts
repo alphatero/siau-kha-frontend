@@ -18,6 +18,7 @@ type State = {
   currentTag: TagType;
   promotionList: PromotionType[];
   orderNumber: number;
+  orderLog: any;
   currentPromotion: PromotionType | null;
 }
 
@@ -37,6 +38,7 @@ type Action = {
   setPromotionList: (promotionList: State['promotionList']) => void;
   resetOrderItem: () => void;
   setOrderNumber: (orderNumber: State['orderNumber']) => void;
+  setOrderLog: (orderLog: State['orderLog']) => void;
   setCurrentPromotion: (currentPromotion: State['currentPromotion']) => void;
 }
 
@@ -74,6 +76,7 @@ const defaultState: State = {
   triggerModal: null,
   promotionList: [],
   orderNumber: 0,
+  orderLog: {},
   currentPromotion: null,
 };
 
@@ -109,6 +112,8 @@ export const useStore = create<State & Action>((set) => ({
   resetOrderItem: () => set({ orderItem: defaultState.orderItem }),
 
   setOrderNumber: (orderNumber) => set({ orderNumber }),
+
+  setOrderLog: (orderLog) => set({ orderLog }),
 
   setCurrentPromotion: (currentPromotion) => set({ currentPromotion }),
 }));

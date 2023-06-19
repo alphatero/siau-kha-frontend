@@ -10,7 +10,7 @@ type Props = {
 
 export const TableTab = (props: Props) => {
   const {
-    tableName, isShow, unsentCount, onClick
+    tableName, isShow, unsentCount, onClick,
   } = props;
 
   return (

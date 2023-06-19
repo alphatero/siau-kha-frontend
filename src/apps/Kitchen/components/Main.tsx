@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import clsx from 'clsx';
 import { Loading } from '@/components/common';
 import {
@@ -6,27 +6,33 @@ import {
   ProductDetailStatus,
   TableStatus,
 } from '@/types/kitchen';
-import useStore from '../stores';
+import { useStore } from '../stores';
 
 import { TableTab } from './TableTab';
 import { TableOrder } from './TableOrder';
 import { useUpdateTables } from '../hooks/useUpdateTable';
 
-
 export const Main = () => {
   // TODO test data
-  const { 
-    tableList,
-    activeList, setActiveList,
-    activeTabs, setActiveTabs,
-  } = useStore()
+  const {
+    tableList, activeList, setActiveList, activeTabs, setActiveTabs,
+  } = useStore();
 
-  const { isLoading } = useUpdateTables()
+  const { isLoading } = useUpdateTables();
 
   // 取得未送餐的訂單數量
   const getProductDetailUnsent = (order: KitchenTableType): number => {
     if (order.status !== TableStatus.MEAL) return 0;
-    return order.orderDetail?.flat().reduce((count, detail) => detail.status === ProductDetailStatus.IN_PROGRESS ? count + detail.productQuantity : count, 0) || 0;
+    return (
+      order.orderDetail
+        ?.flat()
+        .reduce(
+          (count, detail) => (detail.status === ProductDetailStatus.IN_PROGRESS
+            ? count + detail.productQuantity
+            : count),
+          0,
+        ) || 0
+    );
   };
 
   const activateTabHandler = (newTab: string) => {
@@ -43,50 +49,48 @@ export const Main = () => {
       const newActiveTab = [...activeTabs.slice(1), newTab];
       setActiveTabs(newActiveTab);
     }
-  }
+  };
 
   // 點擊Tab切換點單紀錄
   useEffect(() => {
     if (activeTabs.length < 1) return;
-    const activeTable = tableList
-      .filter((table) => activeTabs.includes(table.name));
+    const activeTable = tableList.filter((table) => activeTabs.includes(table.name));
 
     setActiveList(activeTable);
   }, [activeTabs]);
 
-  return (<div className='px-8'>
+  return (
+    <div className="px-8">
       <main>
-          <ul className="flex items-center my-10 border-b border-primary">
-            {tableList?.map((table) => (
-              <li key={table.id}>
-                <TableTab
-                  tableName={table.name}
-                  unsentCount={getProductDetailUnsent(table)}
-                  isShow={activeTabs.includes(table.name)}
-                  onClick={activateTabHandler}
-                />
-              </li>
-            ))}
-          </ul>
-          <div className={clsx(
+        <ul className="my-10 flex items-center border-b border-primary">
+          {tableList?.map((table) => (
+            <li key={table.id}>
+              <TableTab
+                tableName={table.name}
+                unsentCount={getProductDetailUnsent(table)}
+                isShow={activeTabs.includes(table.name)}
+                onClick={activateTabHandler}
+              />
+            </li>
+          ))}
+        </ul>
+        <div
+          className={clsx(
             'grid flex-1 gap-4',
             'col-span-3 grid-cols-3 grid-rows-1',
-          )}>
-            {
-              isLoading
-              ? <Loading />
-              : activeList
-                ?.filter((table) => activeTabs.includes(table.name))
-                .map((table) => (
-                  <TableOrder
-                    key={table.id}
-                    table={table}
-                  />
-                ))
-            }
-          </div>
+          )}
+        >
+          {isLoading ? (
+            <Loading />
+          ) : (
+            activeList
+              ?.filter((table) => activeTabs.includes(table.name))
+              .map((table) => <TableOrder key={table.id} table={table} />)
+          )}
+        </div>
       </main>
-  </div>);
+    </div>
+  );
 };
 
 export default Main;

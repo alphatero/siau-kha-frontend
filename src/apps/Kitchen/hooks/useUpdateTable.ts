@@ -11,13 +11,16 @@ export const useUpdateTables = () => {
   const {
     activeTabs, setActiveTabs,
     tableList, setTableList,
+    currentTab,
+    setIsFirstTimeLoading,
   } = useStore();
-  const { data, isLoading } = useKitchenTable();
+  const { data, isLoading } = useKitchenTable(currentTab);
 
   useEffect(() => {
     if (data) {
       const getActiveTableList = data.list;
       setTableList(getActiveTableList);
+      setIsFirstTimeLoading(false);
     }
   }, [data]);
 

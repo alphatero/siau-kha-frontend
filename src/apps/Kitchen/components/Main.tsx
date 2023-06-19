@@ -15,7 +15,7 @@ import { useUpdateTables } from '../hooks/useUpdateTable';
 export const Main = () => {
   // TODO test data
   const {
-    tableList, activeList, setActiveList, activeTabs, setActiveTabs,
+    tableList, activeList, setActiveList, activeTabs, setActiveTabs, setCurrentTab, isFirstTimeLoading,
   } = useStore();
 
   const { isLoading } = useUpdateTables();
@@ -36,6 +36,9 @@ export const Main = () => {
   };
 
   const activateTabHandler = (newTab: string) => {
+    if (newTab) {
+      setCurrentTab(newTab);
+    }
     if (activeTabs.includes(newTab)) {
       // 如果點擊的 tab 已在 activeTabs 中，則移除
       const newActiveTab = activeTabs.filter((tab) => tab !== newTab);
@@ -80,7 +83,7 @@ export const Main = () => {
             'col-span-3 grid-cols-3 grid-rows-1',
           )}
         >
-          {isLoading ? (
+          {isLoading && isFirstTimeLoading ? (
             <Loading />
           ) : (
             activeList

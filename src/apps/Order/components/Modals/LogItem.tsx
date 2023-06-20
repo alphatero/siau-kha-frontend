@@ -12,15 +12,12 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
 
   const { mutateAsync } = useDeleteOrderItem();
 
-  const removeOrderItem = async (currentId: string) => {
-    console.log('removeOrderItem', currentId);
-    const res = await mutateAsync({
+  const removeOrderItem = (currentId: string) => {
+    mutateAsync({
       orderId: table.orderId,
       detailId,
-      productId: id,
+      productId: currentId,
     });
-
-    console.log('status', res.status);
   };
 
   return (

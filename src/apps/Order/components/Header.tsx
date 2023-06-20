@@ -2,21 +2,15 @@ import { Button, Icons } from '@/components/common';
 import clsx from 'clsx';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory, TableStatus } from '@/types/order';
-import { usePatchTable } from '@/services/mutation';
 import { useStore } from '../stores';
 
 export const Header = () => {
   const { setTriggerModal, table } = useStore();
   const { setIsOpen } = useModalStore();
-  const { mutateAsync } = usePatchTable();
 
   const openModal = (modalName: ModalCategory) => {
     setTriggerModal(modalName);
     setIsOpen(true);
-  };
-
-  const onClick = () => {
-    mutateAsync({ id: table.id, status: TableStatus.IDLE, customerNum: 0 });
   };
 
   const handlePromotionModal = () => {
@@ -58,7 +52,7 @@ export const Header = () => {
           <Button
             color="secondary"
             className="flex whitespace-nowrap"
-            onClick={onClick}
+            onClick={() => openModal('clean')}
           >
             <span className="w-6">
               <Icons.Notification />

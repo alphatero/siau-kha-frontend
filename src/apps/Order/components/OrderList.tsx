@@ -26,7 +26,7 @@ export const CheckSide = () => {
     <div className="w-[384px] flex-none py-3">
       <div className="flex h-full w-full flex-col bg-white px-4 py-6">
         {table.status === TableStatus.IDLE ? (
-          <h2 className="text-h4 text-primary">請選擇已入座桌號</h2>
+          <h2 className="text-h5 text-secondary">此桌尚未入座，無法開始點餐</h2>
         ) : (
           <>
             <h2 className="text-h4 text-primary">點餐紀錄</h2>

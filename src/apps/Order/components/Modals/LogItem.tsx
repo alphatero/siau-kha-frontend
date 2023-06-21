@@ -10,7 +10,7 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
 
   const { table } = useStore();
 
-  const { mutateAsync } = useDeleteOrderItem();
+  const { mutateAsync, isLoading } = useDeleteOrderItem();
 
   const removeOrderItem = (currentId: string) => {
     mutateAsync({
@@ -51,6 +51,7 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
       <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
         <LogButtons
           removeItem={() => removeOrderItem(id)}
+          isLoading={isLoading}
           isDelete={isDelete}
           status={status}
         />

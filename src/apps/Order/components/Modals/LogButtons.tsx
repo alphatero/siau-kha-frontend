@@ -4,14 +4,17 @@ import { ProductDetailStatus } from '@/types/kitchen';
 
 type Props = {
   removeItem: () => void;
+  isLoading: boolean;
   isDelete: boolean;
   status: ProductDetailStatus;
 }
 
 export const LogButtons = (props: Props) => {
   const {
-    removeItem, isDelete, status,
+    removeItem, isLoading, isDelete, status,
   } = props;
+
+  const isDisable = status === ProductDetailStatus.SUCCESS || isLoading;
 
   return (
     <div className={clsx(
@@ -26,9 +29,11 @@ export const LogButtons = (props: Props) => {
           <>
             <Button
               onClick={removeItem}
-              color={status === ProductDetailStatus.SUCCESS ? 'gray' : 'warn'}
-              disabled={status === ProductDetailStatus.SUCCESS}
-            >退點</Button>
+              color={isDisable ? 'gray' : 'warn'}
+              disabled={isDisable}
+            >
+              退點{isLoading && '中'}
+            </Button>
             {
               status === ProductDetailStatus.IN_PROGRESS ? (
                 <Button

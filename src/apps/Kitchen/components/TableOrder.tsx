@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import type { KitchenTableType } from '@/types/kitchen';
+import type { KitchenTableType, AlertedProductType } from '@/types/kitchen';
 import { ProductDetailStatus } from '@/types/kitchen';
 
 import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime';
@@ -25,6 +25,14 @@ export const TableOrder = (props: Props) => {
 
   const [productFilter, setProductFilter] = useState(ProductDetailStatus.ALL);
 
+  const countFilterButtonQuantity = (
+    data: AlertedProductType[],
+    status: ProductDetailStatus,
+  ) => {
+    if (status === ProductDetailStatus.ALL) return data.length;
+    return data.filter((product) => product.status === status).length;
+  };
+
   return (
     <div
       className={clsx(
@@ -43,9 +51,7 @@ export const TableOrder = (props: Props) => {
               title={button.title}
               active={productFilter === button.status}
               quantity={
-                sortedAndAlertedData.filter(
-                  (product) => product.status === button.status,
-                ).length
+                countFilterButtonQuantity(sortedAndAlertedData, button.status)
               }
               onClick={() => setProductFilter(button.status)}
             />

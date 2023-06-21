@@ -18,7 +18,7 @@ export const Clean = () => {
   const handleCleanModal = async () => {
     const res = await mutateAsync({ id: table.id, status: TableStatus.IDLE, customerNum: 0 });
 
-    if (res.status === HttpStatusCode.Ok) {
+    if (res.status === 'success') {
       setIsOpen(false);
     }
   };

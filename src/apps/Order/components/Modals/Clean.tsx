@@ -1,9 +1,9 @@
 import clsx from 'clsx';
-import { Modal, Button } from '@/components/common';
+import { Modal, Button, Loading } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { usePatchTable } from '@/services/mutation';
 import { TableStatus } from '@/types/order';
-import { HttpStatusCode } from 'axios';
+import { useTable } from '@/services/query';
 import { useStore } from '../../stores';
 
 export const Clean = () => {
@@ -12,13 +12,14 @@ export const Clean = () => {
   } = useModalStore();
 
   const { table } = useStore();
-
-  const { mutateAsync } = usePatchTable();
+  const { refetch: refetchList } = useTable();
+  const { mutateAsync, isLoading } = usePatchTable();
 
   const handleCleanModal = async () => {
     const res = await mutateAsync({ id: table.id, status: TableStatus.IDLE, customerNum: 0 });
 
     if (res.status === 'success') {
+      refetchList();
       setIsOpen(false);
     }
   };
@@ -28,6 +29,7 @@ export const Clean = () => {
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
     >
+      { isLoading && <Loading /> }
       <fieldset className="flex flex-col justify-center">
         <legend className='mx-auto mb-4 text-h4'>確定清潔完成</legend>
         <div className='w-full border-t border-black/10 pt-[50%] text-center'>

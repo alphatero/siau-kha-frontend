@@ -28,7 +28,7 @@ export const Main = () => {
         ?.flat()
         .reduce(
           (count, detail) => (detail.status === ProductDetailStatus.IN_PROGRESS
-            ? count + detail.productQuantity
+            ? count + 1
             : count),
           0,
         ) || 0

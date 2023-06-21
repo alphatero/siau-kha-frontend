@@ -2,6 +2,7 @@ import { ModalLogListDetailType } from '@/types/order';
 import { useDeleteOrderItem } from '@/services/mutation';
 import { LogButtons } from './LogButtons';
 import { useStore } from '../../stores';
+import { useUpdateOrderLog } from '../../hooks/useUpdateOrderLog';
 
 export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
   const {
@@ -12,12 +13,15 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
 
   const { mutateAsync, isLoading } = useDeleteOrderItem();
 
-  const removeOrderItem = (currentId: string) => {
-    mutateAsync({
+  const { refetch } = useUpdateOrderLog();
+
+  const removeOrderItem = async (currentId: string) => {
+    await mutateAsync({
       orderId: table.orderId,
       detailId,
       productId: currentId,
     });
+    refetch();
   };
 
   return (

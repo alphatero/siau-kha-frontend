@@ -5,7 +5,7 @@ import { useStore } from '../stores';
 export const useUpdateOrderLog = () => {
   const { table, setOrderLog } = useStore();
   const { orderId } = table;
-  const { data, isLoading } = useOrderLog(orderId);
+  const { data, isLoading, refetch } = useOrderLog(orderId);
 
   useEffect(() => {
     if (data) {
@@ -15,6 +15,7 @@ export const useUpdateOrderLog = () => {
 
   return {
     isLoading,
+    refetch,
   };
 };
 

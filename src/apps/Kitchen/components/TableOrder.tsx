@@ -61,7 +61,7 @@ export const TableOrder = (props: Props) => {
 
       <ul
         className={clsx(
-          'mx-6 mb-6 overflow-y-auto',
+          'no-scrollbar mx-6 mb-6 overflow-y-auto',
           'flex flex-row flex-wrap gap-y-4',
         )}
       >

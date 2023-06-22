@@ -10,6 +10,7 @@ import { SelectTable } from './SelectTable';
 export const Modals = () => {
   const { triggerModal } = useStore();
   const { isOpen, setIsOpen } = useModalStore();
+
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
       {triggerModal === 'reservation' && <Reservation />}

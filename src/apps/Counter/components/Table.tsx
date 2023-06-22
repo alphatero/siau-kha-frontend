@@ -88,6 +88,8 @@ export const Table = (props: Props) => {
             alt="status"
             fill={true}
             className="object-contain"
+            priority
+            sizes="100%"
           />
         </div>
         {time && <p className="text-h5 text-warn">00:28</p>}

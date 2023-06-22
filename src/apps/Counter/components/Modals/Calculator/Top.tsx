@@ -3,7 +3,7 @@ import { useStore } from '@/apps/Counter/stores';
 
 export const Top = () => {
   const { list, selectedCheckout, setTriggerModal } = useStore();
-  const table = list.find((item) => item.id === selectedCheckout);
+  const table = list.find((item) => item.id === selectedCheckout?.id);
 
   const onClick = () => {
     setTriggerModal('selectTable');

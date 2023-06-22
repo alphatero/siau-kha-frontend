@@ -1,4 +1,10 @@
-export const List = () => (
+import { useStore } from '@/apps/Counter/stores';
+
+export const List = () => {
+  const { bill: { dataList, total } } = useStore();
+
+  return (
+
     <div className='flex w-1/2 flex-col justify-between'>
 
       <table className='w-full table-auto'>
@@ -12,40 +18,31 @@ export const List = () => (
           </tr>
         </thead>
         <tbody className='text-fs-6 text-black/85'>
-          <tr>
-            <td className='py-2 text-center'>1</td>
-            <td className='text-left'>A5 日本和牛套餐</td>
-            <td className='text-center'>1</td>
-            <td className='text-center'>5,680</td>
-            <td className='text-center'>5,680</td>
-          </tr>
-          <tr>
-            <td className='py-2 text-center'>2</td>
-            <td className='text-left'>巨干貝</td>
-            <td className='text-center'>2</td>
-            <td className='text-center'>160</td>
-            <td className='text-center'>320</td>
-          </tr>
-          <tr>
-            <td className='py-2 text-center'>3</td>
-            <td className='text-left'>燒角認證米</td>
-            <td className='text-center'>4</td>
-            <td className='text-center'>20</td>
-            <td className='text-center'>80</td>
-          </tr>
+          {
+            dataList.map((item, index) => (
+              <tr key={index}>
+                <td className='py-2 text-center'>{index + 1}</td>
+                <td className='text-left'>{item.name}</td>
+                <td className='text-center'>{item.quantity}</td>
+                <td className='text-center'>{item.price}</td>
+                <td className='text-center'>{item.finalPrice}</td>
+              </tr>
+            ))
+          }
 
         </tbody>
       </table>
       <div className='flex w-full justify-between border-t border-primary pt-2'>
         <span>
-          合計 3 項
+          合計 {dataList.length} 項
         </span>
         <p>
           <span>共</span>
-          <span className='ml-2 text-h6 text-warn'>NT$ 6,080</span>
+          <span className='ml-2 text-h6 text-warn'>NT$ { total}</span>
         </p>
       </div>
     </div>
-);
+  );
+};
 
 export default List;

@@ -92,7 +92,7 @@ export const Table = (props: Props) => {
             sizes="100%"
           />
         </div>
-        {time && <p className="text-h5 text-warn">00:28</p>}
+        {time && <p className="text-h5 text-warn">{time}</p>}
       </div>
     </div>
   );

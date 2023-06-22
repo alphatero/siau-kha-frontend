@@ -17,3 +17,9 @@ export type StandbyType = {
   phone: string;
   customerNum: number;
 }
+
+export type MealStandbyType = {
+  id: string;
+  tableId: string
+  customerNum: number;
+}

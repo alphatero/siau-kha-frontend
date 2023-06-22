@@ -4,6 +4,7 @@ import { Loading } from '@/components/common';
 import {
   KitchenTableType,
   ProductDetailStatus,
+  ProductDetailType,
   TableStatus,
 } from '@/types/kitchen';
 import { useStore } from '../stores';
@@ -11,6 +12,23 @@ import { useStore } from '../stores';
 import { TableTab } from './TableTab';
 import { TableOrder } from './TableOrder';
 import { useUpdateTables } from '../hooks/useUpdateTable';
+
+function getNewActiveTabs(activeTabs: string[], newTab: string): string[] {
+  let newActiveTab;
+
+  if (activeTabs.includes(newTab)) {
+    // 如果點擊的 tab 已在 activeTabs 中，則移除
+    newActiveTab = activeTabs.filter((tab) => tab !== newTab);
+  } else if (activeTabs.length < 3) {
+    // 如果 activeTabs 還未滿，則直接添加新的 tab
+    newActiveTab = [...activeTabs, newTab];
+  } else {
+    // 如果 activeTabs 已滿，則移除最早添加的 tab，並添加新的 tab
+    newActiveTab = [...activeTabs.slice(1), newTab];
+  }
+
+  return newActiveTab;
+}
 
 export const Main = () => {
   // TODO test data
@@ -20,18 +38,17 @@ export const Main = () => {
 
   const { isLoading } = useUpdateTables();
 
+  const checkCount = (count: number, detail: ProductDetailType) => (detail.status === ProductDetailStatus.IN_PROGRESS
+    ? count + 1
+    : count);
+
   // 取得未送餐的訂單數量
   const getProductDetailUnsent = (order: KitchenTableType): number => {
     if (order.status !== TableStatus.MEAL) return 0;
     return (
       order.orderDetail
         ?.flat()
-        .reduce(
-          (count, detail) => (detail.status === ProductDetailStatus.IN_PROGRESS
-            ? count + 1
-            : count),
-          0,
-        ) || 0
+        .reduce(checkCount, 0) || 0
     );
   };
 
@@ -39,19 +56,8 @@ export const Main = () => {
     if (newTab) {
       setCurrentTab(newTab);
     }
-    if (activeTabs.includes(newTab)) {
-      // 如果點擊的 tab 已在 activeTabs 中，則移除
-      const newActiveTab = activeTabs.filter((tab) => tab !== newTab);
-      setActiveTabs(newActiveTab);
-    } else if (activeTabs.length < 3) {
-      // 如果 activeTabs 還未滿，則直接添加新的 tab
-      const newActiveTab = [...activeTabs, newTab];
-      setActiveTabs(newActiveTab);
-    } else {
-      // 如果 activeTabs 已滿，則移除最早添加的 tab，並添加新的 tab
-      const newActiveTab = [...activeTabs.slice(1), newTab];
-      setActiveTabs(newActiveTab);
-    }
+    const newActiveTab = getNewActiveTabs(activeTabs, newTab);
+    setActiveTabs(newActiveTab);
   };
 
   // 點擊Tab切換點單紀錄
@@ -61,6 +67,8 @@ export const Main = () => {
 
     setActiveList(activeTable);
   }, [activeTabs]);
+
+  const isActiveTable = (table: KitchenTableType) => activeTabs.includes(table.name);
 
   return (
     <div className="px-8">
@@ -87,7 +95,7 @@ export const Main = () => {
             <Loading />
           ) : (
             activeList
-              ?.filter((table) => activeTabs.includes(table.name))
+              ?.filter(isActiveTable)
               .map((table) => <TableOrder key={table.id} table={table} />)
           )}
         </div>

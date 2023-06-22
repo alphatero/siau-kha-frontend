@@ -25,7 +25,16 @@ export const patchTable = async (resData: ResDataType) => {
     status: toStatus(status),
     customer_num: customerNum,
   });
-  return res;
+
+  if (res.status === 200) {
+    return {
+      status: 'success',
+    };
+  }
+
+  return {
+    status: 'error',
+  };
 };
 
 export default patchTable;

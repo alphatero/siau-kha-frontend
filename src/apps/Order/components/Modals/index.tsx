@@ -3,3 +3,4 @@ export * from './Promotion';
 export * from './Log';
 export * from './Memo';
 export * from './Check';
+export * from './Clean';

@@ -15,16 +15,16 @@ type Props = {
   quantity: number,
 };
 
-const getTimeDifference = (orderTime: string): string => {
+const getTimeDifference = (inputTime: string): string => {
   const now = dayjs();
 
-  // Parse orderTime into a dayjs object with current date
-  const orderHour = parseInt(orderTime.split(':')[0], 10);
-  const orderMinute = parseInt(orderTime.split(':')[1], 10);
-  const orderTimeObj = now.hour(orderHour).minute(orderMinute);
+  // Parse inputTime into a dayjs object with current date
+  const hour = parseInt(inputTime.split(':')[0], 10);
+  const minute = parseInt(inputTime.split(':')[1], 10);
+  const timeObj = now.hour(hour).minute(minute);
 
   // Calculate the difference in milliseconds
-  const diff = now.diff(orderTimeObj);
+  const diff = now.diff(timeObj);
 
   // Use the duration plugin to convert the difference into hours and minutes
   const durationObj = dayjs.duration(Math.abs(diff));
@@ -48,9 +48,12 @@ export const Product = (props: Props) => {
   return (
     <div
     className={clsx(
-      'rounded border px-3 py-2',
-      status === ProductDetailStatus.IN_PROGRESS && alertType === AlertType.HIGH ? ' border-warn' : 'border-black/10 ',
-      status !== ProductDetailStatus.IN_PROGRESS && 'bg-black/10',
+      'rounded border px-3 py-2 ',
+      {
+        'border-warn': status === ProductDetailStatus.IN_PROGRESS && alertType === AlertType.HIGH,
+        'border-black/10': !(status === ProductDetailStatus.IN_PROGRESS && alertType === AlertType.HIGH),
+        'bg-black/10': status !== ProductDetailStatus.IN_PROGRESS,
+      },
     )}>
       <div className='mb-1 flex items-center justify-between'>
         <div className='flex items-baseline space-x-1'>

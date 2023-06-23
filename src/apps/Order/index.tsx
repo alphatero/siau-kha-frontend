@@ -25,6 +25,8 @@ const Order: NextPageWithLayout = () => {
         return <Modals.Memo />;
       case 'check':
         return <Modals.Check />;
+      case 'clean':
+        return <Modals.Clean />;
       default:
         return null;
     }

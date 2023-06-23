@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { useModalStore } from '@/stores/modal';
 import { usePatchTable } from '@/services/mutation';
 import { TableStatus } from '@/types/order';
-import { HttpStatusCode } from 'axios';
 import { Fragment } from 'react';
 import { useStore } from '../../stores';
 import { useUpdateList } from '../../hooks/useUpdateList';
@@ -29,7 +28,7 @@ export const TableMeal = () => {
     const res = await mutateAsync({ id: selectedTable, status: TableStatus.MEAL, customerNum: Number(data.customerNum) });
     setIsOpen(false);
 
-    if (res.status === HttpStatusCode.Ok) {
+    if (res.status === 'success') {
       refetch();
     }
   };

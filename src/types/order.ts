@@ -98,7 +98,7 @@ export type PromotionType = {
   }
 };
 
-export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;
+export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | 'clean' | null;
 
 export type OrderItemType = {
   idx: number;

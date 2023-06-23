@@ -38,7 +38,7 @@ export const PromotionItem = (props: {
         {
           item.charge.discount ? (
             <p>折扣<span className='ml-2 text-secondary'>
-              {item.charge.discountPrice}折
+              {item.charge.discountPrice}%
             </span></p>
           ) : (
             <p>折讓<span className='ml-2 text-secondary'>

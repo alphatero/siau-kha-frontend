@@ -14,7 +14,7 @@ export const Sidebar = () => {
   };
 
   // 計算 list 中 isPayed 為 false 的數量
-  const unpaidCount = list.filter((item) => !item.isPay && item.status === TableStatus.MEAL).length;
+  const unpaidCount = list.filter((item) => !item.isPay && item.status === TableStatus.MEAL && item.orderDetail?.length !== 0).length;
 
   return (
   <div

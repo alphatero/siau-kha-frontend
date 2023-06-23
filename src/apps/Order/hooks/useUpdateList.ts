@@ -14,7 +14,7 @@ export const useUpdateList = () => {
     if (!!promotionList && promotionList.length > 0) {
       setPromotionList(promotionList);
     }
-  }, [data, setList, promotionList]);
+  }, [data]);
 
   return {
     isLoading,

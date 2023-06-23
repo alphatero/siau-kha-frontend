@@ -57,7 +57,7 @@ export const del = async (url: string, config?: AxiosRequestConfig) => {
   return res;
 };
 
-export const patch = async <T>(url: string, data: T, config?: AxiosRequestConfig) => {
+export const patch = async <T>(url: string, data?: T, config?: AxiosRequestConfig) => {
   const axiosInstance = baseInstance();
   const { token } = cookies.get('user');
 

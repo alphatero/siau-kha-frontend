@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useModalStore } from '@/stores/modal';
 import { usePatchTable } from '@/services/mutation';
 import { TableStatus } from '@/types/order';
+import { Fragment } from 'react';
 import { useStore } from '../../stores';
 import { useUpdateList } from '../../hooks/useUpdateList';
 
@@ -35,7 +36,7 @@ export const TableMeal = () => {
     <div className="flex flex-1 flex-col space-y-6">
       {
         list.filter((t) => t.id === selectedTable).map((table) => (
-          <>
+          <Fragment key={table.id}>
             <h5
               className={clsx(
                 'w-full border-b border-black/10',
@@ -74,7 +75,7 @@ export const TableMeal = () => {
                 </Button>
               </div>
             </form>
-          </>
+          </Fragment>
         ))
       }
     </div>

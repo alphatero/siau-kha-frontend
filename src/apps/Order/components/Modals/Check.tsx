@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Image from 'next/image';
-import { Modal, Button } from '@/components/common';
+import { Modal, Button, Loading } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { usePostOrder } from '@/services/mutation';
 import { useStore } from '../../stores';
@@ -12,7 +12,7 @@ export const Check = () => {
   } = useModalStore();
   const { orderList, table, setOrderList } = useStore();
 
-  const { mutateAsync } = usePostOrder();
+  const { mutateAsync, isLoading } = usePostOrder();
 
   const handlePostOrder = async () => {
     const { orderId } = table;
@@ -33,6 +33,7 @@ export const Check = () => {
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
     >
+      {isLoading && <Loading />}
       <fieldset className="flex flex-col justify-center">
         <legend className='mx-auto mb-4 text-h4'>確定送出訂單</legend>
         <div className='relative h-[250px] w-full border-t border-black/10'>

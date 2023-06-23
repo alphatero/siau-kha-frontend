@@ -2,9 +2,9 @@ import { Radio, Label } from 'flowbite-react';
 import { Button, Loading } from '@/components/common';
 import clsx from 'clsx';
 import { useModalStore } from '@/stores/modal';
-import { TableStatus } from '@/types/order';
 import { useGetCheckoutList } from '@/services/mutation';
 import { useStore } from '../../stores';
+import { checkPayStatus } from '../../utils/checkPayStatus';
 
 export const SelectTable = () => {
   const {
@@ -40,13 +40,13 @@ export const SelectTable = () => {
             value={item.name}
             onChange={() => setSelectedCheckout(item)}
             checked={selectedCheckout?.id === item.id}
-            disabled={item.status !== TableStatus.MEAL || item.isPay === true || item.orderDetail?.length === 0}
+            disabled={!checkPayStatus(item.status, item.isPay, item.orderDetail?.length)}
           />
           <Label htmlFor={item.id} className='checked:text-white'>
             <div className={clsx(
               'px-4 py-2',
-              (item.status !== TableStatus.MEAL || item.isPay === true || item.orderDetail?.length === 0) ? 'bg-gray-100 text-black/50'
-                : 'border-primary text-primary',
+              checkPayStatus(item.status, item.isPay, item.orderDetail?.length) ? 'border-primary text-primary'
+                : 'bg-gray-100 text-black/50',
               'cursor-pointer',
               'rounded-md border text-fs-6',
               selectedCheckout?.id === item.id && 'bg-primary text-white',

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useModalStore } from '@/stores/modal';
 import { usePatchTable } from '@/services/mutation';
 import { TableStatus } from '@/types/order';
+import { Fragment } from 'react';
 import { useStore } from '../../stores';
 import { useUpdateList } from '../../hooks/useUpdateList';
 
@@ -38,18 +39,17 @@ export const TableMeal = () => {
   return (
     <>
       {isLoading && <Loading />}
-      <div className="flex flex-1 flex-col space-y-6">
-        {list
-          .filter((t) => t.id === selectedTable)
-          .map((table) => (
-            <>
-              <h5
-                className={clsx(
-                  'w-full border-b border-black/10',
-                  'pb-4 text-h5',
-                )}
-              >
-                {table?.name}
+    <div className="flex flex-1 flex-col space-y-6">
+      {
+        list.filter((t) => t.id === selectedTable).map((table) => (
+          <Fragment key={table.id}>
+            <h5
+              className={clsx(
+                'w-full border-b border-black/10',
+                'pb-4 text-h5',
+              )}
+            >
+              {table?.name}
                 <span
                   className={clsx(
                     'rounded-md border border-info text-fs-6 text-info',
@@ -82,25 +82,19 @@ export const TableMeal = () => {
                     {errors.customerNum?.message}
                   </p>
                 </div>
-
-                <div className="flex justify-between space-x-4">
-                  <Button
-                    type="reset"
-                    className="w-full"
-                    outline
-                    color="gray"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    取消
-                  </Button>
-                  <Button type="submit" className="w-full">
-                    儲存
-                  </Button>
-                </div>
-              </form>
-            </>
-          ))}
-      </div>
+              <div className="flex justify-between space-x-4">
+                <Button type="reset" className="w-full" outline color="gray" onClick={() => setIsOpen(false)}>
+                  取消
+                </Button>
+                <Button type="submit" className="w-full">
+                  儲存
+                </Button>
+              </div>
+            </form>
+          </Fragment>
+        ))
+      }
+    </div>
     </>
   );
 };

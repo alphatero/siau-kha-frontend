@@ -35,7 +35,7 @@ export type TableType = {
   unfinished?: number;
   seat?: number;
   customer?: number;
-  isPay?: boolean;
+  isPay: boolean;
   orderId: string;
   orderDetail?: ResOrderDetailType[];
 };

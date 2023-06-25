@@ -3,15 +3,15 @@ import {
 } from 'react';
 import dayjs from 'dayjs';
 
-import type { Product, AlertedProduct } from '@/types/kitchen';
+import type { ProductDetailType, AlertedProductType } from '@/types/kitchen';
 import { AlertType, ProductDetailStatus } from '@/types/kitchen';
 
-function useSortAndAlertByOrderTime(rawData: Array<Product>): Array<AlertedProduct> {
-  const [sortedData, setSortedData] = useState<Array<AlertedProduct>>([]);
+function useSortAndAlertByOrderTime(rawData: Array<ProductDetailType>): AlertedProductType[] {
+  const [sortedData, setSortedData] = useState<AlertedProductType[]>([]);
   const intervalIdRef = useRef<NodeJS.Timeout | number>();
 
-  const transferAlertedProduct = (data: Array<Product>) => data.length > 0 && data.map((item) => {
-    const diffInMinutes = dayjs().diff(dayjs(item.order_time), 'minute');
+  const transferAlertedProduct = (data: Array<ProductDetailType>) => data.length > 0 && data.map((item) => {
+    const diffInMinutes = dayjs().diff(dayjs(item.orderTime), 'minute');
     let alertType;
 
     switch (true) {
@@ -28,19 +28,19 @@ function useSortAndAlertByOrderTime(rawData: Array<Product>): Array<AlertedProdu
     return { ...item, alertType };
   });
 
-  const sortAndAlert = (data: Array<Product>) => {
+  const sortAndAlert = (data: Array<ProductDetailType>) => {
     // step1: setAlertType
     const getAlertTypeData = transferAlertedProduct(data);
 
     // step2: sort
     const sortAlertTypeData = [...(getAlertTypeData || [])].sort((a, b) => {
-      if (a.status === ProductDetailStatus.FINISH) {
+      if (a.status !== ProductDetailStatus.IN_PROGRESS) {
         return 1;
       }
-      if (b.status === ProductDetailStatus.FINISH) {
+      if (b.status !== ProductDetailStatus.IN_PROGRESS) {
         return -1;
       }
-      return dayjs(a.order_time).unix() - dayjs(b.order_time).unix();
+      return dayjs(a.orderTime).unix() - dayjs(b.orderTime).unix();
     });
 
     setSortedData(sortAlertTypeData);

@@ -1,79 +1,107 @@
+import { useEffect } from 'react';
 import clsx from 'clsx';
+import { Loading } from '@/components/common';
+import {
+  KitchenTableType,
+  ProductDetailStatus,
+  ProductDetailType,
+  TableStatus,
+} from '@/types/kitchen';
+import { useStore } from '../stores';
+
 import { TableTab } from './TableTab';
 import { TableOrder } from './TableOrder';
+import { useUpdateTables } from '../hooks/useUpdateTable';
+
+function getNewActiveTabs(activeTabs: string[], newTab: string): string[] {
+  let newActiveTab;
+
+  if (activeTabs.includes(newTab)) {
+    // 如果點擊的 tab 已在 activeTabs 中，則移除
+    newActiveTab = activeTabs.filter((tab) => tab !== newTab);
+  } else if (activeTabs.length < 3) {
+    // 如果 activeTabs 還未滿，則直接添加新的 tab
+    newActiveTab = [...activeTabs, newTab];
+  } else {
+    // 如果 activeTabs 已滿，則移除最早添加的 tab，並添加新的 tab
+    newActiveTab = [...activeTabs.slice(1), newTab];
+  }
+
+  return newActiveTab;
+}
 
 export const Main = () => {
   // TODO test data
-  const list = [
-    {
-      id: '644e543b893f163f3a3678f6',
-      table_name: 'TA 1',
-      seat_max: 4,
-      status: 'MEAL',
-      customer_num: 3,
-      create_time: '2023-04-30T16:00:00.000Z',
-      is_pay: false,
-      order_id: '644e5571020c9409fe694db5',
-      isShow: true,
-    },
-    {
-      id: '644e54a6893f163f3a3678f8',
-      table_name: 'TA 2',
-      seat_max: 4,
-      status: 'MEAL',
-      customer_num: 2,
-      create_time: '2023-05-22T14:53:02.649Z',
-      is_pay: false,
-      order_id: '646b81cea4ea5e1bc53f7d8b',
-      isShow: true,
-    },
-    {
-      id: '644e54a8893f163f3a3678fa',
-      table_name: 'TA 3',
-      seat_max: 4,
-      status: 'IDLE',
-      order_id: '',
-      isShow: true,
-    },
-    {
-      id: '644e54ac893f163f3a3678fc',
-      table_name: 'TA 4',
-      seat_max: 6,
-      status: 'IDLE',
-      order_id: '',
-      isShow: false,
-    },
-    {
-      id: '644e54ac893f163f3a3678fd',
-      table_name: 'TA 5',
-      seat_max: 6,
-      status: 'IDLE',
-      order_id: '',
-      isShow: false,
-    },
-  ];
+  const {
+    tableList, activeList, setActiveList, activeTabs, setActiveTabs, setCurrentTab, isFirstTimeLoading,
+  } = useStore();
 
-  return (<div className='px-8'>
+  const { isLoading } = useUpdateTables();
+
+  const checkCount = (count: number, detail: ProductDetailType) => (detail.status === ProductDetailStatus.IN_PROGRESS
+    ? count + 1
+    : count);
+
+  // 取得未送餐的訂單數量
+  const getProductDetailUnsent = (order: KitchenTableType): number => {
+    if (order.status !== TableStatus.MEAL) return 0;
+    return (
+      order.orderDetail
+        ?.flat()
+        .reduce(checkCount, 0) || 0
+    );
+  };
+
+  const activateTabHandler = (newTab: string) => {
+    if (newTab) {
+      setCurrentTab(newTab);
+    }
+    const newActiveTab = getNewActiveTabs(activeTabs, newTab);
+    setActiveTabs(newActiveTab);
+  };
+
+  // 點擊Tab切換點單紀錄
+  useEffect(() => {
+    if (activeTabs.length < 1) return;
+    const activeTable = tableList.filter((table) => activeTabs.includes(table.name));
+
+    setActiveList(activeTable);
+  }, [activeTabs]);
+
+  const isActiveTable = (table: KitchenTableType) => activeTabs.includes(table.name);
+
+  return (
+    <div className="px-8">
       <main>
-          <ul className="my-10 flex items-center border-b border-primary">
-            {list?.map((table) => (
-              <li key={table.id}>
-                <TableTab tableName={table.table_name} isShow={table.isShow}/>
-              </li>
-            ))}
-          </ul>
-          <div className={clsx(
+        <ul className="my-10 flex items-center border-b border-primary">
+          {tableList?.map((table) => (
+            <li key={table.id}>
+              <TableTab
+                tableName={table.name}
+                unsentCount={getProductDetailUnsent(table)}
+                isShow={activeTabs.includes(table.name)}
+                onClick={activateTabHandler}
+              />
+            </li>
+          ))}
+        </ul>
+        <div
+          className={clsx(
             'grid flex-1 gap-4',
             'col-span-3 grid-cols-3 grid-rows-1',
-          )}>
-            {
-              list?.filter((table) => table.isShow).map((table) => (
-                <TableOrder tableName={table.table_name} key={table.id} />
-              ))
-            }
-          </div>
+          )}
+        >
+          {isLoading && isFirstTimeLoading ? (
+            <Loading />
+          ) : (
+            activeList
+              ?.filter(isActiveTable)
+              .map((table) => <TableOrder key={table.id} table={table} />)
+          )}
+        </div>
       </main>
-  </div>);
+    </div>
+  );
 };
 
 export default Main;

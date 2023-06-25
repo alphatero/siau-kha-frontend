@@ -27,7 +27,7 @@ export const SelectTable = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <fieldset className='flex flex-1 flex-col justify-around' id="checked">
+    <fieldset className='flex flex-1 flex-col' id="checked">
       <div className='flex justify-between'>
 
     {

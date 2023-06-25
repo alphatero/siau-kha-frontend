@@ -57,6 +57,7 @@ export const Reservation = () => {
               type="text"
               {...register('phone')}
               placeholder="輸入電話"
+              autoComplete='off'
             />
 
             <TextField

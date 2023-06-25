@@ -16,6 +16,33 @@ export const LogButtons = (props: Props) => {
 
   const isDisable = status === ProductDetailStatus.SUCCESS || isLoading;
 
+  const switchButtonByStatus = (currentStatus: ProductDetailStatus) => {
+    switch (currentStatus) {
+      case ProductDetailStatus.IN_PROGRESS:
+        return (
+          <Button
+            color="secondary"
+            outline
+            disabled
+          >製作中</Button>
+        );
+      case ProductDetailStatus.SUCCESS:
+        return (
+          <Button
+            color="primary"
+            outline
+            disabled
+          >已上菜</Button>
+        );
+      default:
+        return (
+          <Button
+            color="primary"
+          >上菜</Button>
+        );
+    }
+  };
+
   return (
     <div className={clsx(
       'flex w-full items-center justify-between',
@@ -34,21 +61,7 @@ export const LogButtons = (props: Props) => {
             >
               退點{isLoading && '中'}
             </Button>
-            {
-              status === ProductDetailStatus.IN_PROGRESS ? (
-                <Button
-                  color="secondary"
-                  outline
-                  disabled
-                >製作中</Button>
-              ) : (
-                <Button
-                  color="primary"
-                  outline={status === ProductDetailStatus.SUCCESS}
-                  disabled={status === ProductDetailStatus.SUCCESS}
-                >{status === ProductDetailStatus.SUCCESS ? '已上菜' : '上菜'}</Button>
-              )
-            }
+            { switchButtonByStatus(status) }
           </>
         )
       }

@@ -1,4 +1,4 @@
-import { Button, Icons } from '@/components/common';
+import { Button, Countdown, Icons } from '@/components/common';
 import clsx from 'clsx';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory, TableStatus } from '@/types/order';
@@ -28,7 +28,9 @@ export const Header = () => {
       <div className="flex items-center space-x-2">
         <h2 className="text-black">Table {table.name}</h2>
 
-        <span className="text-h5 text-warn">{table.time}</span>
+        <span className="text-h5 text-warn">
+          { table.time && <Countdown currentTime={table.time} /> }
+        </span>
 
         <Button
           color="black"

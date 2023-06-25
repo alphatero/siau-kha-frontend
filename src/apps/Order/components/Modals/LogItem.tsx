@@ -24,6 +24,10 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
     refetch();
   };
 
+  const servingMeal = (currentId: string) => {
+    console.log('servingMeal', currentId);
+  };
+
   return (
     <li className='mb-2 flex items-start justify-between'>
       <div className='flex w-full flex-col items-start'>
@@ -55,6 +59,7 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
       <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
         <LogButtons
           removeItem={() => removeOrderItem(id)}
+          serveItem={() => servingMeal(id)}
           isLoading={isLoading}
           isDelete={isDelete}
           status={status}

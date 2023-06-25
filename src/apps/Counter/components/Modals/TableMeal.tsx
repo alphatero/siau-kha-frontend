@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Button, TextField } from '@/components/common';
+import { Button, TextField, Loading } from '@/components/common';
 import { useForm } from 'react-hook-form';
 import { useModalStore } from '@/stores/modal';
 import { usePatchTable } from '@/services/mutation';
@@ -15,7 +15,7 @@ type OnMealType = {
 export const TableMeal = () => {
   const { setIsOpen } = useModalStore();
   const { selectedTable, list } = useStore();
-  const { mutateAsync } = usePatchTable();
+  const { mutateAsync, isLoading } = usePatchTable();
   const { refetch } = useUpdateList();
 
   const {
@@ -25,7 +25,11 @@ export const TableMeal = () => {
   } = useForm<OnMealType>();
 
   const onSubmit = async (data: OnMealType) => {
-    const res = await mutateAsync({ id: selectedTable, status: TableStatus.MEAL, customerNum: Number(data.customerNum) });
+    const res = await mutateAsync({
+      id: selectedTable,
+      status: TableStatus.MEAL,
+      customerNum: Number(data.customerNum),
+    });
     setIsOpen(false);
 
     if (res.status === 'success') {
@@ -33,6 +37,8 @@ export const TableMeal = () => {
     }
   };
   return (
+    <>
+      {isLoading && <Loading />}
     <div className="flex flex-1 flex-col space-y-6">
       {
         list.filter((t) => t.id === selectedTable).map((table) => (
@@ -44,28 +50,38 @@ export const TableMeal = () => {
               )}
             >
               {table?.name}
-              <span
-                className={clsx(
-                  'rounded-md border border-info text-fs-6 text-info',
-                  'ms-2 px-2 py-1',
-                )}
-              >
+                <span
+                  className={clsx(
+                    'rounded-md border border-info text-fs-6 text-info',
+                    'ms-2 px-2 py-1',
+                  )}
+                >
                   用餐
-              </span>
-            </h5>
+                </span>
+              </h5>
 
-            <form
-              className="flex h-full flex-1 flex-col justify-between"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className='text-black/85'>
-
-                <TextField label="請輸入用餐人數" type="number" placeholder='輸入人數'
-                  {...register('customerNum', { required: '此為必填', min: { value: 1, message: '至少1位' }, max: { value: table.seat ? table.seat + 2 : 0, message: `最多${table.seat ? table.seat + 2 : 0}位` } })} />
-                <p className='mt-1 text-warn'>{errors.customerNum?.message}</p>
-
-              </div>
-
+              <form
+                className="flex h-full flex-1 flex-col justify-between"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <div className="text-black/85">
+                  <TextField
+                    label="請輸入用餐人數"
+                    type="number"
+                    placeholder="輸入人數"
+                    {...register('customerNum', {
+                      required: '此為必填',
+                      min: { value: 1, message: '至少1位' },
+                      max: {
+                        value: table.seat ? table.seat + 2 : 0,
+                        message: `最多${table.seat ? table.seat + 2 : 0}位`,
+                      },
+                    })}
+                  />
+                  <p className="mt-1 text-warn">
+                    {errors.customerNum?.message}
+                  </p>
+                </div>
               <div className="flex justify-between space-x-4">
                 <Button type="reset" className="w-full" outline color="gray" onClick={() => setIsOpen(false)}>
                   取消
@@ -79,6 +95,7 @@ export const TableMeal = () => {
         ))
       }
     </div>
+    </>
   );
 };
 

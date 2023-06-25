@@ -8,7 +8,7 @@ export const RoleBox = ({ position, absolute }:{position: string, absolute: stri
   return (
     <div
       className={clsx(
-        'absolute flex items-center space-x-4',
+        'absolute z-30 flex items-center space-x-4',
         'rounded-md bg-white p-4 shadow-lg',
         'animate-scale-up',
         position === 'left' ? 'left-16' : 'right-20',

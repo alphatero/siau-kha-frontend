@@ -1,9 +1,8 @@
-import { Modal } from '@/components/common';
+import { Modal, Countdown } from '@/components/common';
 import clsx from 'clsx';
 import { TableType, TableStatus } from '@/types/order';
 import { useModalStore } from '@/stores/modal';
 import { useStore } from '../../stores';
-import { TableCountdown } from './TableCountdown';
 
 export const Table = () => {
   const {
@@ -52,7 +51,7 @@ export const Table = () => {
                     table.status === TableStatus.IDLE && 'text-black/50',
                   )}>Table {table.name}</h4>
                   <p className="text-h4">
-                    <TableCountdown currentTableTime={table.time} />
+                    { table.time && <Countdown currentTime={table.time} /> }
                   </p>
                 </div>
                 <div className="flex w-full justify-between">

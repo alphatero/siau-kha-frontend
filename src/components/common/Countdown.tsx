@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
 type PropsType = {
-  currentTableTime: string;
+  currentTime: string;
 };
 
-export const TableCountdown = (props: PropsType) => {
-  const { currentTableTime } = props;
-  const [time, setTime] = useState(currentTableTime);
+export const Countdown = (props: PropsType) => {
+  const { currentTime } = props;
+  const [time, setTime] = useState(currentTime);
 
   const getTime = (propsTime: string): string => {
     const [min, sec] = propsTime.split(':');
@@ -16,7 +16,7 @@ export const TableCountdown = (props: PropsType) => {
     if (secNum === 59) {
       return `${minNum + 1}:00`;
     }
-    if (secNum < 10) {
+    if (secNum < 9) {
       return `${minNum}:0${secNum + 1}`;
     }
     return `${minNum}:${secNum + 1}`;
@@ -24,12 +24,9 @@ export const TableCountdown = (props: PropsType) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (time === '00:00' || !time) {
-        setTime('00:00');
-        return;
-      }
       setTime(getTime(time));
     }, 1000);
+
     return () => clearInterval(timer);
   }, [time]);
 
@@ -38,4 +35,4 @@ export const TableCountdown = (props: PropsType) => {
   );
 };
 
-export default TableCountdown;
+export default Countdown;

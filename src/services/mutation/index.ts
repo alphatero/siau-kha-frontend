@@ -2,7 +2,9 @@ import { useMutation } from '@tanstack/react-query';
 import { schema } from './mutations/login';
 import { patchTable } from './api/table';
 import { deleteReservation, patchReservation, postReservation } from './api/seat';
-import { deleteOrderItem, postPromotion, postOrder } from './api/order';
+import {
+  deleteOrderItem, postPromotion, postOrder, patchOrderItemFinish,
+} from './api/order';
 import { patchCheckout, getCheckoutList } from './api/checkout';
 
 export const useLogin = () => useMutation({ mutationFn: schema.login });
@@ -15,5 +17,6 @@ export const usePatchCheckout = () => useMutation({ mutationFn: patchCheckout })
 export const useGetCheckoutList = () => useMutation({ mutationFn: getCheckoutList });
 export const usePatchReservation = () => useMutation({ mutationFn: patchReservation });
 export const useDeleteReservation = () => useMutation({ mutationFn: deleteReservation });
+export const usePatchOrderItemFinish = () => useMutation({ mutationFn: patchOrderItemFinish });
 
 export default useLogin;

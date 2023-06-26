@@ -5,6 +5,7 @@ import { ProductDetailStatus } from '@/types/kitchen';
 type Props = {
   removeItem: () => void;
   serveItem: () => void;
+  patchIsLoading: boolean;
   isLoading: boolean;
   isDelete: boolean;
   status: ProductDetailStatus;
@@ -12,7 +13,7 @@ type Props = {
 
 export const LogButtons = (props: Props) => {
   const {
-    removeItem, serveItem, isLoading, isDelete, status,
+    removeItem, serveItem, patchIsLoading, isLoading, isDelete, status,
   } = props;
 
   const isDisable = status === ProductDetailStatus.SUCCESS || isLoading;
@@ -40,7 +41,7 @@ export const LogButtons = (props: Props) => {
           <Button
             color="primary"
             onClick={serveItem}
-          >上菜</Button>
+          >上菜{patchIsLoading && '中'}</Button>
         );
     }
   };

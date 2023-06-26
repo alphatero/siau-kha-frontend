@@ -1,5 +1,5 @@
 import { ModalLogListDetailType } from '@/types/order';
-import { useDeleteOrderItem } from '@/services/mutation';
+import { useDeleteOrderItem, usePatchOrderItem } from '@/services/mutation';
 import { LogButtons } from './LogButtons';
 import { useStore } from '../../stores';
 import { useUpdateOrderLog } from '../../hooks/useUpdateOrderLog';
@@ -13,6 +13,11 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
 
   const { mutateAsync, isLoading } = useDeleteOrderItem();
 
+  const {
+    mutateAsync: patchMutateAsync,
+    isLoading: patchIsLoading,
+  } = usePatchOrderItem();
+
   const { refetch } = useUpdateOrderLog();
 
   const removeOrderItem = async (currentId: string) => {
@@ -24,8 +29,13 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
     refetch();
   };
 
-  const servingMeal = (currentId: string) => {
-    console.log('servingMeal', currentId);
+  const servingMeal = async (currentId: string) => {
+    await patchMutateAsync({
+      orderId: table.orderId,
+      detailId,
+      productId: currentId,
+    });
+    refetch();
   };
 
   return (
@@ -60,6 +70,7 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
         <LogButtons
           removeItem={() => removeOrderItem(id)}
           serveItem={() => servingMeal(id)}
+          patchIsLoading={patchIsLoading}
           isLoading={isLoading}
           isDelete={isDelete}
           status={status}

@@ -1,4 +1,4 @@
-import { post, del } from '@/utils/axios';
+import { post, del, patch } from '@/utils/axios';
 import { ProductDetailType } from '@/types/order';
 
 export const deleteOrderItem = async (data: {
@@ -9,6 +9,26 @@ export const deleteOrderItem = async (data: {
   const { orderId, detailId, productId } = data;
 
   const res = await del(`/order-detail/${orderId}/${detailId}/${productId}`);
+
+  if (res.status === 200) {
+    return {
+      status: 'success',
+    };
+  }
+
+  return {
+    status: 'error',
+  };
+};
+
+export const patchOrderItem = async (data: {
+  orderId: string;
+  detailId: string;
+  productId: string;
+}) => {
+  const { orderId, detailId, productId } = data;
+
+  const res = await patch(`/order-detail/${orderId}/${detailId}/${productId}`);
 
   if (res.status === 200) {
     return {

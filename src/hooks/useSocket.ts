@@ -1,6 +1,4 @@
-import {
-  use, useCallback, useEffect, useState,
-} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 
 const socketUrl = 'wss://siau-kha-backend-wtqd.onrender.com/';
@@ -29,7 +27,7 @@ export const useSocket = (props: Props) => {
     });
 
     setSocket(newSocket);
-  }, [url]);
+  }, []);
 
   const disconnect = useCallback(() => {
     socket?.close();

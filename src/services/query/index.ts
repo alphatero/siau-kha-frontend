@@ -13,13 +13,13 @@ export const useProducts = (tagId: string) => useQuery({ ...schema.products(tagI
 export const useOrderLog = (orderId: string) => useQuery({ ...schema.orderLog(orderId), enabled: !!orderId });
 export const useSignOut = (enabled: boolean) => useQuery({ ...authSchema.signOut, enabled: !!enabled });
 export const useReservation = () => useQuery({ ...seat.getReservation, enabled: false });
-export const useKitchenTable = (currentTab: string) => useQuery({ ...kitchenSchema.table(currentTab), refetchInterval: 15000 });
-export const useKitchenOrderDetail = (orderId: string) => useQuery({ ...kitchenSchema.orderDetail(orderId), enabled: false });
-export const useKitchenOrderDetails = (orderIds: string[]) => useQueries({
-  queries: orderIds.map((orderId) => ({
-    ...kitchenSchema.orderDetail(orderId),
-    enabled: false,
-  })),
-});
+export const useKitchenTable = (currentTab: string) => useQuery({ ...kitchenSchema.table(currentTab) });
+// export const useKitchenOrderDetail = (orderId: string) => useQuery({ ...kitchenSchema.orderDetail(orderId), enabled: false });
+// export const useKitchenOrderDetails = (orderIds: string[]) => useQueries({
+//   queries: orderIds.map((orderId) => ({
+//     ...kitchenSchema.orderDetail(orderId),
+//     enabled: false,
+//   })),
+// });
 
 export default useCheckToken;

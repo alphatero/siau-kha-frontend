@@ -2,11 +2,14 @@ import { create } from 'zustand';
 import {
   KitchenTableType,
 } from '@/types/kitchen';
+import {
+  TableType,
+} from '@/types/order';
 
 type State = {
-  tableList: KitchenTableType[];
+  tableList: TableType[];
   activeTabs: string[];
-  activeList: KitchenTableType[];
+  activeList: TableType[];
   currentTab: string;
   isFirstTimeLoading: boolean;
 }

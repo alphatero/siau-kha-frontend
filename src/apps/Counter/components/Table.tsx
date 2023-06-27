@@ -1,4 +1,4 @@
-import { Icons } from '@/components/common';
+import { Countdown, Icons } from '@/components/common';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { TableStatus } from '@/types/order';
@@ -92,7 +92,10 @@ export const Table = (props: Props) => {
             sizes="100%"
           />
         </div>
-        {time && <p className="text-h5 text-warn">{time}</p>}
+        { time && <p className="text-h5 text-warn">
+            <Countdown currentTime={time} />
+          </p>
+        }
       </div>
     </div>
   );

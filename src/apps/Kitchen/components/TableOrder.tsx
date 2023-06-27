@@ -16,14 +16,16 @@ type Props = {
 
 export const TableOrder = (props: Props) => {
   const {
-    table: { name: tableName, orderDetail },
+    table: {
+      name: tableName, orderDetail, orderId,
+    },
   } = props;
 
   const sortedAndAlertedData = useSortAndAlertByOrderTime(
     orderDetail?.flat() || [],
   );
 
-  const [productFilter, setProductFilter] = useState(ProductDetailStatus.ALL);
+  const [productFilter, setProductFilter] = useState(ProductDetailStatus.IN_PROGRESS);
 
   const countFilterButtonQuantity = (
     data: AlertedProductType[],
@@ -40,8 +42,7 @@ export const TableOrder = (props: Props) => {
       className={clsx(
         'flex max-h-[75vh] w-full flex-col',
         'rounded-md border border-black/10 bg-white',
-      )}
-    >
+      )}>
       <div className="border-b border-black/10 px-6 pb-4 pt-6">
         <h5 className="text-h5">{tableName}</h5>
       </div>
@@ -52,9 +53,10 @@ export const TableOrder = (props: Props) => {
             <ProductFilterButton
               title={button.title}
               active={productFilter === button.status}
-              quantity={
-                countFilterButtonQuantity(sortedAndAlertedData, button.status)
-              }
+              quantity={countFilterButtonQuantity(
+                sortedAndAlertedData,
+                button.status,
+              )}
               onClick={() => setProductFilter(button.status)}
             />
           </li>
@@ -65,16 +67,18 @@ export const TableOrder = (props: Props) => {
         className={clsx(
           'no-scrollbar mx-6 mb-6 overflow-y-auto',
           'flex flex-row flex-wrap gap-y-4',
-        )}
-      >
+        )}>
         {sortedAndAlertedData
           .filter(
             (product) => productFilter === ProductDetailStatus.ALL
-              || product.status === productFilter,
+            || product.status === productFilter,
           )
-          ?.map((product) => (
+          .map((product) => (
             <li key={product.id} className="w-full">
               <Product
+                orderId={orderId}
+                orderDetailId={product.orderDetailId}
+                productId={product.id}
                 productName={product.productName}
                 note={product.productNote}
                 status={product.status}

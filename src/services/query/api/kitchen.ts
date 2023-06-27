@@ -42,6 +42,7 @@ const toKitchenTable = (data: ResTableType): KitchenTableType => ({
   orderId: data.order_id,
   orderDetail: data.order_detail?.map((pArr) => pArr?.map((p) => ({
     ...p,
+    orderDetailId: p.order_detail_id,
     productName: p.product_name,
     productQuantity: p.product_quantity,
     orderTime: p.order_time,
@@ -54,6 +55,7 @@ const toKitchenOrderDetail = (data: ResOrderDetailType) => ({
   orderDetailId: data.id,
   productDetail: data.product_detail.map((product) => ({
     ...product,
+    orderDetailId: product.order_detail_id,
     productName: product.product_name,
     productQuantity: product.product_quantity,
     productNote: product.product_note,

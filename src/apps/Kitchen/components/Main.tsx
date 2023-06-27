@@ -31,7 +31,6 @@ function getNewActiveTabs(activeTabs: string[], newTab: string): string[] {
 }
 
 export const Main = () => {
-  // TODO test data
   const {
     tableList, activeList, setActiveList, activeTabs, setActiveTabs, setCurrentTab, isFirstTimeLoading,
   } = useStore();
@@ -62,13 +61,12 @@ export const Main = () => {
 
   // 點擊Tab切換點單紀錄
   useEffect(() => {
-    if (activeTabs.length < 1) return;
-    const activeTable = tableList.filter((table) => activeTabs.includes(table.name));
+    const activeTable = tableList.filter((table) => activeTabs.includes(table.id));
 
     setActiveList(activeTable);
   }, [activeTabs]);
 
-  const isActiveTable = (table: KitchenTableType) => activeTabs.includes(table.name);
+  const isActiveTable = (table: KitchenTableType) => activeTabs.includes(table.id);
 
   return (
     <div className="px-8">
@@ -77,9 +75,10 @@ export const Main = () => {
           {tableList?.map((table) => (
             <li key={table.id}>
               <TableTab
+                tableId={table.id}
                 tableName={table.name}
                 unsentCount={getProductDetailUnsent(table)}
-                isShow={activeTabs.includes(table.name)}
+                isShow={activeTabs.includes(table.id)}
                 onClick={activateTabHandler}
               />
             </li>

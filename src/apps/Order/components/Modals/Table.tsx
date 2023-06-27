@@ -1,4 +1,4 @@
-import { Modal } from '@/components/common';
+import { Modal, Countdown } from '@/components/common';
 import clsx from 'clsx';
 import { TableType, TableStatus } from '@/types/order';
 import { useModalStore } from '@/stores/modal';
@@ -50,7 +50,9 @@ export const Table = () => {
                     'text-h4',
                     table.status === TableStatus.IDLE && 'text-black/50',
                   )}>Table {table.name}</h4>
-                  <p className="text-h4">{table.time}</p>
+                  <p className="text-h4">
+                    { table.time && <Countdown currentTime={table.time} /> }
+                  </p>
                 </div>
                 <div className="flex w-full justify-between">
                   <div

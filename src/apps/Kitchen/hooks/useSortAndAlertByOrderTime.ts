@@ -1,14 +1,13 @@
-import {
-  useState, useEffect, useRef,
-} from 'react';
+import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 
 import type { ProductDetailType, AlertedProductType } from '@/types/kitchen';
 import { AlertType, ProductDetailStatus } from '@/types/kitchen';
+import { useStore } from '../stores';
 
 function useSortAndAlertByOrderTime(rawData: Array<ProductDetailType>): AlertedProductType[] {
   const [sortedData, setSortedData] = useState<AlertedProductType[]>([]);
-  const intervalIdRef = useRef<NodeJS.Timeout | number>();
+  const { tableList } = useStore();
 
   const transferAlertedProduct = (data: Array<ProductDetailType>) => data.length > 0 && data.map((item) => {
     const diffInMinutes = dayjs().diff(dayjs(item.orderTime), 'minute');
@@ -47,17 +46,8 @@ function useSortAndAlertByOrderTime(rawData: Array<ProductDetailType>): AlertedP
   };
 
   useEffect(() => {
-    sortAndAlert(rawData); // 初始的排序和警告級別設置
-  }, []); // 每當rawData變化時，都會重新設置間隔
-
-  useEffect(() => {
-    if (intervalIdRef.current) clearInterval(intervalIdRef.current); // 如果timer已存在則清空
-    intervalIdRef.current = setInterval(() => sortAndAlert(rawData), 60 * 1000); // 每60秒重新計算一次
-
-    return () => {
-      clearInterval(intervalIdRef.current); // 防止內存溢出
-    };
-  }, [rawData]); // 每當rawData變化時，都會重新設置間隔
+    sortAndAlert(rawData); // 排序和警告級別設置
+  }, [tableList]); // update by fetch table order list
 
   return sortedData;
 }

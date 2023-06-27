@@ -77,4 +77,28 @@ export const postPromotion = async (data: DataType) => {
   };
 };
 
+export const patchOrderItemFinish = async (data: {
+  orderId: string;
+  detailId: string;
+  productId: string;
+}) => {
+  const { orderId, detailId, productId } = data;
+
+  const res = await patch('/order-detail/product-detail/finish', {
+    order_id: orderId,
+    detail_id: detailId,
+    p_id: productId,
+  });
+
+  if (res.status === 200) {
+    return {
+      status: 'success',
+    };
+  }
+
+  return {
+    status: 'error',
+  };
+};
+
 export default postPromotion;

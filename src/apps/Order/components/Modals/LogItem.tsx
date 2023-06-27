@@ -23,6 +23,8 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
 
   const [removeStatus, setRemoveStatus] = useState(false);
 
+  const [hasServedStatus, setHasServedStatus] = useState(false);
+
   const removeOrderItem = async (currentId: string) => {
     const { status: removeReturnStatus } = await mutateAsync({
       orderId: table.orderId,
@@ -38,11 +40,16 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
   };
 
   const servingMeal = async (currentId: string) => {
-    await patchMutateAsync({
+    const { status: servingMealStatus } = await patchMutateAsync({
       orderId: table.orderId,
       detailId,
       productId: currentId,
     });
+
+    if (servingMealStatus === 'success') {
+      setHasServedStatus(true);
+    }
+
     refetch();
   };
 
@@ -79,6 +86,7 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
           removeItem={() => removeOrderItem(id)}
           removeStatus={removeStatus}
           serveItem={() => servingMeal(id)}
+          serveStatus={hasServedStatus}
           patchIsLoading={patchIsLoading}
           isLoading={isLoading}
           isDelete={isDelete}

@@ -6,6 +6,7 @@ type Props = {
   removeItem: () => void;
   removeStatus: boolean;
   serveItem: () => void;
+  serveStatus: boolean;
   patchIsLoading: boolean;
   isLoading: boolean;
   isDelete: boolean;
@@ -14,12 +15,22 @@ type Props = {
 
 export const LogButtons = (props: Props) => {
   const {
-    removeItem, removeStatus, serveItem, patchIsLoading, isLoading, isDelete, status,
+    removeItem, removeStatus, serveItem, serveStatus, patchIsLoading, isLoading, isDelete, status,
   } = props;
 
   const isDisable = status === ProductDetailStatus.SUCCESS || isLoading;
 
   const switchButtonByStatus = (currentStatus: ProductDetailStatus) => {
+    if (serveStatus) {
+      return (
+        <Button
+          color="primary"
+          outline
+          disabled
+        >已上菜</Button>
+      );
+    }
+
     switch (currentStatus) {
       case ProductDetailStatus.IN_PROGRESS:
         return (

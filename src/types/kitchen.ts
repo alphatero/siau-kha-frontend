@@ -25,6 +25,7 @@ export type ResType<T> = {
 
 export type ResProductDetailType = {
   id: string;
+  order_detail_id: string;
   product_name: string;
   product_quantity: number;
   product_note: string[];
@@ -58,6 +59,7 @@ export type ResDataType<T> = {
 // === kitchen-table ===
 export type ProductDetailType = {
   id: string;
+  orderDetailId: string;
   productName: string;
   productQuantity: number;
   productNote: string[];

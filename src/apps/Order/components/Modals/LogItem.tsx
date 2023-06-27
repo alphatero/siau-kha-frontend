@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ModalLogListDetailType } from '@/types/order';
 import { useDeleteOrderItem, usePatchOrderItem } from '@/services/mutation';
 import { LogButtons } from './LogButtons';
@@ -20,12 +21,19 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
 
   const { refetch } = useUpdateOrderLog();
 
+  const [removeStatus, setRemoveStatus] = useState(false);
+
   const removeOrderItem = async (currentId: string) => {
-    await mutateAsync({
+    const { status: removeReturnStatus } = await mutateAsync({
       orderId: table.orderId,
       detailId,
       productId: currentId,
     });
+
+    if (removeReturnStatus === 'success') {
+      setRemoveStatus(true);
+    }
+
     refetch();
   };
 
@@ -69,6 +77,7 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
       <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
         <LogButtons
           removeItem={() => removeOrderItem(id)}
+          removeStatus={removeStatus}
           serveItem={() => servingMeal(id)}
           patchIsLoading={patchIsLoading}
           isLoading={isLoading}

@@ -4,6 +4,7 @@ import { ProductDetailStatus } from '@/types/kitchen';
 
 type Props = {
   removeItem: () => void;
+  removeStatus: boolean;
   serveItem: () => void;
   patchIsLoading: boolean;
   isLoading: boolean;
@@ -13,7 +14,7 @@ type Props = {
 
 export const LogButtons = (props: Props) => {
   const {
-    removeItem, serveItem, patchIsLoading, isLoading, isDelete, status,
+    removeItem, removeStatus, serveItem, patchIsLoading, isLoading, isDelete, status,
   } = props;
 
   const isDisable = status === ProductDetailStatus.SUCCESS || isLoading;
@@ -52,10 +53,10 @@ export const LogButtons = (props: Props) => {
       'space-x-4 whitespace-nowrap',
     )}>
       {
-        isDelete && <div className='ml-auto rounded-md bg-black/50 px-2 py-1 text-white'>已退點</div>
+        (isDelete || removeStatus) && <div className='ml-auto rounded-md bg-black/50 px-2 py-1 text-white'>已退點</div>
       }
       {
-        isDelete || (
+        (isDelete || removeStatus) || (
           <>
             <Button
               onClick={removeItem}

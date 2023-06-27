@@ -54,7 +54,6 @@ const toKitchenTable = (data: ResTableType): KitchenTableType => ({
 const toKitchenOrderDetail = (data: ResOrderDetailType) => ({
   orderDetailId: data.id,
   productDetail: data.product_detail.map((product) => ({
-    ...product,
     orderDetailId: product.order_detail_id,
     productName: product.product_name,
     productQuantity: product.product_quantity,
@@ -78,7 +77,7 @@ export const fetchKitchenTables = async (): Promise<ResDataType<KitchenTableType
   };
 };
 
-export const fetchKitchenOrderDetail = async (id: string): Promise<ActiveOrderDetailType> => {
+export const fetchKitchenOrderDetail = async (id: string) => {
   const res: AxiosResponse<ResType<{ order_detail: ResOrderDetailType }>> = await get(`/order-detail/?id=${id}`);
 
   const { data } = res;

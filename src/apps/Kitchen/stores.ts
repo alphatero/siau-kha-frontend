@@ -7,9 +7,9 @@ import {
 } from '@/types/order';
 
 type State = {
-  tableList: TableType[];
+  tableList: KitchenTableType[];
   activeTabs: string[];
-  activeList: TableType[];
+  activeList: KitchenTableType[];
   currentTab: string;
   isFirstTimeLoading: boolean;
 }

@@ -4,7 +4,7 @@ import { useSocket } from '@/hooks/useSocket';
 
 import {
   TableStatus,
-} from '@/types/order';
+} from '@/types/kitchen';
 
 import { useStore } from '../stores';
 
@@ -21,17 +21,16 @@ export const useUpdateTables = () => {
   } = useStore();
 
   const { socket } = useSocket({ url: 'order' });
-  const { data, refetch } = useKitchenTable(currentTab);
-  const { data: tableData, isLoading, refetch: tableRefetch } = useTable();
+  const { data, isLoading, refetch } = useKitchenTable(currentTab);
+  // const { data: tableData, isLoading, refetch: tableRefetch } = useTable();
 
   useEffect(() => {
-    if (tableData) {
-      setTableList(tableData.list);
-      // console.log('tableData', tableData);
+    if (data) {
+      setTableList(data.list);
 
       // tableList 第一次更動時，預設顯示正在用餐中前三桌的點單紀錄
       if (isFirstTimeLoading) {
-        const firstTimeActiveTabs = tableData.list
+        const firstTimeActiveTabs = data.list
           .filter((table) => table.status === TableStatus.MEAL)
           .slice(0, 3)
           .map((table) => table.id);
@@ -40,12 +39,12 @@ export const useUpdateTables = () => {
       }
 
       // 更新點單紀錄
-      const activeTable = tableData.list.filter((table) => activeTabs.includes(table.id));
+      const activeTable = data.list.filter((table) => activeTabs.includes(table.id));
       setActiveList(activeTable);
 
       setIsFirstTimeLoading(false);
     }
-  }, [tableData]);
+  }, [data]);
 
   useEffect(() => {
     socket?.on('onOrder', (msg: any) => {

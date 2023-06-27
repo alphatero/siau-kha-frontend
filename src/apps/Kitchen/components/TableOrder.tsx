@@ -21,6 +21,8 @@ export const TableOrder = (props: Props) => {
     },
   } = props;
 
+  console.log('order', orderDetail);
+
   const sortedAndAlertedData = useSortAndAlertByOrderTime(
     orderDetail?.flat() || [],
   );
@@ -34,6 +36,8 @@ export const TableOrder = (props: Props) => {
     if (status === ProductDetailStatus.ALL) return data.length;
     return data.filter((product) => product.status === status).length;
   };
+
+  console.log('TableOrder', sortedAndAlertedData);
 
   return (
     <div

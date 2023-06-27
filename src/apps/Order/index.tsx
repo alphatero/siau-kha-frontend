@@ -21,7 +21,7 @@ const Order: NextPageWithLayout = () => {
     socket?.on('onOrder', (data) => {
       console.log('order-product-details', data);
     });
-  }, []);
+  }, [socket]);
 
   const getCurrentTriggerModal = (openModal: ModalCategory) => {
     switch (openModal) {

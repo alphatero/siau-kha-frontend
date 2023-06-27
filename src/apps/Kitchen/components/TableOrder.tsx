@@ -33,6 +33,8 @@ export const TableOrder = (props: Props) => {
     return data.filter((product) => product.status === status).length;
   };
 
+  console.log('sortedAndAlertedData', sortedAndAlertedData);
+
   return (
     <div
       className={clsx(

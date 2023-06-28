@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import type { KitchenTableType, AlertedProductType } from '@/types/kitchen';
+import type {
+  KitchenTableType, AlertedProductType, OrderDetailType, ResDetailType,
+} from '@/types/kitchen';
 import { ProductDetailStatus } from '@/types/kitchen';
+import type { TableType } from '@/types/order';
 
 import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime';
 import { FilterButton } from '../constants';
@@ -11,8 +14,19 @@ import { ProductFilterButton } from './ProductFilterButton';
 import { Product } from './Product';
 
 type Props = {
-  table: KitchenTableType;
+  table: TableType;
 };
+
+const toOrderDetail = (resDetail: ResDetailType): OrderDetailType => ({
+  id: resDetail.id,
+  isDelete: resDetail.is_delete,
+  orderDetailId: resDetail.order_detail_id,
+  orderTime: resDetail.order_time,
+  name: resDetail.product_name,
+  note: resDetail.product_note,
+  quantity: resDetail.product_quantity,
+  status: resDetail.status,
+});
 
 export const TableOrder = (props: Props) => {
   const {
@@ -21,10 +35,10 @@ export const TableOrder = (props: Props) => {
     },
   } = props;
 
-  console.log('order', orderDetail);
+  const orderDetailUnsent = orderDetail?.flat() || [];
 
   const sortedAndAlertedData = useSortAndAlertByOrderTime(
-    orderDetail?.flat() || [],
+    orderDetailUnsent.map((item) => toOrderDetail(item)),
   );
 
   const [productFilter, setProductFilter] = useState(ProductDetailStatus.IN_PROGRESS);

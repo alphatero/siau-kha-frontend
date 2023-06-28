@@ -92,3 +92,25 @@ export interface ActiveOrderType {
   orderId: string;
   orderDetail?: ActiveOrderDetailType[];
 }
+
+export interface OrderDetailType {
+  id: string;
+  isDelete: boolean;
+  orderDetailId: string;
+  orderTime: string;
+  name: string;
+  note: string[];
+  quantity: number;
+  status: string;
+}
+
+export interface ResDetailType {
+  id: string;
+  is_delete: boolean;
+  order_detail_id: string;
+  order_time: string;
+  product_name: string;
+  product_note: string[];
+  product_quantity: number;
+  status: string;
+}

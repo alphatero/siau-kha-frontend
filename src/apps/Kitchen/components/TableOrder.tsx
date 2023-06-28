@@ -48,6 +48,10 @@ export const TableOrder = (props: Props) => {
     status: ProductDetailStatus,
   ) => {
     if (status === ProductDetailStatus.ALL) return data.length;
+    // 已出餐的數量 = 已出餐 + 已完成
+    if (status === ProductDetailStatus.FINISH) {
+      return data.filter((product) => product.status === status || product.status === ProductDetailStatus.SUCCESS).length;
+    }
     return data.filter((product) => product.status === status).length;
   };
 

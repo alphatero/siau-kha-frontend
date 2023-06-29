@@ -2,12 +2,9 @@ import { useEffect } from 'react';
 import clsx from 'clsx';
 import { Loading } from '@/components/common';
 import {
-  KitchenTableType,
   ProductDetailStatus,
-  ProductDetailType,
-  // TableStatus,
 } from '@/types/kitchen';
-import { TableStatus, TableType } from '@/types/order';
+import { TableStatus, TableType, ResOrderDetailType } from '@/types/order';
 import { useStore } from '../stores';
 
 import { TableTab } from './TableTab';
@@ -38,18 +35,14 @@ export const Main = () => {
 
   const { isLoading } = useUpdateTables();
 
-  const checkCount = (count: number, detail: ProductDetailType) => (detail.status === ProductDetailStatus.IN_PROGRESS
+  const checkCount = (count: number, detail: ResOrderDetailType) => (detail.status === ProductDetailStatus.IN_PROGRESS
     ? count + 1
     : count);
 
   // 取得未送餐的訂單數量
   const getProductDetailUnsent = (order: TableType): number => {
     if (order.status !== TableStatus.MEAL) return 0;
-    return (
-      order.orderDetail
-        ?.flat()
-        .reduce(checkCount, 0) || 0
-    );
+    return order.orderDetail?.flat().reduce(checkCount, 0) || 0;
   };
 
   const activateTabHandler = (newTab: string) => {

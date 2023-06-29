@@ -35,6 +35,8 @@ export const TableOrder = (props: Props) => {
     },
   } = props;
 
+  console.log('orderDetail', orderDetail);
+
   const orderDetailUnsent = orderDetail?.flat() || [];
 
   const sortedAndAlertedData = useSortAndAlertByOrderTime(
@@ -99,11 +101,11 @@ export const TableOrder = (props: Props) => {
                 orderId={orderId}
                 orderDetailId={product.orderDetailId}
                 productId={product.id}
-                productName={product.productName}
-                note={product.productNote}
+                productName={product.name}
+                note={product.note}
                 status={product.status}
                 alertType={product.alertType}
-                quantity={product.productQuantity}
+                quantity={product.quantity}
                 orderTime={dayjs(product.orderTime).format('HH:mm')}
               />
             </li>

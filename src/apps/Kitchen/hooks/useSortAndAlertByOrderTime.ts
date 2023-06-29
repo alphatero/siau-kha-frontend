@@ -5,7 +5,7 @@ import type { ProductDetailType, AlertedProductType, OrderDetailType } from '@/t
 import { AlertType, ProductDetailStatus } from '@/types/kitchen';
 import { useStore } from '../stores';
 
-function useSortAndAlertByOrderTime(rawData: Array<OrderDetailType>): AlertedProductType[] {
+function useSortAndAlertByOrderTime(rawData: Array<OrderDetailType>) {
   const [sortedData, setSortedData] = useState<AlertedProductType[]>([]);
   const { tableList } = useStore();
 

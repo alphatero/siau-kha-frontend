@@ -79,9 +79,6 @@ export type KitchenTableType = {
 }
 
 // === kitchen-order ===
-export interface AlertedProductType extends ProductDetailType {
-  alertType: AlertType;
-}
 
 export interface ActiveOrderDetailType {
   orderDetailId: string;
@@ -113,4 +110,8 @@ export interface ResDetailType {
   product_note: string[];
   product_quantity: number;
   status: string;
+}
+
+export interface AlertedProductType extends OrderDetailType {
+  alertType: AlertType;
 }

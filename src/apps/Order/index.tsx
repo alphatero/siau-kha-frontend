@@ -2,7 +2,7 @@ import type { NextPageWithLayout } from '@/types';
 import { Loading } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { ModalCategory } from '@/types/order';
-import { useSocket } from '@/hooks/useSocket';
+// import { useSocket } from '@/hooks/useSocket';
 import { useEffect } from 'react';
 import { useStore } from './stores';
 import {
@@ -14,14 +14,14 @@ const Order: NextPageWithLayout = () => {
   const { isLoading } = useUpdateList();
   const { isOpen } = useModalStore();
   const { triggerModal } = useStore();
-  const { socket, disconnect, connect } = useSocket({ url: 'order' });
+  // const { socket, disconnect, connect } = useSocket({ url: 'order' });
 
   // 監聽 socket 事件 得到 data後關閉連線
-  useEffect(() => {
-    socket?.on('onOrder', (data) => {
-      console.log('order-product-details', data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   socket?.on('onOrder', (data) => {
+  //     console.log('order-product-details', data);
+  //   });
+  // }, []);
 
   const getCurrentTriggerModal = (openModal: ModalCategory) => {
     switch (openModal) {

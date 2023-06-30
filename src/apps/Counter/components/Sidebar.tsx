@@ -12,9 +12,9 @@ export const Sidebar = () => {
     setTriggerModal('selectTable');
     setIsOpen(true);
   };
-
+  console.log(list);
   // 計算 list 中 isPayed 為 false 的數量
-  const unpaidCount = list.filter((item) => !checkPayStatus(item.status, item.isPay, item.orderDetail?.length)).length;
+  const unpaidCount = list.filter((item) => !checkPayStatus(item.orderId, item.status, item.isPay, item.orderDetail?.length)).length;
 
   return (
   <div

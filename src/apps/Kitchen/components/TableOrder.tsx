@@ -7,7 +7,7 @@ import type {
 import { ProductDetailStatus } from '@/types/kitchen';
 import type { TableType } from '@/types/order';
 
-import useSortAndAlertByOrderTime from '../hooks/useSortAndAlertByOrderTime';
+import { useSortAndAlertByOrderTime } from '../hooks/useSortAndAlertByOrderTime';
 import { FilterButton } from '../constants';
 
 import { ProductFilterButton } from './ProductFilterButton';
@@ -34,14 +34,15 @@ export const TableOrder = (props: Props) => {
       name: tableName, orderDetail, orderId,
     },
   } = props;
+  const { sortAndAlert } = useSortAndAlertByOrderTime();
 
   console.log('orderDetail', orderDetail);
 
   const orderDetailUnsent = orderDetail?.flat() || [];
 
-  const sortedAndAlertedData = useSortAndAlertByOrderTime(
-    orderDetailUnsent.map((item) => toOrderDetail(item)),
-  );
+  // const sortedAndAlertedData = useSortAndAlertByOrderTime(
+  //   orderDetailUnsent.map((item) => toOrderDetail(item)),
+  // );
 
   const [productFilter, setProductFilter] = useState(ProductDetailStatus.IN_PROGRESS);
 
@@ -57,7 +58,7 @@ export const TableOrder = (props: Props) => {
     return data.filter((product) => product.status === status).length;
   };
 
-  console.log('TableOrder', sortedAndAlertedData);
+  // console.log('TableOrder', sortedAndAlertedData);
 
   return (
     <div
@@ -76,7 +77,8 @@ export const TableOrder = (props: Props) => {
               title={button.title}
               active={productFilter === button.status}
               quantity={countFilterButtonQuantity(
-                sortedAndAlertedData,
+                // sortedAndAlertedData,
+                sortAndAlert(orderDetailUnsent.map((item) => toOrderDetail(item))),
                 button.status,
               )}
               onClick={() => setProductFilter(button.status)}
@@ -90,7 +92,7 @@ export const TableOrder = (props: Props) => {
           'no-scrollbar mx-6 mb-6 overflow-y-auto',
           'flex flex-row flex-wrap gap-y-4',
         )}>
-        {sortedAndAlertedData
+        {sortAndAlert(orderDetailUnsent.map((item) => toOrderDetail(item)))
           .filter(
             (product) => productFilter === ProductDetailStatus.ALL
             || product.status === productFilter,

@@ -42,13 +42,8 @@ export function useSortAndAlertByOrderTime() {
       return dayjs(a.orderTime).unix() - dayjs(b.orderTime).unix();
     });
 
-    // setSortedData(sortAlertTypeData);
     return sortAlertTypeData;
   };
-
-  // useEffect(() => {
-  //   sortAndAlert(rawData); // 排序和警告級別設置
-  // }, [tableList]); // update by fetch table order list
 
   return {
     sortAndAlert,

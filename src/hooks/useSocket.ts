@@ -7,40 +7,40 @@ type Props = {
   url?: string;
 };
 
-// export const useSocket = (props: Props) => {
-//   const { url } = props;
-//   const [socket, setSocket] = useState<Socket | null>(null);
+export const useSocket = (props: Props) => {
+  const { url } = props;
+  const [socket, setSocket] = useState<Socket | null>(null);
 
-//   const connect = useCallback(() => {
-//     const newSocket = io(socketUrl + url);
+  const connect = useCallback(() => {
+    const newSocket = io(socketUrl + url);
 
-//     newSocket.on('connect', () => {
-//       console.log('connected');
-//     });
+    newSocket.on('connect', () => {
+      console.log('connected');
+    });
 
-//     newSocket.on('disconnect', () => {
-//       console.log('disconnected');
-//     });
+    newSocket.on('disconnect', () => {
+      console.log('disconnected');
+    });
 
-//     newSocket.on('error', () => {
-//       socket?.disconnect();
-//     });
+    newSocket.on('error', () => {
+      socket?.disconnect();
+    });
 
-//     setSocket(newSocket);
-//   }, []);
+    setSocket(newSocket);
+  }, []);
 
-//   const disconnect = useCallback(() => {
-//     socket?.close();
-//   }, [socket]);
+  const disconnect = useCallback(() => {
+    socket?.close();
+  }, [socket]);
 
-//   useEffect(() => {
-//     connect();
-//     return () => {
-//       disconnect();
-//     };
-//   }, []);
+  useEffect(() => {
+    connect();
+    return () => {
+      disconnect();
+    };
+  }, []);
 
-//   return { socket, connect, disconnect };
-// };
+  return { socket, connect, disconnect };
+};
 
-// export default useSocket;
+export default useSocket;

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import clsx from 'clsx';
 import { Loading } from '@/components/common';
 import {
@@ -30,7 +29,7 @@ function getNewActiveTabs(activeTabs: string[], newTab: string): string[] {
 
 export const Main = () => {
   const {
-    tables, tableList, activeList, setActiveList, activeTabs, setActiveTabs, setCurrentTab, isFirstTimeLoading,
+    tables, activeTabs, setActiveTabs, setCurrentTab, isFirstTimeLoading,
   } = useStore();
 
   const { isTableLoading } = useUpdateTables();
@@ -51,9 +50,6 @@ export const Main = () => {
     }
     const newActiveTab = getNewActiveTabs(activeTabs, newTab);
     setActiveTabs(newActiveTab);
-    const activeTable = tables.filter((table) => activeTabs.includes(table.id));
-
-    setActiveList(activeTable);
   };
 
   const isActiveTable = (table: TableType) => activeTabs.includes(table.id);
@@ -85,7 +81,6 @@ export const Main = () => {
           ) : (
             tables
               ?.filter(isActiveTable)
-
               .map((table) => <TableOrder key={table.id} table={table} />)
           )}
         </div>

@@ -33,7 +33,7 @@ export const Main = () => {
     tables, tableList, activeList, setActiveList, activeTabs, setActiveTabs, setCurrentTab, isFirstTimeLoading,
   } = useStore();
 
-  const { isLoading } = useUpdateTables();
+  const { isTableLoading } = useUpdateTables();
 
   const checkCount = (count: number, detail: ResOrderDetailType) => (detail.status === ProductDetailStatus.IN_PROGRESS
     ? count + 1
@@ -84,7 +84,7 @@ export const Main = () => {
             'col-span-3 grid-cols-3 grid-rows-1',
           )}
         >
-          {isLoading && isFirstTimeLoading ? (
+          {isTableLoading && isFirstTimeLoading ? (
             <Loading />
           ) : (
             activeList

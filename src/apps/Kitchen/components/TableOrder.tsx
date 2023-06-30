@@ -36,13 +36,7 @@ export const TableOrder = (props: Props) => {
   } = props;
   const { sortAndAlert } = useSortAndAlertByOrderTime();
 
-  console.log('orderDetail', orderDetail);
-
   const orderDetailUnsent = orderDetail?.flat() || [];
-
-  // const sortedAndAlertedData = useSortAndAlertByOrderTime(
-  //   orderDetailUnsent.map((item) => toOrderDetail(item)),
-  // );
 
   const [productFilter, setProductFilter] = useState(ProductDetailStatus.IN_PROGRESS);
 

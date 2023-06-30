@@ -59,8 +59,8 @@ export const useUpdateTables = () => {
   // }, []);
 
   return {
-    isLoading,
-    refetch,
+    isTableLoading,
+    tableRefetch,
   };
 };
 

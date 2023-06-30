@@ -51,14 +51,10 @@ export const Main = () => {
     }
     const newActiveTab = getNewActiveTabs(activeTabs, newTab);
     setActiveTabs(newActiveTab);
-  };
-
-  // 點擊Tab切換點單紀錄
-  useEffect(() => {
     const activeTable = tables.filter((table) => activeTabs.includes(table.id));
 
     setActiveList(activeTable);
-  }, [activeTabs]);
+  };
 
   const isActiveTable = (table: TableType) => activeTabs.includes(table.id);
 
@@ -87,7 +83,7 @@ export const Main = () => {
           {isTableLoading && isFirstTimeLoading ? (
             <Loading />
           ) : (
-            activeList
+            tables
               ?.filter(isActiveTable)
 
               .map((table) => <TableOrder key={table.id} table={table} />)

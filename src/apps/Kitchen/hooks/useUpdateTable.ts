@@ -23,7 +23,7 @@ export const useUpdateTables = () => {
   } = useStore();
 
   // const { socket } = useSocket({ url: 'order' });
-  const { data, isLoading, refetch } = useKitchenTable(currentTab);
+  // const { data, isLoading, refetch } = useKitchenTable(currentTab);
   const { data: tableData, isLoading: isTableLoading, refetch: tableRefetch } = useTable();
 
   useEffect(() => {

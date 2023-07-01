@@ -45,15 +45,16 @@ export const Product = (props: Props) => {
 
   return (
     <div
-    className={clsx(
-      'rounded border px-3 py-2 ',
-      {
-        'border-warn': status === ProductDetailStatus.IN_PROGRESS && alertType === AlertType.HIGH,
-        'border-black/10': !(status === ProductDetailStatus.IN_PROGRESS && alertType === AlertType.HIGH),
-        'bg-black/10': status !== ProductDetailStatus.IN_PROGRESS,
-      },
-    )}>
-
+      className={clsx(
+        'rounded border px-3 py-2 ',
+        {
+          'border-warn': !isDelete && status === ProductDetailStatus.IN_PROGRESS && alertType === AlertType.HIGH,
+          'border-black/10': !isDelete && !(status === ProductDetailStatus.IN_PROGRESS && alertType === AlertType.HIGH),
+          'bg-black/10': !isDelete && status !== ProductDetailStatus.IN_PROGRESS,
+          'bg-black/5': isDelete,
+        },
+      )}
+    >
       {isLoading && <Loading />}
       <div className='mb-1 flex items-center justify-between'>
         <div className='flex items-baseline space-x-1'>
@@ -66,12 +67,12 @@ export const Product = (props: Props) => {
           className={
             clsx(
               'text-fs-7 text-info',
-              status === ProductDetailStatus.IN_PROGRESS && {
+              !isDelete && status === ProductDetailStatus.IN_PROGRESS && {
                 'text-warn': alertType === AlertType.HIGH,
                 'text-primary': alertType === AlertType.MIDDLE,
                 'text-secondary': alertType === AlertType.LOW,
               },
-              status !== ProductDetailStatus.IN_PROGRESS ? 'text-black/85' : 'text-info',
+              !isDelete && status !== ProductDetailStatus.IN_PROGRESS ? 'text-black/85' : 'text-info',
             )}>{getTimeDifference(orderTime)}</span>
       </div>
       <div className='mb-1 flex items-center justify-between'>
@@ -82,16 +83,22 @@ export const Product = (props: Props) => {
       </div>
       <button className={clsx(
         'w-full rounded-s py-1',
-        status === ProductDetailStatus.IN_PROGRESS && {
+        !isDelete && status === ProductDetailStatus.IN_PROGRESS && {
           'bg-warn': alertType === AlertType.HIGH,
           'bg-primary': alertType === AlertType.MIDDLE,
           'bg-secondary': alertType === AlertType.LOW,
         },
-        status !== ProductDetailStatus.IN_PROGRESS ? 'bg-black/25 text-black/85' : 'bg-primary text-white',
+        !isDelete && status !== ProductDetailStatus.IN_PROGRESS && 'bg-black/25 text-black/85',
+        !isDelete && status === ProductDetailStatus.IN_PROGRESS && 'bg-primary text-white',
+        isDelete && 'bg-black/25 text-black/85',
       )}
       onClick={handleFinish}
       >
-        <span className="text-fs-6">{`${status === ProductDetailStatus.IN_PROGRESS ? '出菜' : '已完成'}`}</span>
+        <span className="text-fs-6">
+          { isDelete && '已退點' }
+          { !isDelete && status === ProductDetailStatus.IN_PROGRESS && '出菜' }
+          { !isDelete && status !== ProductDetailStatus.IN_PROGRESS && '已完成' }
+        </span>
       </button>
     </div>
   );

@@ -21,6 +21,26 @@ export const deleteOrderItem = async (data: {
   };
 };
 
+export const patchOrderItem = async (data: {
+  orderId: string;
+  detailId: string;
+  productId: string;
+}) => {
+  const { orderId, detailId, productId } = data;
+
+  const res = await patch(`/order-detail/${orderId}/${detailId}/${productId}`);
+
+  if (res.status === 200) {
+    return {
+      status: 'success',
+    };
+  }
+
+  return {
+    status: 'error',
+  };
+};
+
 type OrderType = {
   orderId: string;
   productDetail: ProductDetailType[];

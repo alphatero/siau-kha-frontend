@@ -3,13 +3,14 @@ import { schema } from './mutations/login';
 import { patchTable } from './api/table';
 import { deleteReservation, patchReservation, postReservation } from './api/seat';
 import {
-  deleteOrderItem, postPromotion, postOrder, patchOrderItemFinish,
+  patchOrderItem, deleteOrderItem, postPromotion, postOrder, patchOrderItemFinish,
 } from './api/order';
 import { patchCheckout, getCheckoutList } from './api/checkout';
 
 export const useLogin = () => useMutation({ mutationFn: schema.login });
 export const usePatchTable = () => useMutation({ mutationFn: patchTable });
 export const usePostReservation = () => useMutation({ mutationFn: postReservation });
+export const usePatchOrderItem = () => useMutation({ mutationFn: patchOrderItem });
 export const useDeleteOrderItem = () => useMutation({ mutationFn: deleteOrderItem });
 export const usePostPromotion = () => useMutation({ mutationFn: postPromotion });
 export const usePostOrder = () => useMutation({ mutationFn: postOrder });

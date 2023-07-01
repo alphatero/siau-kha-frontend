@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { ModalLogListDetailType } from '@/types/order';
-import { useDeleteOrderItem } from '@/services/mutation';
+import { useDeleteOrderItem, usePatchOrderItem } from '@/services/mutation';
 import { LogButtons } from './LogButtons';
 import { useStore } from '../../stores';
 import { useUpdateOrderLog } from '../../hooks/useUpdateOrderLog';
@@ -13,14 +14,42 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
 
   const { mutateAsync, isLoading } = useDeleteOrderItem();
 
+  const {
+    mutateAsync: patchMutateAsync,
+    isLoading: patchIsLoading,
+  } = usePatchOrderItem();
+
   const { refetch } = useUpdateOrderLog();
 
+  const [removeStatus, setRemoveStatus] = useState(false);
+
+  const [hasServedStatus, setHasServedStatus] = useState(false);
+
   const removeOrderItem = async (currentId: string) => {
-    await mutateAsync({
+    const { status: removeReturnStatus } = await mutateAsync({
       orderId: table.orderId,
       detailId,
       productId: currentId,
     });
+
+    if (removeReturnStatus === 'success') {
+      setRemoveStatus(true);
+    }
+
+    refetch();
+  };
+
+  const servingMeal = async (currentId: string) => {
+    const { status: servingMealStatus } = await patchMutateAsync({
+      orderId: table.orderId,
+      detailId,
+      productId: currentId,
+    });
+
+    if (servingMealStatus === 'success') {
+      setHasServedStatus(true);
+    }
+
     refetch();
   };
 
@@ -55,6 +84,10 @@ export const LogItem = (props: ModalLogListDetailType & {detailId: string}) => {
       <div className='ml-4 shrink-0 grow-0 basis-[130px]'>
         <LogButtons
           removeItem={() => removeOrderItem(id)}
+          removeStatus={removeStatus}
+          serveItem={() => servingMeal(id)}
+          serveStatus={hasServedStatus}
+          patchIsLoading={patchIsLoading}
           isLoading={isLoading}
           isDelete={isDelete}
           status={status}

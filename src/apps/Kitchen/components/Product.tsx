@@ -30,14 +30,14 @@ export const Product = (props: Props) => {
     quantity,
   } = props;
 
-  const { refetch } = useUpdateTables();
+  const { tableRefetch } = useUpdateTables();
   const { mutateAsync, isLoading } = usePatchOrderItemFinish();
 
   const handleFinish = async () => {
     if (status !== ProductDetailStatus.IN_PROGRESS) { return; }
     const { status: mutateAsyncStatus } = await mutateAsync({ orderId, detailId: orderDetailId, productId });
     if (mutateAsyncStatus === 'success') {
-      refetch();
+      tableRefetch();
     }
   };
 

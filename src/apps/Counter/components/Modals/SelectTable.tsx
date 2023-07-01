@@ -40,12 +40,12 @@ export const SelectTable = () => {
             value={item.name}
             onChange={() => setSelectedCheckout(item)}
             checked={selectedCheckout?.id === item.id}
-            disabled={!checkPayStatus(item.orderId, item.status, item.isPay, item.orderDetail?.length)}
+            disabled={!checkPayStatus(item.orderId, item.status, item.isPay, item.orderDetail?.flat().length)}
           />
           <Label htmlFor={item.id} className='checked:text-white'>
             <div className={clsx(
               'px-4 py-2',
-              checkPayStatus(item.orderId, item.status, item.isPay, item.orderDetail?.length) ? 'border-primary text-primary'
+              checkPayStatus(item.orderId, item.status, item.isPay, item.orderDetail?.flat().length) ? 'border-primary text-primary'
                 : 'bg-gray-100 text-black/50',
               'cursor-pointer',
               'rounded-md border text-fs-6',

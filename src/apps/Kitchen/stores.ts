@@ -2,13 +2,17 @@ import { create } from 'zustand';
 import {
   KitchenTableType,
 } from '@/types/kitchen';
+import {
+  TableType,
+} from '@/types/order';
 
 type State = {
   tableList: KitchenTableType[];
   activeTabs: string[];
-  activeList: KitchenTableType[];
+  activeList: TableType[];
   currentTab: string;
   isFirstTimeLoading: boolean;
+  tables: TableType[];
 }
 
 type Action = {
@@ -17,6 +21,7 @@ type Action = {
   setActiveList: (activeList: State['activeList']) => void;
   setCurrentTab: (currentTab: State['currentTab']) => void;
   setIsFirstTimeLoading: (isFirstTimeLoading: State['isFirstTimeLoading']) => void;
+  setTables: (tables: State['tables']) => void;
 }
 
 const defaultState: State = {
@@ -25,6 +30,7 @@ const defaultState: State = {
   activeList: [],
   currentTab: '',
   isFirstTimeLoading: true,
+  tables: [],
 };
 
 export const useStore = create<State & Action>((set) => ({
@@ -35,6 +41,7 @@ export const useStore = create<State & Action>((set) => ({
   setActiveList: (activeList) => set({ activeList }),
   setCurrentTab: (currentTab) => set({ currentTab }),
   setIsFirstTimeLoading: (isFirstTimeLoading) => set({ isFirstTimeLoading }),
+  setTables: (tables) => set({ tables }),
 }));
 
 export default useStore;

@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
 import clsx from 'clsx';
 import { Loading } from '@/components/common';
 import {
-  KitchenTableType,
   ProductDetailStatus,
-  ProductDetailType,
-  TableStatus,
 } from '@/types/kitchen';
+import { TableStatus, TableType, ResOrderDetailType } from '@/types/order';
 import { useStore } from '../stores';
 
 import { TableTab } from './TableTab';
@@ -32,23 +29,19 @@ function getNewActiveTabs(activeTabs: string[], newTab: string): string[] {
 
 export const Main = () => {
   const {
-    tableList, activeList, setActiveList, activeTabs, setActiveTabs, setCurrentTab, isFirstTimeLoading,
+    tables, activeTabs, setActiveTabs, setCurrentTab, isFirstTimeLoading,
   } = useStore();
 
-  const { isLoading } = useUpdateTables();
+  const { isTableLoading } = useUpdateTables();
 
-  const checkCount = (count: number, detail: ProductDetailType) => (detail.status === ProductDetailStatus.IN_PROGRESS
+  const checkCount = (count: number, detail: ResOrderDetailType) => (detail.status === ProductDetailStatus.IN_PROGRESS
     ? count + 1
     : count);
 
   // 取得未送餐的訂單數量
-  const getProductDetailUnsent = (order: KitchenTableType): number => {
+  const getProductDetailUnsent = (order: TableType): number => {
     if (order.status !== TableStatus.MEAL) return 0;
-    return (
-      order.orderDetail
-        ?.flat()
-        .reduce(checkCount, 0) || 0
-    );
+    return order.orderDetail?.flat().reduce(checkCount, 0) || 0;
   };
 
   const activateTabHandler = (newTab: string) => {
@@ -59,20 +52,13 @@ export const Main = () => {
     setActiveTabs(newActiveTab);
   };
 
-  // 點擊Tab切換點單紀錄
-  useEffect(() => {
-    const activeTable = tableList.filter((table) => activeTabs.includes(table.id));
-
-    setActiveList(activeTable);
-  }, [activeTabs]);
-
-  const isActiveTable = (table: KitchenTableType) => activeTabs.includes(table.id);
+  const isActiveTable = (table: TableType) => activeTabs.includes(table.id);
 
   return (
     <div className="px-8">
       <main>
         <ul className="my-10 flex items-center border-b border-primary">
-          {tableList?.map((table) => (
+          {tables?.map((table) => (
             <li key={table.id}>
               <TableTab
                 tableId={table.id}
@@ -90,10 +76,10 @@ export const Main = () => {
             'col-span-3 grid-cols-3 grid-rows-1',
           )}
         >
-          {isLoading && isFirstTimeLoading ? (
+          {isTableLoading && isFirstTimeLoading ? (
             <Loading />
           ) : (
-            activeList
+            tables
               ?.filter(isActiveTable)
               .map((table) => <TableOrder key={table.id} table={table} />)
           )}

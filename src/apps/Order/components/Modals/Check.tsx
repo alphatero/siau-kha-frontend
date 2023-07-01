@@ -3,8 +3,9 @@ import Image from 'next/image';
 import { Modal, Button, Loading } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { usePostOrder } from '@/services/mutation';
-import { useStore } from '../../stores';
-import { toProductDetail } from '../../utils/toProductDetail';
+// import { useSocket } from '@/hooks/useSocket';
+import { toProductDetail } from '@/apps/Order/utils/toProductDetail';
+import { useStore } from '@/apps/Order/stores';
 
 export const Check = () => {
   const {
@@ -12,15 +13,24 @@ export const Check = () => {
   } = useModalStore();
   const { orderList, table, setOrderList } = useStore();
 
+  // const { socket } = useSocket({ url: 'order' });
+
   const { mutateAsync, isLoading } = usePostOrder();
 
   const handlePostOrder = async () => {
     const { orderId } = table;
     const productDetail = toProductDetail(orderList);
+    const socketData = {
+      order_id: orderId,
+      product_detail: productDetail,
+    };
     const { status } = await mutateAsync({
       orderId,
       productDetail,
     });
+
+    // 送出訂單後，清空訂單列表
+    // socket?.emit('order-product-details', socketData);
 
     if (status === 'success') {
       setIsOpen(false);

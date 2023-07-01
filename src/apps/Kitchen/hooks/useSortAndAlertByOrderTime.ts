@@ -1,15 +1,10 @@
-import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 
-import type { ProductDetailType, AlertedProductType } from '@/types/kitchen';
+import type { OrderDetailType } from '@/types/kitchen';
 import { AlertType, ProductDetailStatus } from '@/types/kitchen';
-import { useStore } from '../stores';
 
-function useSortAndAlertByOrderTime(rawData: Array<ProductDetailType>): AlertedProductType[] {
-  const [sortedData, setSortedData] = useState<AlertedProductType[]>([]);
-  const { tableList } = useStore();
-
-  const transferAlertedProduct = (data: Array<ProductDetailType>) => data.length > 0 && data.map((item) => {
+export function useSortAndAlertByOrderTime() {
+  const transferAlertedProduct = (data: OrderDetailType[]) => data.length > 0 && data.map((item) => {
     const diffInMinutes = dayjs().diff(dayjs(item.orderTime), 'minute');
     let alertType;
 
@@ -27,7 +22,7 @@ function useSortAndAlertByOrderTime(rawData: Array<ProductDetailType>): AlertedP
     return { ...item, alertType };
   });
 
-  const sortAndAlert = (data: Array<ProductDetailType>) => {
+  const sortAndAlert = (data: OrderDetailType[]) => {
     // step1: setAlertType
     const getAlertTypeData = transferAlertedProduct(data);
 
@@ -42,14 +37,12 @@ function useSortAndAlertByOrderTime(rawData: Array<ProductDetailType>): AlertedP
       return dayjs(a.orderTime).unix() - dayjs(b.orderTime).unix();
     });
 
-    setSortedData(sortAlertTypeData);
+    return sortAlertTypeData;
   };
 
-  useEffect(() => {
-    sortAndAlert(rawData); // 排序和警告級別設置
-  }, [tableList]); // update by fetch table order list
-
-  return sortedData;
+  return {
+    sortAndAlert,
+  };
 }
 
 export default useSortAndAlertByOrderTime;

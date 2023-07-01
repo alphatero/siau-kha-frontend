@@ -98,6 +98,7 @@ export const TableOrder = (props: Props) => {
                 productName={product.name}
                 note={product.note}
                 status={product.status}
+                isDelete={product.isDelete}
                 alertType={product.alertType}
                 quantity={product.quantity}
                 orderTime={dayjs(product.orderTime).format('HH:mm')}

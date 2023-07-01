@@ -1,14 +1,9 @@
-import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 
-import type { ProductDetailType, AlertedProductType, OrderDetailType } from '@/types/kitchen';
+import type { OrderDetailType } from '@/types/kitchen';
 import { AlertType, ProductDetailStatus } from '@/types/kitchen';
-import { useStore } from '../stores';
 
 export function useSortAndAlertByOrderTime() {
-  const [sortedData, setSortedData] = useState<AlertedProductType[]>([]);
-  const { tableList } = useStore();
-
   const transferAlertedProduct = (data: OrderDetailType[]) => data.length > 0 && data.map((item) => {
     const diffInMinutes = dayjs().diff(dayjs(item.orderTime), 'minute');
     let alertType;

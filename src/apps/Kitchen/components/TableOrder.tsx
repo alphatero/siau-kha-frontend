@@ -2,7 +2,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type {
-  KitchenTableType, AlertedProductType, OrderDetailType, ResDetailType,
+  AlertedProductType, OrderDetailType, ResDetailType,
 } from '@/types/kitchen';
 import { ProductDetailStatus } from '@/types/kitchen';
 import type { TableType } from '@/types/order';
@@ -52,8 +52,6 @@ export const TableOrder = (props: Props) => {
     return data.filter((product) => product.status === status).length;
   };
 
-  // console.log('TableOrder', sortedAndAlertedData);
-
   return (
     <div
       className={clsx(
@@ -71,7 +69,7 @@ export const TableOrder = (props: Props) => {
               title={button.title}
               active={productFilter === button.status}
               quantity={countFilterButtonQuantity(
-                // sortedAndAlertedData,
+
                 sortAndAlert(orderDetailUnsent.map((item) => toOrderDetail(item))),
                 button.status,
               )}

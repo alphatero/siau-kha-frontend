@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useKitchenTable, useTable } from '@/services/query';
+import { useTable } from '@/services/query';
 // import { useSocket } from '@/hooks/useSocket';
 
 import {
@@ -12,13 +12,9 @@ export const useUpdateTables = () => {
   const {
     activeTabs,
     setActiveTabs,
-    tableList,
-    setTableList,
     setActiveList,
-    currentTab,
     isFirstTimeLoading,
     setIsFirstTimeLoading,
-    tables,
     setTables,
   } = useStore();
 

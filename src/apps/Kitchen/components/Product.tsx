@@ -66,13 +66,15 @@ export const Product = (props: Props) => {
         <span
           className={
             clsx(
-              'text-fs-7 text-info',
+              'text-fs-7',
               !isDelete && status === ProductDetailStatus.IN_PROGRESS && {
                 'text-warn': alertType === AlertType.HIGH,
-                'text-primary': alertType === AlertType.MIDDLE,
-                'text-secondary': alertType === AlertType.LOW,
+                'text-secondary': alertType === AlertType.MIDDLE,
+                'text-primary': alertType === AlertType.LOW,
               },
-              !isDelete && status !== ProductDetailStatus.IN_PROGRESS ? 'text-black/85' : 'text-info',
+              !isDelete && status === ProductDetailStatus.IN_PROGRESS && 'text-info',
+              !isDelete && status !== ProductDetailStatus.IN_PROGRESS && 'text-black/85',
+              isDelete && 'text-black/85',
             )}>{getTimeDifference(orderTime)}</span>
       </div>
       <div className='mb-1 flex items-center justify-between'>
@@ -85,8 +87,8 @@ export const Product = (props: Props) => {
         'w-full rounded-s py-1',
         !isDelete && status === ProductDetailStatus.IN_PROGRESS && {
           'bg-warn': alertType === AlertType.HIGH,
-          'bg-primary': alertType === AlertType.MIDDLE,
-          'bg-secondary': alertType === AlertType.LOW,
+          'bg-secondary': alertType === AlertType.MIDDLE,
+          'bg-primary': alertType === AlertType.LOW,
         },
         !isDelete && status !== ProductDetailStatus.IN_PROGRESS && 'bg-black/25 text-black/85',
         !isDelete && status === ProductDetailStatus.IN_PROGRESS && 'bg-primary text-white',

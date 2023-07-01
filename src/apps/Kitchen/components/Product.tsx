@@ -36,6 +36,7 @@ export const Product = (props: Props) => {
   const { mutateAsync, isLoading } = usePatchOrderItemFinish();
 
   const handleFinish = async () => {
+    if (isDelete) { return; }
     if (status !== ProductDetailStatus.IN_PROGRESS) { return; }
     const { status: mutateAsyncStatus } = await mutateAsync({ orderId, detailId: orderDetailId, productId });
     if (mutateAsyncStatus === 'success') {
@@ -90,9 +91,9 @@ export const Product = (props: Props) => {
           'bg-secondary': alertType === AlertType.MIDDLE,
           'bg-primary': alertType === AlertType.LOW,
         },
-        !isDelete && status !== ProductDetailStatus.IN_PROGRESS && 'bg-black/25 text-black/85',
+        !isDelete && status !== ProductDetailStatus.IN_PROGRESS && 'cursor-default bg-black/25 text-black/85',
         !isDelete && status === ProductDetailStatus.IN_PROGRESS && 'bg-primary text-white',
-        isDelete && 'bg-black/25 text-black/85',
+        isDelete && 'cursor-default bg-black/25 text-black/85',
       )}
       onClick={handleFinish}
       >

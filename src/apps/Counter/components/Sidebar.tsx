@@ -5,11 +5,12 @@ import { useStore } from '../stores';
 import { checkPayStatus } from '../utils/checkPayStatus';
 
 export const Sidebar = () => {
-  const { setTriggerModal, list } = useStore();
+  const { setTriggerModal, setSelectedCheckout, list } = useStore();
   const { setIsOpen } = useModalStore();
 
   const handleBill = () => {
     setTriggerModal('selectTable');
+    setSelectedCheckout(null);
     setIsOpen(true);
   };
 

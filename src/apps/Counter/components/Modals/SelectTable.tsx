@@ -21,7 +21,6 @@ export const SelectTable = () => {
     if (res) {
       setBill(res);
       setTriggerModal('calculate');
-      setSelectedCheckout(null);
     }
   };
 

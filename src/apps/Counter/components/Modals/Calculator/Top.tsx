@@ -2,12 +2,11 @@ import { IconButton } from '@/components/common';
 import { useStore } from '@/apps/Counter/stores';
 
 export const Top = () => {
-  const { list, selectedTable } = useStore();
-
-  const table = list.find((item) => item.id === selectedTable);
+  const { list, selectedCheckout, setTriggerModal } = useStore();
+  const table = list.find((item) => item.id === selectedCheckout?.id);
 
   const onClick = () => {
-    console.log('click');
+    setTriggerModal('selectTable');
   };
 
   return (

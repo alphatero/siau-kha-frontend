@@ -1,4 +1,4 @@
-import { Modal } from '@/components/common';
+import { Modal, Countdown } from '@/components/common';
 import clsx from 'clsx';
 import { TableType, TableStatus } from '@/types/order';
 import { useModalStore } from '@/stores/modal';
@@ -40,13 +40,19 @@ export const Table = () => {
                 className={clsx(
                   'flex w-full flex-col space-y-3',
                   'border-b border-black/10 px-4 py-2',
-                  'hover:bg-highlight',
+                  table.status === TableStatus.MEAL && 'hover:bg-highlight',
                 )}
                 onClick={() => onChangeTable(table)}
+                disabled={table.status === TableStatus.IDLE}
               >
                 <div className="flex w-full justify-between text-black/85">
-                  <h4 className="text-h4">Table {table.name}</h4>
-                  <p className="text-h4">{table.time}</p>
+                  <h4 className={clsx(
+                    'text-h4',
+                    table.status === TableStatus.IDLE && 'text-black/50',
+                  )}>Table {table.name}</h4>
+                  <p className="text-h4">
+                    { table.time && <Countdown currentTime={table.time} /> }
+                  </p>
                 </div>
                 <div className="flex w-full justify-between">
                   <div

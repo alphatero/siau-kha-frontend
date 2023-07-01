@@ -2,6 +2,7 @@ import { Auth, IconButton } from '@/components/common';
 import clsx from 'clsx';
 import { useModalStore } from '@/stores/modal';
 import { useStore } from '../stores';
+import { checkPayStatus } from '../utils/checkPayStatus';
 
 export const Sidebar = () => {
   const { setTriggerModal, list } = useStore();
@@ -13,7 +14,7 @@ export const Sidebar = () => {
   };
 
   // 計算 list 中 isPayed 為 false 的數量
-  const unpaidCount = list.filter((item) => !item.isPay).length;
+  const unpaidCount = list.filter((item) => !checkPayStatus(item.orderId, item.status, item.isPay, item.orderDetail?.length)).length;
 
   return (
   <div

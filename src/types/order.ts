@@ -23,8 +23,13 @@ export type ResProductDetailType = {
 
 export type ResOrderDetailType = {
   id: string;
-  product_detail: ResProductDetailType[];
-  create_time: string;
+  is_delete: boolean;
+  order_detail_id: string;
+  order_time: string;
+  product_name: string;
+  product_note: string[];
+  product_quantity: number;
+  status: string;
 }
 
 export type TableType = {
@@ -35,7 +40,7 @@ export type TableType = {
   unfinished?: number;
   seat?: number;
   customer?: number;
-  isPay?: boolean;
+  isPay: boolean;
   orderId: string;
   orderDetail?: ResOrderDetailType[];
 };
@@ -98,7 +103,7 @@ export type PromotionType = {
   }
 };
 
-export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | null;
+export type ModalCategory = 'table' | 'promotion' | 'log' | 'memo' | 'check' | 'clean' | null;
 
 export type OrderItemType = {
   idx: number;

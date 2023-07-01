@@ -1,5 +1,5 @@
 import {
-  Table, Promotion, Log, Memo, Check,
+  Table, Promotion, Log, Memo, Check, Clean,
 } from './Modals';
 
 export const Modals = {
@@ -8,6 +8,7 @@ export const Modals = {
   Log,
   Memo,
   Check,
+  Clean,
 };
 
 export * from './Header';

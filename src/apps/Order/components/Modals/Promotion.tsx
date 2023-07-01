@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Button, Modal } from '@/components/common';
+import { Button, Modal, Loading } from '@/components/common';
 import { useModalStore } from '@/stores/modal';
 import { usePostPromotion } from '@/services/mutation';
 import { useStore } from '../../stores';
@@ -9,7 +9,7 @@ export const Promotion = () => {
   const {
     isOpen, setIsOpen,
   } = useModalStore();
-  const { mutateAsync } = usePostPromotion();
+  const { mutateAsync, isLoading } = usePostPromotion();
 
   const {
     promotionList, setCurrentPromotion, selectedPromotionId, table,
@@ -34,6 +34,7 @@ export const Promotion = () => {
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
     >
+      {isLoading && <Loading />}
       <fieldset className="flex flex-col justify-around">
         <legend className='mx-auto mb-4 text-h4'>優惠活動</legend>
         <div className='max-h-[515px] overflow-y-auto text-fs-6 text-black/85'>

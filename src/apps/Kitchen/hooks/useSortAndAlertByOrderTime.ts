@@ -1,17 +1,11 @@
-import {
-  useState, useEffect, useRef,
-} from 'react';
 import dayjs from 'dayjs';
 
-import type { Product, AlertedProduct } from '@/types/kitchen';
+import type { OrderDetailType } from '@/types/kitchen';
 import { AlertType, ProductDetailStatus } from '@/types/kitchen';
 
-function useSortAndAlertByOrderTime(rawData: Array<Product>): Array<AlertedProduct> {
-  const [sortedData, setSortedData] = useState<Array<AlertedProduct>>([]);
-  const intervalIdRef = useRef<NodeJS.Timeout | number>();
-
-  const transferAlertedProduct = (data: Array<Product>) => data.length > 0 && data.map((item) => {
-    const diffInMinutes = dayjs().diff(dayjs(item.order_time), 'minute');
+export function useSortAndAlertByOrderTime() {
+  const transferAlertedProduct = (data: OrderDetailType[]) => data.length > 0 && data.map((item) => {
+    const diffInMinutes = dayjs().diff(dayjs(item.orderTime), 'minute');
     let alertType;
 
     switch (true) {
@@ -28,38 +22,27 @@ function useSortAndAlertByOrderTime(rawData: Array<Product>): Array<AlertedProdu
     return { ...item, alertType };
   });
 
-  const sortAndAlert = (data: Array<Product>) => {
+  const sortAndAlert = (data: OrderDetailType[]) => {
     // step1: setAlertType
     const getAlertTypeData = transferAlertedProduct(data);
 
     // step2: sort
     const sortAlertTypeData = [...(getAlertTypeData || [])].sort((a, b) => {
-      if (a.status === ProductDetailStatus.FINISH) {
+      if (a.status !== ProductDetailStatus.IN_PROGRESS) {
         return 1;
       }
-      if (b.status === ProductDetailStatus.FINISH) {
+      if (b.status !== ProductDetailStatus.IN_PROGRESS) {
         return -1;
       }
-      return dayjs(a.order_time).unix() - dayjs(b.order_time).unix();
+      return dayjs(a.orderTime).unix() - dayjs(b.orderTime).unix();
     });
 
-    setSortedData(sortAlertTypeData);
+    return sortAlertTypeData;
   };
 
-  useEffect(() => {
-    sortAndAlert(rawData); // 初始的排序和警告級別設置
-  }, []); // 每當rawData變化時，都會重新設置間隔
-
-  useEffect(() => {
-    if (intervalIdRef.current) clearInterval(intervalIdRef.current); // 如果timer已存在則清空
-    intervalIdRef.current = setInterval(() => sortAndAlert(rawData), 60 * 1000); // 每60秒重新計算一次
-
-    return () => {
-      clearInterval(intervalIdRef.current); // 防止內存溢出
-    };
-  }, [rawData]); // 每當rawData變化時，都會重新設置間隔
-
-  return sortedData;
+  return {
+    sortAndAlert,
+  };
 }
 
 export default useSortAndAlertByOrderTime;
